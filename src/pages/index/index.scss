@@ -1,0 +1,27 @@
+/* pages/index/index.scss */
+.swiper_content {
+  height: 410px; // 820rpx
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.menu_content {
+  @apply -mt-12 w-full;
+  z-index: 9;
+  backdrop-filter: blur(3px);
+
+  .menu_item {
+    @apply absolute w-11/12 mx-auto left-0 right-0;
+  }
+}
+
+.btn {
+  @apply bg-white rounded-xl shadow-lg;
+  box-shadow: 0 5px 8px 0 rgba(206, 211, 217, 0.70);
+}
+
+.connect_device {
+  @apply rounded-xl border-2 border-white font-bold text-yellow-700 border-solid;
+}

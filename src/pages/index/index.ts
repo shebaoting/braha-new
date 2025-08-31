@@ -1,0 +1,298 @@
+// pages/index/index.ts
+// @ts-nocheck // Disable TypeScript checking for this file as it contains placeholder APIs
+
+// Placeholder for the global app instance
+const app = getApp();
+
+Page({
+  data: {
+    error_show: false,
+    errmsg: '',
+    camera_show: false,
+    camera_net: false,
+    deviceList: [] as any[],
+    open_Show: false,
+    active_model: {} as any,
+    menu_item_list: [
+      {
+        active_icon: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_nbt_sel.png',
+        active_normol: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_nbt_nor.png',
+        current: 0, name: '尿布台', isLight: false,
+        power_active: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_sel.png',
+        power_enabel: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_nor.png',
+        cmd: 'AA0103010100',
+        img: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/index/img_tc_nbt.png'
+      },
+      // ... other menu items
+    ],
+    light_info: {
+      active_icon: "http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_yd_sel.png",
+      active_normol: "http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_yd_nor.png",
+      name: '夜灯',
+      // ... other light info properties
+    },
+    deviceCurrent: 0,
+    blue_show: false,
+    modal_show: false,
+    bluetoothInited: false,
+    bluetoothSearched: false,
+    connected: false,
+    connect_blue_deviceInfo: null as any,
+    modal_content: '',
+    popupShow: false,
+    backgroundImage: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/swiper/img_cp_yd.png',
+    deviceCurrentChange: false,
+    noticeShow: false,
+    noticeInfo: {} as any,
+  },
+
+  onLoad() {
+    this.checkNotice();
+  },
+
+  onShow() {
+    if (app.globalData.isLogin) {
+      this.getDeviceList();
+    } else {
+      // Implement login logic here, similar to the original App.vue
+      // For example:
+      wx.login({
+        success: (res) => {
+          // call your login API with res.code
+        },
+      });
+    }
+  },
+
+  // --- UI Event Handlers ---
+  show_popu() {
+    this.setData({ popupShow: true });
+  },
+
+  hide_popu() {
+    this.setData({ popupShow: false });
+  },
+
+  deviceChange(e: WechatMiniprogram.BaseEvent) {
+    const newIndex = e.currentTarget.dataset.index;
+    this.setData({
+      deviceCurrent: newIndex,
+      deviceCurrentChange: true,
+      bluetoothInited: false,
+      bluetoothSearched: false,
+      connected: false,
+    });
+    wx.closeBluetoothAdapter({});
+    this.connectDevice_event();
+  },
+
+  pages_to(e: WechatMiniprogram.BaseEvent) {
+      const url = e.currentTarget.dataset.url;
+      if (url === 'camera') {
+          // Handle camera logic
+          console.log('Camera button clicked');
+      } else {
+          wx.navigateTo({ url });
+      }
+  },
+
+  onScan() {
+    this.setData({ popupShow: false });
+    wx.scanCode({
+      scanType: ['qrCode'],
+      success: (res) => {
+        console.log(res.result);
+        // Handle scanned QR code logic
+      },
+      fail: () => {
+        this.uToast('扫码失败');
+      }
+    });
+  },
+
+  modal_show_event(e: WechatMiniprogram.BaseEvent) {
+      const item = e.currentTarget.dataset.item;
+      let content_msg = '';
+      if (this.data.deviceList[this.data.deviceCurrent].isconnected) {
+          // Logic to create confirmation message
+          content_msg = `确定要打开${item.name}吗？`; // Simplified
+
+          wx.showModal({
+              title: '提示',
+              content: content_msg,
+              success: (res) => {
+                  if (res.confirm) {
+                      this.setData({ active_model: item });
+                      this.blue_write();
+                  }
+              }
+          });
+      } else {
+          this.uToast("设备未连接");
+      }
+  },
+
+
+  // --- API and Business Logic ---
+  async getDeviceList() {
+    // Replace with your actual wx.request call
+    // const res = await this.$u.iotApi.getIndexList(...);
+    // For demonstration:
+    const mockList = [
+        { productName: '婴儿床 A', isconnected: false, bedCmd: -1, islight: false },
+        { productName: '婴儿床 B', isconnected: false, bedCmd: -1, islight: false },
+    ];
+    this.setData({ deviceList: mockList });
+    app.globalData.allDeviceList = mockList;
+    this.pageInitBule();
+  },
+
+  connectDevice_event() {
+      // Re-fetch device list to ensure data is fresh before connecting
+      this.getDeviceList().then(() => {
+          this.openBluetoothAdapter();
+      });
+  },
+
+  uToast(title: string) {
+    wx.showToast({ title, icon: 'none' });
+  },
+
+  // --- Bluetooth Logic (Direct Translation) ---
+  pageInitBule() {
+    this.openBluetoothAdapter();
+  },
+
+  openBluetoothAdapter() {
+    wx.openBluetoothAdapter({
+      success: (e) => {
+        this.setData({ bluetoothInited: true });
+        this.onBLEConnectionStateChange();
+        this.getBluetoothAdapterState();
+      },
+      fail: (e) => {
+        this.setData({ bluetoothInited: false });
+        this.initTypes(e.errCode);
+      },
+    });
+  },
+
+  getBluetoothAdapterState() {
+      wx.getBluetoothAdapterState({
+          success: (res) => {
+              if (res.available) {
+                  this.startBluetoothDevicesDiscovery();
+              }
+          }
+      });
+  },
+
+  startBluetoothDevicesDiscovery() {
+      if (this.data.bluetoothSearched) return;
+      this.setData({ bluetoothSearched: true });
+      wx.startBluetoothDevicesDiscovery({
+          success: (e) => {
+              this.onBluetoothDeviceFound();
+          },
+          fail: (e) => {
+              this.setData({ bluetoothSearched: false });
+          }
+      });
+  },
+
+  onBluetoothDeviceFound() {
+      wx.onBluetoothDeviceFound(() => {
+          this.getBluetoothDevices();
+      });
+  },
+
+  getBluetoothDevices() {
+      const that = this;
+      wx.getBluetoothDevices({
+          success: (res) => {
+              const currentDeviceName = that.data.deviceList[that.data.deviceCurrent].bedname;
+              const foundDevice = res.devices.find(d => d.name && d.name.includes(currentDeviceName));
+              if (foundDevice) {
+                  that.createBLEConnection(foundDevice);
+              }
+          }
+      });
+  },
+
+  createBLEConnection(device: any) {
+    const that = this;
+    wx.createBLEConnection({
+      deviceId: device.deviceId,
+      success: () => {
+        that.stopBluetoothDevicesDiscovery();
+        that.setData({ connected: true });
+        // Discover services and characteristics
+        that.getBLEDeviceServices(device);
+      },
+    });
+  },
+
+  getBLEDeviceServices(device: any) {
+    const that = this;
+    wx.getBLEDeviceServices({
+        deviceId: device.deviceId,
+        success: (res) => {
+            // Further logic to get characteristics
+        }
+    });
+  },
+
+  stopBluetoothDevicesDiscovery() {
+      wx.stopBluetoothDevicesDiscovery({});
+  },
+
+  onBLEConnectionStateChange() {
+    const that = this;
+    wx.onBLEConnectionStateChange((res) => {
+      const isConnected = res.connected;
+      that.setData({
+        [`deviceList[${that.data.deviceCurrent}].isconnected`]: isConnected
+      });
+      if (!isConnected) {
+        that.setData({
+            [`deviceList[${that.data.deviceCurrent}].bedCmd`]: -1,
+            [`deviceList[${that.data.deviceCurrent}].islight`]: false,
+        });
+      }
+    });
+  },
+
+  blue_write() {
+    // Logic to write data to BLE device
+    const buffer = this.getBluetoothInstruct(this.data.active_model.cmd);
+    wx.writeBLECharacteristicValue({
+      deviceId: this.data.connect_blue_deviceInfo.deviceId,
+      serviceId: this.data.connect_blue_deviceInfo.serviceId,
+      characteristicId: this.data.connect_blue_deviceInfo.characteristicId,
+      value: buffer,
+      success: (res) => {
+        console.log('Write success');
+      }
+    });
+  },
+
+  // Helper functions like ab2hex, getBluetoothInstruct, etc.
+  getBluetoothInstruct(hexStr: string) {
+    const typedArray = new Uint8Array(hexStr.match(/[\da-f]{2}/gi)!.map(h => parseInt(h, 16)));
+    return typedArray.buffer;
+  },
+
+  initTypes(code: number) {
+    const errorMessages: { [key: number]: string } = {
+      10001: '未检测到蓝牙，请打开蓝牙重试！',
+      10002: '没有找到指定设备',
+      10003: '连接失败',
+    };
+    const msg = errorMessages[code] || '未知蓝牙错误';
+    this.uToast(msg);
+  },
+
+  async checkNotice() {
+      // Placeholder for notice checking logic
+  }
+});

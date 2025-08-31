@@ -1,0 +1,100 @@
+<view>
+  <view class="swiper_content" style="background-image: url({{backgroundImage}})">
+    <view class="flex justify-between items-center px-8 pt-12">
+      <image src="../../assets/images/plus_icon.png" class="w-6 h-6" bind:tap="show_popu"></image>
+      <scroll-view scroll-x="true" class="flex-1 text-center whitespace-nowrap">
+        <block wx:for="{{deviceList}}" wx:key="productBedId">
+          <view class="inline-block px-4 py-2 text-lg {{deviceCurrent === index ? 'text-white font-bold' : 'text-gray-300'}}" bind:tap="deviceChange" data-index="{{index}}">
+            {{item.productName}}
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+
+  <image class="absolute w-2/5 top-32 left-4" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/tab_icon/logo.png" mode="widthFix"></image>
+
+  <view wx:if="{{deviceList.length > 0}}" class="absolute top-28 right-4" bind:tap="connectDevice_event">
+    <view class="flex items-center p-2 rounded-full {{deviceList[deviceCurrent].isconnected ? 'text-green-500' : 'text-yellow-600'}}">
+      <view class="w-3 h-3 rounded-full {{deviceList[deviceCurrent].isconnected ? 'bg-green-500' : 'bg-yellow-600'}}"></view>
+      <text class="ml-2 text-sm font-semibold">{{deviceList[deviceCurrent].isconnected ? '蓝牙已连接' : '立即连接'}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{deviceList.length > 0}}" class="menu_content">
+    <view class="menu_item">
+      <view class="p-5">
+        <block wx:for="{{menu_item_list}}" wx:key="current">
+          <view class="btn flex items-center justify-between p-4 mb-4" bind:tap="modal_show_event" data-item="{{item}}">
+            <view class="flex items-center">
+              <image class="w-12 h-12" src="{{item.current === deviceList[deviceCurrent].bedCmd ? item.active_icon : item.active_normol}}"></image>
+              <text class="ml-4 text-lg font-semibold">{{item.name}}</text>
+            </view>
+            <image class="w-10 h-10" src="{{item.current === deviceList[deviceCurrent].bedCmd ? item.power_active : item.power_enabel}}"></image>
+          </view>
+        </block>
+
+        <view class="btn flex items-center justify-between p-4 mb-4" bind:tap="modal_show_event" data-item="{{light_info}}">
+          <view class="flex items-center">
+            <image class="w-12 h-12" src="{{deviceList[deviceCurrent].islight ? light_info.active_icon : light_info.active_normol}}"></image>
+            <text class="ml-4 text-lg font-semibold">{{light_info.name}}</text>
+          </view>
+          <image class="w-10 h-10" src="{{deviceList[deviceCurrent].islight ? light_info.power_active : light_info.power_enabel}}"></image>
+        </view>
+      </view>
+
+      <view class="flex justify-between text-yellow-700 text-center font-bold px-5">
+        <view class="btn flex-1 py-3 mr-2" bind:tap="pages_to" data-url="/pages/index/systemSetting/systemSetting">系统功能</view>
+        <view class="btn flex-1 py-3 ml-2" bind:tap="pages_to" data-url="camera">摄像头</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="text-center mt-10">
+    <view class="flex justify-around items-center p-4 text-gray-700 text-sm">
+      <view>
+        <view class="font-bold">24小时看护</view>
+        <view class="text-xs text-gray-500 mt-2">监护安全</view>
+      </view>
+      <view class="text-gray-300">|</view>
+      <view>
+        <view class="font-bold">智能电动升降</view>
+        <view class="text-xs text-gray-500 mt-2">解放双手</view>
+      </view>
+      <view class="text-gray-300">|</view>
+      <view>
+        <view class="font-bold">AI育儿管家</view>
+        <view class="text-xs text-gray-500 mt-2">科学育儿</view>
+      </view>
+    </view>
+
+    <view class="p-10 mt-10">
+      <view class="connect_device py-4" bind:tap="pages_to" data-url="/pages/index/searchDevice/afterSearch">添加设备</view>
+      <view class="connect_device py-4 mt-8" bind:tap="onScan">扫一扫</view>
+    </view>
+  </view>
+
+  <view wx:if="{{popupShow}}" class="fixed inset-0 bg-black bg-opacity-50 z-50" bind:tap="hide_popu">
+    <view class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg w-64 p-2 text-gray-800" catch:tap>
+      <view class="flex items-center p-3" bind:tap="pages_to" data-url="/pages/index/searchDevice/afterSearch">
+        <image class="w-8 h-8" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/pop_icon/ic_cp_tjsb.png"></image>
+        <text class="ml-3">添加设备</text>
+      </view>
+      <view class="flex items-center p-3" bind:tap="pages_to" data-url="/pages/mine/Devices/Devices">
+        <image class="w-8 h-8" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/pop_icon/ic_cp_fx.png"></image>
+        <text class="ml-3">设备分享</text>
+      </view>
+      <view class="flex items-center p-3" bind:tap="onScan">
+        <image class="w-8 h-8" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/pop_icon/ic_cp_sys.png"></image>
+        <text class="ml-3">扫一扫</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{open_Show}}" class="fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl z-50">
+    <view class="font-bold text-xl text-center p-6">{{active_model.name}}</view>
+    <view class="p-4">
+      <image src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/gif/product.gif" mode="widthFix" class="w-full"></image>
+    </view>
+  </view>
+</view>
