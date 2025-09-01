@@ -1,0 +1,27 @@
+<view class="main-container">
+  <view class="h-3/5 flex items-center justify-center">
+    <view>
+      <image class="w-96" src="https://braha.oss-cn-beijing.aliyuncs.com/app_info/images/logo_main.png" mode="widthFix"></image>
+      <view class="text-center mt-4 text-yellow-700">科技因“爱”而生 智能因“你”而来</view>
+    </view>
+  </view>
+
+  <view class="h-2/5 px-16">
+    <button wx:if="{{!checked}}" class="login-btn" bind:tap="checkLogin">立即登录</button>
+    <button wx:else class="login-btn" open-type="getPhoneNumber" bind:getphonenumber="login">立即登录</button>
+
+    <view class="text-center text-lg text-gray-500 mt-12" bind:tap="loginBack">
+      <text>稍后登录</text>
+    </view>
+
+    <view class="flex justify-center items-center mt-8" bind:tap="toggleCheck">
+      <image class="w-5 h-5 mr-2" src="{{checked ? '../../assets/images/checkbox_on.png' : '../../assets/images/checkbox_off.png'}}"></image>
+      <view class="text-xs">
+        <text>我已阅读并同意</text>
+        <text class="text-yellow-700" catch:tap="goToPage" data-url="/pages/mine/settting/UserAgreement">《用户协议》</text>
+        <text>和</text>
+        <text class="text-yellow-700" catch:tap="goToPage" data-url="/pages/mine/settting/PrivacyPolicy">《隐私政策》</text>
+      </view>
+    </view>
+  </view>
+</view>

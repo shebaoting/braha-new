@@ -1,0 +1,53 @@
+// pages/baby/time.wxs
+
+// 时间格式化主函数
+function format(timestamp, fmt) {
+  // WXS 中使用全局的 getDate 函数创建日期对象
+  var date = getDate(timestamp);
+
+  var o = {
+    'M+': date.getMonth() + 1, // 月份
+    'd+': date.getDate(), // 日
+    'h+': date.getHours(), // 小时
+    'm+': date.getMinutes(), // 分
+    's+': date.getSeconds(), // 秒
+  };
+
+  // WXS 中使用 getRegExp 代替 new RegExp()
+  var yearReg = getRegExp('(y+)');
+  if (yearReg.test(fmt)) {
+    var yearStr = date.getFullYear() + '';
+    // 使用 exec 获取匹配结果，避免使用不支持的 RegExp.$1
+    var match = yearReg.exec(fmt)[0];
+    fmt = fmt.replace(match, yearStr.substr(4 - match.length));
+  }
+
+  // 【修正】使用标准 for 循环代替 for...in 循环，避免 WXS 解析错误
+  var keys = ['M+', 'd+', 'h+', 'm+', 's+'];
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    var reg = getRegExp('(' + k + ')');
+    if (reg.test(fmt)) {
+      var str = o[k] + '';
+      var match = reg.exec(fmt)[0];
+      // 根据匹配长度判断是否需要补零
+      fmt = fmt.replace(match, (match.length === 1) ? str : ('00' + str).substr(str.length));
+    }
+  }
+  return fmt;
+}
+
+// 根据不同类型获取单位
+function getUnit(type) {
+  if (type === '身高' || type === '头围') return 'CM';
+  if (type === '体重') return 'KG';
+  if (type === '体温') return '℃';
+  if (type === '辅食') return '';
+  return 'ML';
+}
+
+// 导出模块方法
+module.exports = {
+  format: format,
+  getUnit: getUnit
+};

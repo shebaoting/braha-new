@@ -1,0 +1,12 @@
+/* pages/mine/Devices/devcieShare.scss */
+
+page {
+  background-color: #f5f5f7;
+}
+
+.confirm-btn {
+  // 使用 tailwindcss 的类，也可以在这里写自定义样式
+  &:active {
+    opacity: 0.9;
+  }
+}

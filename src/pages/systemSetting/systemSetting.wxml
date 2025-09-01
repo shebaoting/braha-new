@@ -1,0 +1,28 @@
+<view class="container mt-4">
+  <view class="bg-white">
+    <view class="flex items-center p-3 border-b" bind:tap="setVideo" data-type="1">
+      <image class="w-10 h-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/systemsetting/ic_cp_xtgn_cpsm.png"></image>
+      <text class="ml-4 text-base">产品说明</text>
+    </view>
+
+    <view class="flex items-center p-3 border-b" bind:tap="setVideo" data-type="2">
+      <image class="w-10 h-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/systemsetting/ic_cp_xtgn_cpsysm.png"></image>
+      <text class="ml-4 text-base">产品使用视频</text>
+    </view>
+
+    <view class="flex items-center p-3 border-b" bind:tap="setVideo" data-type="3">
+      <image class="w-10 h-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/systemsetting/ic_cp_xtgn_czsp.png"></image>
+      <text class="ml-4 text-base">安装视频</text>
+    </view>
+
+    <view class="flex items-center p-3 border-b" bind:tap="setVideo" data-type="4">
+      <image class="w-10 h-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/systemsetting/ic_cp_xtgn_cpsysm.png"></image>
+      <text class="ml-4 text-base">复位视频</text>
+    </view>
+
+    <view class="flex items-center p-3" bind:tap="setVideo" data-type="5">
+      <image class="w-10 h-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/systemsetting/ic_cp_xtgn_cpsm.png"></image>
+      <text class="ml-4 text-base">拆件视频</text>
+    </view>
+  </view>
+</view>

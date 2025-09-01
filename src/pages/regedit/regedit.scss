@@ -1,0 +1,14 @@
+/* pages/login/regedit.scss */
+page {
+  background-color: #FFFFFF;
+}
+
+.view_bottom {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  padding-bottom: 60px; /* 适配 iPhone X 等机型 */
+  padding-top: 20px;
+  background-color: white;
+}

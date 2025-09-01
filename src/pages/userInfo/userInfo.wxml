@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="bg-white main-width mt-4">
+    <view class="flex items-center justify-between p-4 border-b" bind:tap="chooseImage">
+      <text class="text-base">用户头像</text>
+      <image class="w-16 h-16 rounded-full" src="{{imgUrl}}"></image>
+    </view>
+
+    <view class="flex items-center p-4 border-b">
+      <text class="text-base w-28">用户昵称</text>
+      <input class="flex-1 text-right" placeholder-class="text-gray-400" placeholder="请输入昵称" value="{{userInfo.nickname}}" bindinput="onNicknameInput" />
+    </view>
+
+    <view class="flex items-center p-4 border-b">
+      <text class="text-base">绑定手机号</text>
+      <text class="flex-1 text-right text-gray-500">{{userInfo.phone}}</text>
+    </view>
+
+    <view class="flex items-center p-4">
+      <text class="text-base w-28">简介</text>
+      <input class="flex-1 text-right" placeholder-class="text-gray-400" placeholder="请输入简介" value="{{userInfo.memo}}" bindinput="onMemoInput" />
+    </view>
+  </view>
+
+  <view class="p-5 mt-8">
+    <button class="btn_style" bind:tap="confirm_save">确定</button>
+  </view>
+</view>

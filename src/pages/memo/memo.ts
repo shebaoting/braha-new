@@ -23,7 +23,11 @@ Page({
     this.getBanner();
     this.getProduct();
   },
-
+  onShow() {
+    if (this.getTabBar() && this.getTabBar().init) {
+      this.getTabBar().init()
+    }
+  },
   /**
    * 获取轮播图数据
    * 这里应替换为您项目的实际API请求

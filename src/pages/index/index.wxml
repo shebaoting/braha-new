@@ -1,3 +1,9 @@
+<t-navbar t-class-placeholder="t-navbar-placeholder" t-class-content="t-navbar-content" t-class="t-class-navbar">
+  <view slot="left">
+    <t-icon name="add" size="48rpx" color="#fff" bind:click="onIconTap" />
+  </view>
+</t-navbar>
+
 <view>
   <view class="swiper_content" style="background-image: url({{backgroundImage}})">
     <view class="flex justify-between items-center px-8 pt-12">
@@ -68,8 +74,8 @@
       </view>
     </view>
 
-    <view class="p-10 mt-10">
-      <view class="connect_device py-4" bind:tap="pages_to" data-url="/pages/index/searchDevice/afterSearch">添加设备</view>
+    <view class="main-width mt-10">
+      <view class="connect_device py-4" bind:tap="pages_to" data-url="/pages/afterSearch/afterSearch">添加设备</view>
       <view class="connect_device py-4 mt-8" bind:tap="onScan">扫一扫</view>
     </view>
   </view>

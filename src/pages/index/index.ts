@@ -51,6 +51,9 @@ Page({
   },
 
   onShow() {
+    if (this.getTabBar() && this.getTabBar().init) {
+      this.getTabBar().init()
+    }
     if (app.globalData.isLogin) {
       this.getDeviceList();
     } else {

@@ -1,0 +1,49 @@
+/* pages/index/cameraPlay/addCamera.scss */
+page {
+  background-color: #f5f5f7;
+}
+
+.btn_style {
+  background-color: #BDA01E;
+  color: white;
+  border-radius: 9999px;
+  text-align: center;
+  font-weight: bold;
+  padding: 12px;
+}
+
+/* Simple loading animation */
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  &::after {
+    content: '.';
+    animation: dots 1s steps(5, end) infinite;
+    font-size: 2.5rem;
+  }
+}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  40% {
+    color: #BDA01E;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  60% {
+    text-shadow:
+      .25em 0 0 #BDA01E,
+      .5em 0 0 rgba(0,0,0,0);
+  }
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 #BDA01E,
+      .5em 0 0 #BDA01E;
+  }
+}

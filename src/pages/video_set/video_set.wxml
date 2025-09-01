@@ -1,0 +1,28 @@
+<view>
+  <view class="custom-navbar sticky top-0 bg-white z-50 flex items-center justify-center shadow-sm">
+    <view class="absolute left-4" bind:tap="navigateBack">
+      <image src="../../assets/images/back_icon.png" class="w-6 h-6"></image>
+    </view>
+    <text class="font-bold text-lg">{{title}}</text>
+  </view>
+
+  <view wx:if="{{current != 1}}">
+    <video
+      id="myVideo"
+      src="{{videoUrl}}"
+      autoplay="{{true}}"
+      class="w-full h-56"
+      binderror="videoErrorCallback"
+    ></video>
+  </view>
+
+  <view wx:else>
+    <block wx:for="{{imageList}}" wx:key="*this">
+      <image
+        src="https://braha.oss-cn-beijing.aliyuncs.com/app/video/product_descrice/descrice/{{item}}.png"
+        class="w-full"
+        mode="widthFix"
+      ></image>
+    </block>
+  </view>
+</view>

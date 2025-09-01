@@ -1,0 +1,17 @@
+<view class="container main-width mt-4">
+  <view class="bg-white rounded shadow">
+    <view class="form-item flex items-center p-4 border-b border-gray-100">
+      <text class="w-24 text-gray-700">用户手机号</text>
+      <input class="flex-1" type="number" placeholder="请输入对方的手机号" bindinput="handleInput" data-field="phone" value="{{phone}}" />
+    </view>
+
+    <view class="form-item flex items-center p-4">
+      <text class="w-24 text-gray-700">角色名称</text>
+      <input class="flex-1" type="text" placeholder="示例：爸爸" bindinput="handleInput" data-field="roleName" value="{{roleName}}" />
+    </view>
+  </view>
+
+  <view class="mt-8">
+    <button class="confirm-btn bg-yellow-600 text-white rounded py-3" bind:tap="confirmBtn">确定</button>
+  </view>
+</view>

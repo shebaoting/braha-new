@@ -1,0 +1,27 @@
+/* pages/index/searchDevice/afterSearch.scss */
+
+page {
+  background-color: #ffffff;
+}
+
+.title_panel {
+  background-image: url('http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/mine/ic_cp_sbfx.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 210px; // 420rpx
+}
+
+.device-view {
+  background-color: white;
+  border-radius: 10px; // 20rpx
+  box-shadow: 0 5px 8px 0 rgba(206, 211, 217, 0.50);
+}
+
+.text-btn {
+  border-radius: 5px; // 10rpx
+  border: 1px solid rgba(189, 160, 30, 0.30);
+  color: #BDA01E;
+  font-size: 14px;
+}

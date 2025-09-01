@@ -1,0 +1,14 @@
+<view class="wrapper" wx:if="{{showBar}}">
+  <t-tab-bar t-class="t-class" value="{{value}}" bindchange="onChange">
+    <t-tab-bar-item
+      wx:for="{{tabBar}}"
+      wx:for-item="item"
+      wx:for-index="index"
+      t-class="my-tab-item"
+      split="{{false}}"
+      wx:key="index"
+      icon="{{ {name: item.name} }}"
+      value="{{item.value}}"
+    >{{item.label}}</t-tab-bar-item>
+  </t-tab-bar>
+</view>

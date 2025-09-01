@@ -1,0 +1,25 @@
+
+:global(.t-tab-bar-item) {
+  margin-top: 20rpx !important;
+}
+.wrapper {
+  --td-tab-bar-active-color: #a16207;
+  --td-brand-color: #000;
+  --td-brand-color-active: #333;
+  --td-button-light-bg-color: #EDFAF0;
+  // --td-button-light-color: #27FC96;
+  --td-button-default-bg-color:#a16207;
+  --td-button-light-bg-color: #a16207;
+  --td-tab-bar-height:40px;
+  padding-top: 20px;
+  position: fixed;
+  z-index: 9999 !important;
+  .t-class {
+    margin-bottom: 0px !important;
+    z-index: 10 !important;
+  }
+  .my-tab-item {
+    margin-top: 30rpx; /* 根据需要设置合适的数值 */
+  }
+
+}

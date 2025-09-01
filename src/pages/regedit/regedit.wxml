@@ -1,0 +1,55 @@
+<!-- pages/login/regedit.wxml -->
+<view class="bg-white min-h-screen p-6">
+  <!-- 标题 -->
+  <view class="pt-10 pb-16 px-4">
+    <view class="font-bold text-2xl">
+      <view>与微信</view>
+      <view>绑定手机号</view>
+    </view>
+  </view>
+
+  <!-- 输入框 -->
+  <view class="px-4 pt-10">
+    <!-- 手机号输入 -->
+    <view class="border-b py-2">
+      <input type="number" class="w-full h-10" placeholder="在此输入手机号" placeholder-class="text-gray-400" bindinput="onPhoneInput" value="{{phone}}" />
+    </view>
+
+    <!-- 验证码输入 -->
+    <view class="border-b py-2 flex items-center mt-4">
+      <input type="number" class="flex-1 h-10" placeholder="请填写验证码" placeholder-class="text-gray-400" bindinput="onCodeInput" value="{{phone_code}}" />
+      <button
+        class="text-sm rounded-full px-4 py-1 {{issend ? 'bg-gray-400 text-white' : 'bg-yellow-600 text-white'}}"
+        disabled="{{issend}}"
+        bind:tap="getCode">
+        {{getcodeTxt}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 同意协议 -->
+  <view class="flex justify-center items-center mt-6 px-4">
+    <checkbox-group bindchange="onCheckboxChange">
+       <checkbox value="true" checked="{{checked}}" color="#BDA01E" class="transform scale-75"></checkbox>
+    </checkbox-group>
+    <view class="text-xs ml-1">
+      <text>我已阅读并同意</text>
+      <text class="text-yellow-600" bind:tap="goToUserAgreement">《用户协议》</text>
+      <text>和</text>
+      <text class="text-yellow-600" bind:tap="goToPrivacyPolicy">《隐私政策》</text>
+    </view>
+  </view>
+
+  <!-- 底部固定区域 -->
+  <view class="view_bottom text-center">
+    <view class="text-gray-500 text-sm">上述手机号仅用于登录验证</view>
+    <view class="mt-6">
+      <button
+        class="w-4/5 rounded-full py-3 {{isButtonDisabled ? 'bg-yellow-300' : 'bg-yellow-600'}} text-white"
+        disabled="{{isButtonDisabled}}"
+        bind:tap="regeditphone">
+        同意并继续
+      </button>
+    </view>
+  </view>
+</view>

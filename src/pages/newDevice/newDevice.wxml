@@ -1,0 +1,26 @@
+<view class="main-width mt-4">
+  <view class="bg-white p-4 rounded-lg shadow-sm">
+    <view class="flex justify-between items-center pb-4 border-b border-gray-100">
+      <text class="text-yellow-600 font-bold">设备信息</text>
+      <view class="flex items-center text-yellow-600" bind:tap="scanCode">
+        <image class="w-5 h-5 mr-1" src="../../../assets/images/scan_icon.png"></image>
+        <text>扫码识别</text>
+      </view>
+    </view>
+
+    <view class="mt-6">
+      <view class="flex items-center border-b border-gray-100 py-3">
+        <text class="w-24 text-gray-700">产品ID:</text>
+        <input class="flex-1" placeholder="请输入设备产品ID" value="{{productId}}" bindinput="onProductIdInput" />
+      </view>
+      <view class="flex items-center py-3 mt-4">
+        <text class="w-24 text-gray-700">设备ID:</text>
+        <input class="flex-1" placeholder="请输入设备ID" value="{{deviceIotName}}" bindinput="onDeviceIdInput" />
+      </view>
+    </view>
+  </view>
+
+  <view class="fixed bottom-12 left-0 right-0 px-4">
+    <button class="bg-yellow-600 text-white w-full py-3 rounded-lg shadow-lg" bind:tap="confirmBtn">添加</button>
+  </view>
+</view>

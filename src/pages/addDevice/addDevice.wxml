@@ -1,0 +1,19 @@
+<view class="container main-width">
+  <view class="bg-white mt-5 rounded-lg">
+    <view class="flex items-center p-4 border-b border-gray-100">
+      <text class="w-24 text-gray-700">角色名称</text>
+      <input class="flex-1" type="text" model:value="{{roleName}}" placeholder="示例: 爸爸" />
+    </view>
+  </view>
+
+  <view class="main-width mt-8">
+    <button class="w-full bg-yellow-600 text-white rounded-lg py-3" hover-class="bg-yellow-700" bind:tap="confirmBtn">添加</button>
+  </view>
+
+  <view wx:if="{{showModal}}" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+    <view class="rounded w-4/5 p-6 text-center">
+      <view class="text-lg mb-6">{{modalContent}}</view>
+      <button class="w-full bg-yellow-500 text-yellow-800 rounded-lg py-2 font-semibold" hover-class="bg-yellow-400" bind:tap="btn_confirm">确定</button>
+    </view>
+  </view>
+</view>

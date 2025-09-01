@@ -1,0 +1,20 @@
+/* pages/login/login.scss */
+page {
+  height: 100%;
+}
+
+.main-container {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#F2EAC2, #FFFFFF 30%);
+}
+
+.login-btn {
+  background-color: #BDA01E;
+  color: white;
+  border-radius: 8px; /* 使用 tailwind 的 rounded-lg 也可以 */
+
+  &::after {
+    border: none;
+  }
+}

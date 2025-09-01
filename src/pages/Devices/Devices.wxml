@@ -1,0 +1,73 @@
+<view>
+  <view class="title_panel">
+    <view class="pt-12 px-6">
+      <view class="text-3xl font-bold">{{title}}</view>
+      <view class="mt-2 text-gray-600 font-semibold">共{{count}}个设备</view>
+    </view>
+  </view>
+
+  <view class="px-6 -mt-24 pb-10">
+    <block wx:for="{{deviceList}}" wx:key="id">
+      <view class="device-card">
+        <view class="flex p-4" style="border-left: 10px solid {{item.isconnected ? '#A4D962' : '#f1f1f1'}};">
+          <view class="flex-shrink-0">
+            <image src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/mine/img_nbt.png" style="height: 110px;" mode="heightFix"></image>
+          </view>
+          <view class="flex-1 ml-4 flex flex-col justify-between">
+            <view class="flex justify-between items-start">
+              <view>
+                <view class="font-bold text-lg">{{item.productName}}</view>
+                <view class="mt-2">
+                  <text class="px-3 py-1 text-xs text-white rounded {{item.isconnected ? 'state_online' : 'state_offline'}}">{{item.isconnected ? '在线' : '离线'}}</text>
+                </view>
+              </view>
+              <view class="flex items-center">
+                <image src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/mine/ic_cp_ewm.png" class="w-8 h-8" bind:tap="qrcode_event" data-item="{{item}}"></image>
+                <image src="../../assets/images/close_icon.png" class="w-5 h-5 ml-4" bind:tap="delDevice" data-item="{{item}}"></image>
+              </view>
+            </view>
+            <view class="flex justify-between text-center mt-5 text-sm">
+              <view class="btn_colStyle" bind:tap="shareDevice" data-item="{{item}}">设备分享</view>
+              <view class="btn_colStyle" bind:tap="getItem" data-item="{{item}}">成员管理</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{memberShow}}" class="fixed inset-0 bg-black bg-opacity-50 z-40" bind:tap="hideMemberPopup">
+    <view class="absolute bottom-0 left-0 right-0 bg-white rounded-t-2xl p-6" catch:tap>
+      <view class="text-center font-bold text-lg">成员管理</view>
+      <scroll-view scroll-y="true" class="max-h-64 mt-4">
+        <block wx:for="{{memberList}}" wx:key="id">
+          <view class="bg-gray-100 rounded-lg p-3 flex items-center justify-between mb-3">
+            <view class="flex items-center">
+              <image class="w-10 h-10 rounded-full" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/mine/avatar.png"></image>
+              <text class="font-bold mx-3">{{item.nickName}}</text>
+              <text class="text-gray-500 text-sm">{{item.relationname}}</text>
+            </view>
+            <image src="../../assets/images/trash_icon.png" class="w-6 h-6" bind:tap="deleteMember" data-item="{{item}}"></image>
+          </view>
+        </block>
+      </scroll-view>
+      <view class="flex justify-between text-center mt-6">
+        <button class="flex-1 mx-2 bg-white border border-gray-300 text-gray-500" bind:tap="hideMemberPopup">取消</button>
+        <button class="flex-1 mx-2 btn-confirm" bind:tap="hideMemberPopup">确认</button>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{qrcode_show}}" class="fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center" bind:tap="hideQrcodePopup">
+    <view class="bg-white rounded-2xl w-11/12 py-6" catch:tap>
+      <view class="text-center text-lg">子账号可扫码添加</view>
+      <image class="w-64 h-64 mx-auto my-4" src="{{codeUrl}}"></image>
+      <view class="text-center">
+        <view class="w-14 h-14 bg-purple-500 rounded-full inline-flex items-center justify-center" bind:tap="saveImage">
+          <image src="../../assets/images/download_icon.png" class="w-8 h-8"></image>
+        </view>
+        <view class="text-sm mt-2">下载到本地</view>
+      </view>
+    </view>
+  </view>
+</view>

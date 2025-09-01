@@ -1,0 +1,121 @@
+<view class="container">
+  <view wx:if="{{!popup_show}}" class="mt-4">
+    <view class="bg-white">
+      <view class="flex items-center p-4 border-b" bind:tap="setWifi" data-type="1">
+        <image class="w-10 h-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/camera/ic_cp_sifi.png"></image>
+        <text class="ml-4 flex-1">WIFI</text>
+        <view class="text-gray-400">></view>
+      </view>
+      <view class="flex items-center p-4" bind:tap="setWifi" data-type="2">
+        <image class="w-10 h-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/camera/ic_cp_sm.png"></image>
+        <text class="ml-4 flex-1">扫描二维码</text>
+        <view class="text-gray-400">></view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{popup_show}}" class="fixed inset-0 bg-white z-50">
+    <view class="p-6 pt-12">
+      <image src="../../assets/images/close_icon.png" class="w-6 h-6" bind:tap="confirmExit"></image>
+    </view>
+
+    <view wx:if="{{current === 0}}" class="px-6 text-center">
+      <view class="text-2xl font-bold">设备重置</view>
+      <view class="text-lg font-bold mt-6">Braha智能摄像机</view>
+      <view class="text-gray-500 mt-6 leading-relaxed">
+        摄像机通电后，等待1~3分钟，长按Reset键5秒，等待1~3分钟，点击下一步。注：首次绑定无需按键，可直接进行下一步
+      </view>
+      <image class="w-56 mx-auto mt-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/camera/ic_sbcz.png" mode="widthFix"></image>
+      <view class="absolute bottom-16 left-0 right-0 px-10">
+        <button class="btn_style" bind:tap="nextStep" data-step="1">设备已重置</button>
+      </view>
+    </view>
+
+    <view wx:elif="{{current === 1}}" class="px-6">
+      <view class="text-center">
+        <view class="text-2xl font-bold">选择家庭Wi-Fi</view>
+        <view class="font-bold mt-6">此设备只支持使用<text class="text-red-600">2.4GHz Wi-Fi</text>连接使用</view>
+        <view class="text-red-600 mt-4">Wi-Fi名称仅支持英文字符及数字</view>
+      </view>
+      <view class="mt-10">
+        <view class="bg-gray-100 p-3 rounded-lg flex items-center justify-between">
+          <input class="flex-1" value="{{WifiInfo.SSID}}" placeholder="Wi-Fi名称" disabled/>
+          <button class="bg-white text-sm px-4 py-1 rounded" bind:tap="showWifiList">选择Wi-Fi</button>
+        </view>
+        <view class="bg-gray-100 p-3 rounded-lg flex items-center mt-6">
+          <input class="flex-1" type="{{iseye ? 'text' : 'password'}}" placeholder="Wi-Fi密码"/>
+          <image src="{{iseye ? '../../assets/images/eye_open.png' : '../../assets/images/eye_close.png'}}" class="w-6 h-6" bind:tap="toggleEye"></image>
+        </view>
+        <view class="text-xs text-gray-500 mt-6">
+          Wi-Fi密码输入错误是最常见的失败原因之一，<text class="text-red-600 font-bold">请仔细检查Wi-Fi密码</text>，密码必须至少包含8个字符
+        </view>
+      </view>
+      <view class="absolute bottom-10 left-0 right-0 px-10 text-center">
+        <button class="btn_style" bind:tap="nextStep" data-step="2">下一步</button>
+        <view class="text-yellow-600 underline mt-6" bind:tap="backStep">返回上一步</view>
+      </view>
+    </view>
+
+    <view wx:elif="{{current === 2}}">
+      <view wx:if="{{set_wifi}}" class="px-6 text-center">
+        <view class="text-2xl font-bold">连接设备Wi-Fi</view>
+        <view class="font-bold mt-6">连接以<text class="text-red-600">【Care-AP】</text>开头的设备Wi-Fi</view>
+        <view class="text-gray-500 mt-4">Wi-Fi默认密码为<text class="text-red-600 font-bold">12345678</text></view>
+        <view class="font-bold text-lg mt-6">如有弹窗，请选择保持/使用此网络。</view>
+        <view class="text-xs text-gray-500 mt-10">
+          * 检查Wi-Fi名称，必须以【Care-AP】的Wi-Fi,若没有，请重新重置摄像头，或断电2分钟之后重试
+        </view>
+        <view class="absolute bottom-10 left-0 right-0 px-10 text-center">
+          <button class="btn_style" bind:tap="nextStep" data-step="3">我已知晓，立即连接</button>
+          <view class="text-yellow-600 underline mt-6" bind:tap="backStep">返回上一步</view>
+        </view>
+      </view>
+      <view wx:else class="px-6 text-center">
+        <view class="text-xl font-bold">扫描二维码</view>
+        <image class="w-full mt-4" src="{{codeUrl}}" mode="widthFix"></image>
+        <view class="text-xs text-gray-500 mt-4">请将二维码正对摄像机镜头，并保持15cm左右距离</view>
+        <view class="text-5xl font-bold mt-6">{{tips}}</view>
+        <view class="absolute bottom-10 left-0 right-0 px-10">
+          <view class="text-yellow-600 underline" bind:tap="backStep">返回上一步</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:elif="{{current === 3}}" class="px-6 text-center">
+      <view class="text-2xl font-bold mt-4">连接设备</view>
+      <view class="flex items-center justify-center mt-16">
+        <image class="w-10" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/camera/img_ljsb_sj.png" mode="widthFix"></image>
+        <view class="mx-4">
+          <view class="loading-dots"></view> </view>
+        <image class="w-12" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/camera/img_ljsb_wifi.png" mode="widthFix"></image>
+      </view>
+      <view class="mt-16">
+        <view class="font-semibold">向设备传输信息</view>
+        <view class="text-xs text-gray-500 mt-2">请将手机尽量靠近设备</view>
+        <view class="text-xs text-gray-500 mt-2">设备连接网络</view>
+        <view class="text-5xl font-bold mt-6">{{tips}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{wifi_show}}" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" bind:tap="hideWifiList">
+    <view class="bg-white rounded-lg w-4/5" catch:tap>
+      <view class="flex justify-between items-center p-4 border-b">
+        <text class="font-bold">Wi-Fi列表</text>
+        <image src="../../assets/images/reload_icon.png" class="w-5 h-5" bind:tap="reloadWifi"></image>
+      </view>
+      <scroll-view scroll-y="true" class="h-64">
+        <block wx:for="{{theList}}" wx:key="BSSID">
+          <view class="flex items-center p-4 border-b" bind:tap="chooseSSID" data-item="{{item}}" data-index="{{index}}">
+            <view class="w-8">
+              <image wx:if="{{chooseIndex === index}}" src="../../assets/images/checkbox_on.png" class="w-5 h-5"></image>
+            </view>
+            <text class="flex-1">{{item.SSID}}</text>
+            <image src="../../assets/images/wifi_icon.png" class="w-5 h-5 ml-2"></image>
+            <image src="../../assets/images/lock_icon.png" class="w-5 h-5 ml-2"></image>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,20 @@
+page {
+  background-color: #F5F5F7;
+}
+
+.header-bg {
+  background-image: linear-gradient(90deg, rgba(235, 210, 69, 0.3), rgba(224, 152, 19, 0.5));
+}
+
+// 为菜单项添加点击效果
+.border-b {
+  &:last-child {
+    border-bottom: none;
+  }
+  &:active {
+    background-color: #f9f9f9;
+  }
+}
+.t-cell-group--card {
+  margin: 0 !important;
+}

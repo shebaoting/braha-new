@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="header-bg pt-12 pb-20 px-6">
+    <view class="flex items-center mt-12">
+      <image class="w-20 h-20 rounded-full border-2 border-white" src="{{avatarUrl}}" bind:tap="logincheck"></image>
+
+      <view wx:if="{{!userInfo.nickname}}" class="ml-4">
+        <text class="text-xl font-bold">未登录</text>
+      </view>
+
+      <view wx:else class="flex flex-1 items-center justify-between ml-4" bind:tap="set_user">
+        <view>
+          <view class="text-xl font-bold">{{userInfo.nickname}}</view>
+          <view class="text-sm text-gray-700 mt-1">{{userInfo.phone}}</view>
+        </view>
+        <image src="../../assets/images/edit_icon.png" class="w-6 h-6"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="main-width -mt-10" bind:tap="page_to" data-url="/pages/baby/baby">
+    <image class="w-full" src="../../assets/images/img_wd_banner.png" mode="widthFix"></image>
+  </view>
+
+<view class="main-width mt-3">
+<t-cell-group theme="card">
+  <t-cell title="我的设备" leftIcon="{{ {name:'service',color:'#ebb53b'} }}" hover arrow />
+  <t-cell title="软件设置" leftIcon="{{ {name:'internet',color:'#ebb53b'} }}" hover arrow />
+  <t-cell title="意见反馈" leftIcon="{{ {name:'lock-on',color:'#ebb53b'} }}" hover arrow />
+  <t-cell title="关于我们" leftIcon="{{ {name:'lock-on',color:'#ebb53b'} }}" hover arrow />
+</t-cell-group>
+</view>
+</view>

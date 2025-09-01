@@ -1,10 +1,14 @@
-/* pages/index/index.scss */
+page {
+  // 透明
+  --td-navbar-bg-color: transparent
+}
 .swiper_content {
   height: 410px; // 820rpx
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  margin-top: -100px;
 }
 
 .menu_content {

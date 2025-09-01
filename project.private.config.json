@@ -9,11 +9,116 @@
     "miniprogram": {
       "list": [
         {
-          "name": "产品",
-          "pathName": "pages/memo/memo",
+          "name": "我的宝宝",
+          "pathName": "pages/baby/baby",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "个人资料",
+          "pathName": "pages/userInfo/userInfo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "我的设备",
+          "pathName": "pages/Devices/Devices",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "注册",
+          "pathName": "pages/regedit/regedit",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "登录",
+          "pathName": "pages/login/login",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "视频播放",
+          "pathName": "pages/video_set/video_set",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "系统设置",
+          "pathName": "pages/systemSetting/systemSetting",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "设备配网",
+          "pathName": "pages/addCamera/addCamera",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "手动添加设备",
+          "pathName": "pages/inputDevice/inputDevice",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "分享设备",
+          "pathName": "pages/devcieShare/devcieShare",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "添加摄像头",
+          "pathName": "pages/newDevice/newDevice",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "添加设备",
+          "pathName": "pages/addDevice/addDevice",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "搜索设备",
+          "pathName": "pages/afterSearch/afterSearch",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "我的",
+          "pathName": "pages/mine/mine",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "消息",
+          "pathName": "pages/msg/msg",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "产品",
+          "pathName": "pages/memo/memo",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

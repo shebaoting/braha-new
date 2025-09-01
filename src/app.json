@@ -2,9 +2,48 @@
   "$schema": "https://vite.icebreaker.top/app.json",
   "pages": [
     "pages/index/index",
-    "pages/memo/memo"
+    "pages/memo/memo",
+    "pages/msg/msg",
+    "pages/mine/mine",
+    "pages/afterSearch/afterSearch",
+    "pages/addDevice/addDevice",
+    "pages/newDevice/newDevice",
+    "pages/devcieShare/devcieShare",
+    "pages/inputDevice/inputDevice",
+    "pages/addCamera/addCamera",
+    "pages/systemSetting/systemSetting",
+    "pages/video_set/video_set",
+    "pages/login/login",
+    "pages/regedit/regedit",
+    "pages/Devices/Devices",
+    "pages/userInfo/userInfo",
+    "pages/baby/baby"
   ],
   "window": {},
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/memo/memo",
+        "text": "介绍"
+      },
+      {
+        "pagePath": "pages/msg/msg",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"

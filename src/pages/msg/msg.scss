@@ -1,0 +1,27 @@
+page {
+  background-color: #F5F5F7;
+  height: 100%;
+
+}
+
+.container {
+  height: 100%;
+}
+.t-navbar__center {
+  width: 260px !important;
+  left: 16px !important;
+  text-align: left !important;
+}
+
+// 确保 t-navbar 的占位符有背景色，并且内容区域宽度正确
+.t-navbar-placeholder {
+  background-color: #ffffff;
+  width: 100%;
+}
+
+// 移除 t-tabs 默认的一些边距或边框，使其更好地融入 navbar
+.t-tabs {
+  .t-tabs__nav-item {
+    padding: 0 40rpx; // 调整 tab 间距
+  }
+}
