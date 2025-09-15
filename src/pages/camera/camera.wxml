@@ -1,0 +1,109 @@
+<view class="flex flex-col h-screen bg-gray-100">
+  <!-- 视频播放区域 -->
+  <view class="w-full bg-black" style="height: 56.25vw;">
+    <block wx:if="{{deviceInfo}}">
+      <p2p-live-player
+        wx:for="{{useChannelIds}}"
+        wx:key="index"
+        data-channel="{{item}}"
+        id="p2p-live-player-{{item}}"
+        compClass="w-full h-full"
+        deviceInfo="{{deviceInfo}}"
+        xp2pInfo="{{xp2pInfo}}"
+        needCheckStream="{{options.needCheckStream}}"
+        sceneType="live"
+        streamChannel="{{item}}"
+        streamQuality="{{options.liveQuality}}"
+        mode="{{options.playerRTC ? 'RTC' : 'live'}}"
+        muted="{{isMuted}}"
+        showLog="{{options.playerLog}}"
+        onlyp2pMap="{{onlyp2pMap}}"
+        bind:playstatechagne="onPlayStateChange"
+        bind:recordstatechange="onRecordStateChange"
+        bind:recordfilestatechange="onRecordFileStateChange">
+        <view class="text-white font-bold">
+          CH-{{item}}
+        </view>
+      </p2p-live-player>
+    </block>
+    <view wx:else class="w-full h-full flex items-center justify-center text-white bg-black">
+      正在加载设备信息...
+    </view>
+  </view>
+
+  <!-- 对讲组件 (隐藏在后台工作) -->
+  <iot-p2p-voice
+    wx:if="{{deviceInfo}}"
+    id="iot-p2p-voice"
+    deviceInfo="{{deviceInfo}}"
+    voiceType="{{options.voiceType}}"
+    showLog="{{options.playerLog}}"
+    bind:voicestatechange="onVoiceStateChange"
+    bind:voiceerror="onVoiceError"
+  />
+
+  <!-- 控制面板区域 -->
+  <scroll-view scroll-y class="flex-1 p-4 space-y-6">
+    <!-- 新增：基本操作面板 -->
+    <view class="p-4 bg-white rounded-lg shadow">
+      <view class="text-lg font-semibold mb-3">基本操作</view>
+      <view class="grid grid-cols-2 gap-4">
+        <button class="bg-blue-500 text-white py-2 rounded disabled:opacity-50" bind:tap="toggleMute">
+          {{isMuted ? '取消静音' : '静音'}}
+        </button>
+        <button class="bg-green-500 text-white py-2 rounded disabled:opacity-50" bind:tap="takeSnapshot" disabled="{{!isPlaySuccess}}">
+          拍照
+        </button>
+        <button class="text-white py-2 rounded disabled:opacity-50 {{isRecording ? 'bg-red-500' : 'bg-orange-500'}}" bind:tap="toggleRecording" disabled="{{!isPlaySuccess}}">
+          {{isRecording ? '停止录像' : '开始录像'}}
+        </button>
+        <button class="text-white py-2 rounded disabled:opacity-50 {{voiceState === 'VoiceSending' ? 'bg-red-500' : 'bg-purple-500'}}" bind:tap="toggleVoice" disabled="{{!isPlaySuccess}}">
+          {{voiceState === 'VoiceSending' ? '挂断对讲' : '按住对讲'}}
+        </button>
+      </view>
+    </view>
+
+    <!-- PTZ 控制 -->
+    <view wx:if="{{options.supportPTZ}}" class="p-4 bg-white rounded-lg shadow">
+      <view class="text-lg font-semibold mb-2">云台控制 (PTZ)</view>
+      <view class="ptz-panel mx-auto">
+        <view class="ptz-controls">
+          <view class="ptz-controls-top">
+            <view class="ptz-position">
+              <view class="ptz-dir ptz-up">
+                <view class="ptz-btn" data-cmd="ptz_up_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
+                  <view class="ptz-icon arrow-up {{ptzCmd === 'ptz_up_press' ? 'press' : ''}}"></view>
+                </view>
+              </view>
+              <view class="ptz-dir ptz-left">
+                <view class="ptz-btn" data-cmd="ptz_left_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
+                  <view class="ptz-icon arrow-left {{ptzCmd === 'ptz_left_press' ? 'press' : ''}}"></view>
+                </view>
+              </view>
+               <view class="ptz-dir ptz-right">
+                <view class="ptz-btn" data-cmd="ptz_right_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
+                  <view class="ptz-icon arrow-right {{ptzCmd === 'ptz_right_press' ? 'press' : ''}}"></view>
+                </view>
+              </view>
+              <view class="ptz-dir ptz-down">
+                <view class="ptz-btn" data-cmd="ptz_down_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
+                  <view class="ptz-icon arrow-down {{ptzCmd === 'ptz_down_press' ? 'press' : ''}}"></view>
+                </view>
+              </view>
+              <view class="ptz-cricle"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 自定义信令 -->
+    <view wx:if="{{options.supportCustomCommand}}" class="p-4 bg-white rounded-lg shadow">
+      <view class="text-lg font-semibold mb-2">自定义信令</view>
+      <input class="w-full p-2 border border-gray-300 rounded mb-2" type="text" value="{{inputCommand}}" placeholder="请输入 command" bindinput="onInputCommand" />
+      <button class="w-full bg-gray-500 text-white py-2 rounded" bind:tap="sendCommand" disabled="{{!inputCommand}}">
+        发送信令
+      </button>
+    </view>
+  </scroll-view>
+</view>

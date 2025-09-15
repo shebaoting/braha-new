@@ -1,0 +1,41 @@
+<view class="relative w-full h-full">
+  <iot-p2p-player-with-mjpg
+    id="{{playerId}}"
+    class="{{compClass}}"
+    deviceInfo="{{deviceInfo}}"
+    xp2pInfo="{{xp2pInfo}}"
+    liveStreamDomain="{{liveStreamDomain}}"
+    needCheckStream="{{needCheckStream}}"
+    sceneType="{{sceneType}}"
+    streamChannel="{{streamChannel}}"
+    streamQuality="{{streamQuality}}"
+    mode="{{mode}}"
+    soundMode="{{soundMode}}"
+    muted="{{muted}}"
+    orientation="{{orientation}}"
+    fill="{{fill}}"
+    acceptPlayerEvents="{{acceptPlayerEvents}}"
+    showLog="{{showLog}}"
+    onlyp2pMap="{{onlyp2pMap}}"
+    bind:playsuccess="onPlayStateEvent"
+    bind:playstop="onPlayStateEvent"
+    bind:playend="onPlayStateEvent"
+    bind:playerror="onPlayError"
+    bind:fullscreenchange="onFullScreenChange">
+
+    <view slot="{{deviceInfo.isMjpgDevice ? 'mjpgInner' : 'flvInner'}}">
+      <iot-player-controls
+        id="{{controlsId}}"
+        showIcons="{{showIcons}}"
+        muted="{{muted}}"
+        orientation="{{orientation}}"
+        fill="{{fill}}"
+        fullScreen="{{fullScreen}}"
+        record="{{record}}"
+        bind:clickicon="clickControlIcon"
+      >
+        <slot></slot>
+      </iot-player-controls>
+    </view>
+  </iot-p2p-player-with-mjpg>
+</view>

@@ -1,0 +1,25 @@
+<view class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-30 text-white flex items-center justify-between">
+  <!-- Left Slot -->
+  <view class="flex items-center space-x-4">
+    <slot></slot>
+  </view>
+
+  <!-- Right Icons -->
+  <view class="flex items-center space-x-4">
+    <view wx:if="{{showIcons.muted}}" class="w-8 h-8 flex items-center justify-center" data-name="muted" bind:tap="clickIcon">
+      <image class="w-6 h-6" src="{{muted ? './images/volume-off.svg' : './images/volume-up.svg'}}"/>
+    </view>
+    <view wx:if="{{showIcons.orientation}}" class="w-8 h-8 flex items-center justify-center font-bold" data-name="orientation" bind:tap="clickIcon">
+      {{orientation === 'horizontal' ? 'H' : 'V'}}
+    </view>
+    <view wx:if="{{showIcons.fill}}" class="w-8 h-8 flex items-center justify-center font-bold text-xs" data-name="fill" bind:tap="clickIcon">
+      {{fill ? 'FILL' : 'FIT'}}
+    </view>
+    <view wx:if="{{showIcons.snapshot}}" class="w-8 h-8 flex items-center justify-center" data-name="snapshot" bind:tap="clickIcon">
+       <image class="w-6 h-6" src="./images/camera.svg"/>
+    </view>
+    <view wx:if="{{showIcons.fullScreen}}" class="w-8 h-8 flex items-center justify-center" data-name="fullScreen" bind:tap="clickIcon">
+      <image class="w-6 h-6" src="{{fullScreen ? './images/fullscreen-exit.svg' : './images/fullscreen-enter.svg'}}"/>
+    </view>
+  </view>
+</view>

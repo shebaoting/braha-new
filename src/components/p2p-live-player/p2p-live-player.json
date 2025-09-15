@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "iot-p2p-player-with-mjpg": "plugin://xp2p/iot-p2p-player-with-mjpg",
+    "iot-player-controls": "../iot-player-controls/iot-player-controls"
+  }
+}
