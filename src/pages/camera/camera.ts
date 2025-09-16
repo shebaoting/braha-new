@@ -4,9 +4,7 @@ import { getXp2pManager } from '../../lib/xp2pManager';
 const app = getApp();
 const console = app.logger || console;
 
-// =================================================================
 // 设备参数
-// =================================================================
 const hardcodedDevice = {
   targetId: 'hardcoded_ipc_1',
   deviceId: '20250901001_178884195_3',
@@ -30,7 +28,6 @@ const hardcodedDevice = {
     supportCustomCommand: true,
   },
 };
-// =================================================================
 
 const recordFlvOptions = {
   maxFileSize: 100 * 1024 * 1024,
@@ -47,12 +44,10 @@ Page({
     xp2pInfo: '',
     useChannelIds: [] as number[],
     options: {} as any,
-
     isPlaySuccess: false,
     isMuted: false,
     isRecording: false,
     voiceState: 'VoiceIdle',
-
     ptzCmd: '',
     inputCommand: 'action=inner_define&channel=0&cmd=get_device_st&type=voice',
     onlyp2pMap: {
@@ -135,11 +130,19 @@ Page({
         wx.showToast({ title: '录像已保存到相册', icon: 'success' });
         break;
       case 'Error':
-        wx.showModal({
-          title: '录像出错',
-          content: `${detail.errType}: ${detail.errMsg || ''}`,
-          showCancel: false,
-        });
+        if (detail.errType === 'saveError' && detail.errMsg.includes('invalid video')) {
+           wx.showModal({
+            title: '保存失败',
+            content: '视频录制成功，但保存到相册失败。\n原因：设备视频编码为H.265(HEVC)，系统相册不支持此格式。\n建议：请将设备的视频编码设置为H.264。',
+            showCancel: false,
+          });
+        } else {
+           wx.showModal({
+            title: '录像出错',
+            content: `${detail.errType}: ${detail.errMsg || ''}`,
+            showCancel: false,
+          });
+        }
         break;
     }
   },
