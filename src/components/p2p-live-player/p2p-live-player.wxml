@@ -23,6 +23,8 @@
     bind:playerror="onPlayError"
     bind:fullscreenchange="onFullScreenChange"
     bind:netstatus="onNetStatus"
+    bind:recordstatechange="onRecordStateChange"
+    bind:recordfilestatechange="onRecordFileStateChange"
     >
 
     <view slot="{{deviceInfo.isMjpgDevice ? 'mjpgInner' : 'flvInner'}}">

@@ -1,128 +1,238 @@
-// pages/mine/Devices/devcieShare.ts
+import { isDevTool } from '../../utils/util';
+import { getXp2pManager } from '../../lib/xp2pManager';
+
+const app = getApp();
+const console = app.logger || console;
+
+// 设备参数
+const hardcodedDevice = {
+  targetId: 'hardcoded_ipc_1',
+  deviceId: '7UJZ5UMOJT/20250307059_163524756_90',
+  productId: '7UJZ5UMOJT',
+  deviceName: '20250307059_163524756_90',
+  xp2pInfo: 'XP2Pk3fS3onCsgGaQJCinTCtfw==%2.4.46',
+  isMjpgDevice: false,
+  p2pMode: 'ipc' as const,
+  sceneType: 'live' as const,
+  liveStreamDomain: '',
+  initCommand: '',
+  useChannelIds: [0],
+  options: {
+    liveQuality: 'high',
+    playerRTC: true,
+    playerMuted: false,
+    playerLog: true,
+    voiceType: 'Pusher',
+    intercomType: 'voice',
+    supportPTZ: true,
+    supportCustomCommand: true,
+  },
+};
+
+// 录制配置
+const recordFlvOptions = {
+  maxFileSize: 100 * 1024 * 1024,
+  needAutoStartNextIfFull: false,
+  needSaveToAlbum: true,
+  needKeepFile: wx.getAccountInfoSync().miniProgram.envVersion === 'develop',
+  showLog: true,
+};
+
 
 Page({
   data: {
-    phone: '',
-    roleName: '',
-    bed_id: -1,
-    camera_id: -1,
-    userid: -1,
+    deviceInfo: null as any,
+    xp2pInfo: '',
+    useChannelIds: [] as number[],
+    options: {} as any,
+    isPlaySuccess: false,
+    isMuted: false,
+    isRecording: false,
+    voiceState: 'VoiceIdle',
+    ptzCmd: '',
+    inputCommand: 'action=inner_define&channel=0&cmd=get_device_st&type=voice',
+    onlyp2pMap: {
+      flv: isDevTool,
+      mjpg: isDevTool,
+    },
   },
 
-  /**
-   * 页面加载时获取路由参数
-   */
-  onLoad(options: { bed_id?: string; camera_id?: string; userid?: string }) {
+  userData: {
+    deviceId: '',
+    xp2pManager: null as any,
+    pageId: 'camera-view-page',
+    player: null as any,
+    voiceComponent: null as any,
+  },
+
+  onLoad() {
+    this.userData.xp2pManager = getXp2pManager();
+    this.userData.xp2pManager.checkReset();
+    this.onStartPlayer({ detail: hardcodedDevice });
+  },
+
+  onReady() {
+    this.userData.player = this.selectComponent('#p2p-live-player-0');
+    this.userData.voiceComponent = this.selectComponent('#iot-p2p-voice');
+  },
+
+  onUnload() {
+    if (this.userData.deviceId) {
+      console.log('页面卸载，停止P2P服务:', this.userData.deviceId);
+      this.userData.xp2pManager.stopP2PService(this.userData.deviceId, this.userData.pageId);
+    }
+    this.userData.xp2pManager.checkReset();
+  },
+
+  onStartPlayer({ detail }: { detail: any }) {
+    console.log('开始处理播放请求:', detail);
+    this.userData.deviceId = detail.deviceId;
+
+    this.userData.xp2pManager.startP2PService({
+      p2pMode: detail.p2pMode,
+      deviceInfo: {
+        deviceId: detail.deviceId,
+        productId: detail.productId,
+        deviceName: detail.deviceName,
+        isMjpgDevice: detail.isMjpgDevice,
+      },
+      xp2pInfo: detail.xp2pInfo,
+      caller: this.userData.pageId,
+    }).catch((err: any) => {
+      console.error('启动P2P服务失败:', err);
+    });
+
     this.setData({
-      bed_id: parseInt(options.bed_id || '-1', 10),
-      camera_id: parseInt(options.camera_id || '-1', 10),
-      userid: parseInt(options.userid || '-1', 10),
+      deviceInfo: detail,
+      xp2pInfo: detail.xp2pInfo,
+      useChannelIds: detail.useChannelIds,
+      options: detail.options,
+      isMuted: detail.options.playerMuted,
     });
   },
 
-  /**
-   * 处理输入事件，更新数据
-   */
-  handleInput(event: WechatMiniprogram.Input) {
-    const field = event.currentTarget.dataset.field as ('phone' | 'roleName');
-    if (field) {
-      this.setData({
-        [field]: event.detail.value,
-      });
+  onPlayStateChange({ detail }: { detail: any }) {
+    if (detail.type === 'playsuccess') {
+      this.setData({ isPlaySuccess: true });
+    } else if (detail.type === 'playstop' || detail.type === 'playend' || detail.type === 'playerror') {
+      this.setData({ isPlaySuccess: false });
     }
   },
 
-  /**
-   * 点击确认按钮
-   */
-  async confirmBtn() {
-    // 1. 验证角色名称
-    if (!this.data.roleName.trim()) {
-      wx.showToast({ title: '角色名称不能为空', icon: 'none' });
-      return;
-    }
-
-    // 2. 验证手机号
-    const phoneRegex = /^1[3-9]\d{9}$/;
-    if (!phoneRegex.test(this.data.phone)) {
-      wx.showToast({ title: '请输入合法的手机号', icon: 'none' });
-      return;
-    }
-
-    // 3. 验证通过，执行分享逻辑
-    this.checkAndShare();
+  onRecordStateChange({ detail }: { detail: { record: boolean } }) {
+    console.log('录像状态变化:', detail);
+    this.setData({ isRecording: detail.record });
   },
 
-  /**
-   * 检查手机号并分享设备
-   */
-  async checkAndShare() {
-    wx.showLoading({ title: '正在分享...' });
-
-    try {
-      // 步骤一：检查手机号是否存在
-      // 模拟API请求
-      const checkRes: any = await this.mockApiRequest('checkPhone', { phone: this.data.phone });
-
-      if (checkRes && checkRes.data && checkRes.data.userid) {
-        const targetUserId = checkRes.data.userid;
-
-        // 步骤二：分享设备
-        // 模拟API请求
-        const shareRes: any = await this.mockApiRequest('shareDevice', {
-          bed_id: this.data.bed_id,
-          camera_id: this.data.camera_id,
-          userid: targetUserId,
-          relationName: this.data.roleName,
-          createid: this.data.userid,
-        });
-
-        if (shareRes && shareRes.data > 0) {
-          wx.hideLoading();
-          wx.showToast({
-            title: '分享成功',
-            icon: 'success',
+  // ================== 核心修改：优化错误提示 ==================
+  onRecordFileStateChange({ detail }: { detail: any }) {
+    console.log('录像文件状态:', detail.state, detail);
+    switch (detail.state) {
+      case 'SaveSuccess':
+        wx.showToast({ title: '录像已保存到相册', icon: 'success' });
+        break;
+      case 'Error':
+        // 捕获特定错误并提供友好提示
+        if (detail.errType === 'saveError' && detail.errMsg.includes('invalid video')) {
+           wx.showModal({
+            title: '保存失败',
+            content: '视频录制成功，但保存到相册失败。\n原因：设备视频编码为H.265(HEVC)，系统相册不支持此格式。\n建议：请将设备的视频编码设置为H.264。',
+            showCancel: false,
           });
-          // 延迟后返回上一页
-          setTimeout(() => {
-            wx.navigateBack();
-          }, 1500);
         } else {
-          throw new Error('分享失败');
+           wx.showModal({
+            title: '录像出错',
+            content: `${detail.errType}: ${detail.errMsg || ''}`,
+            showCancel: false,
+          });
         }
-      } else {
-        throw new Error('该用户不存在');
-      }
-    } catch (error: any) {
-      wx.hideLoading();
-      wx.showToast({
-        title: error.message || '操作失败',
-        icon: 'none',
-      });
+        break;
+    }
+  },
+  // =========================================================
+
+  onVoiceStateChange({ detail }: { detail: { voiceState: string } }) {
+    console.log('对讲状态变化:', detail);
+    this.setData({ voiceState: detail.voiceState });
+  },
+
+  onVoiceError({ detail }: { detail: any }) {
+    console.error('对讲错误:', detail);
+    wx.showToast({ title: detail.errMsg || '对讲发生错误', icon: 'none' });
+    this.setData({ voiceState: 'VoiceIdle' });
+  },
+
+  toggleMute() {
+    this.setData({ isMuted: !this.data.isMuted });
+  },
+
+  takeSnapshot() {
+    if (!this.data.isPlaySuccess) {
+      wx.showToast({ title: '视频播放成功后才能拍照', icon: 'none' });
+      return;
+    }
+    this.userData.player?.snapshotAndSave();
+  },
+
+  toggleRecording() {
+    if (!this.data.isPlaySuccess) {
+      wx.showToast({ title: '视频播放成功后才能录像', icon: 'none' });
+      return;
+    }
+    if (this.data.isRecording) {
+      this.userData.player?.stopRecordFlv();
+    } else {
+      this.userData.player?.startRecordFlv(recordFlvOptions);
     }
   },
 
-  /**
-   * 模拟API请求函数
-   * @param action 请求的动作
-   * @param params 请求的参数
-   */
-  mockApiRequest(action: string, params: any): Promise<any> {
-    console.log(`Executing ${action} with params:`, params);
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (action === 'checkPhone') {
-          if (params.phone === '13800138000') { // 假设这是一个已注册的用户
-            resolve({ data: { userid: 100 } });
-          } else {
-            resolve({ data: null }); // 用户不存在
-          }
-        } else if (action === 'shareDevice') {
-          resolve({ data: 1 }); // 模拟分享成功
-        } else {
-          reject(new Error('未知的API动作'));
-        }
-      }, 500);
+  toggleVoice() {
+    if (!this.data.isPlaySuccess) {
+      wx.showToast({ title: '视频播放成功后才能对讲', icon: 'none' });
+      return;
+    }
+
+    if (this.data.voiceState === 'VoiceIdle') {
+      console.log('开始对讲');
+      this.userData.voiceComponent?.startVoice();
+    } else {
+      console.log('停止对讲');
+      this.userData.voiceComponent?.stopVoice();
+    }
+  },
+
+  controlPTZ(e: WechatMiniprogram.TouchEvent) {
+    const cmd = e.currentTarget.dataset.cmd as string;
+    if (!cmd || !this.userData.deviceId) return;
+
+    this.setData({ ptzCmd: cmd });
+    this.userData.xp2pManager.sendPTZCommand(this.userData.deviceId, { ptzCmd: cmd })
+      .catch((err: any) => console.error(`发送PTZ指令 ${cmd} 失败:`, err));
+  },
+
+  releasePTZBtn() {
+    this.setData({ ptzCmd: '' });
+    setTimeout(() => {
+      this.userData.xp2pManager.sendPTZCommand(this.userData.deviceId, { ptzCmd: 'ptz_release_pre' })
+        .catch((err: any) => console.error('发送PTZ释放指令失败:', err));
+    }, 200);
+  },
+
+  onInputCommand(e: WechatMiniprogram.Input) {
+    this.setData({
+      inputCommand: e.detail.value,
     });
+  },
+
+  sendCommand() {
+    if (!this.data.inputCommand || !this.userData.deviceId) return;
+
+    this.userData.xp2pManager.sendCommand(this.userData.deviceId, this.data.inputCommand)
+      .then((res: any) => {
+        wx.showModal({ title: '信令成功', content: JSON.stringify(res), showCancel: false });
+      })
+      .catch((err: any) => {
+        wx.showModal({ title: '信令失败', content: err.errMsg, showCancel: false });
+      });
   },
 });

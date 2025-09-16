@@ -20,7 +20,9 @@
         onlyp2pMap="{{onlyp2pMap}}"
         bind:playstatechagne="onPlayStateChange"
         bind:recordstatechange="onRecordStateChange"
-        bind:recordfilestatechange="onRecordFileStateChange">
+        bind:recordfilestatechange="onRecordFileStateChange"
+        bind:recordtap="toggleRecording"
+        >
         <view class="text-white font-bold">
           CH-{{item}}
         </view>
@@ -42,9 +44,9 @@
     bind:voiceerror="onVoiceError"
   />
 
-  <!-- 控制面板区域 -->
+  <!-- 控制面板区域 (内容无变化，保持即可) -->
   <scroll-view scroll-y class="flex-1 p-4 space-y-6">
-    <!-- 新增：基本操作面板 -->
+    <!-- 基本操作面板 -->
     <view class="p-4 bg-white rounded-lg shadow">
       <view class="text-lg font-semibold mb-3">基本操作</view>
       <view class="grid grid-cols-2 gap-4">
