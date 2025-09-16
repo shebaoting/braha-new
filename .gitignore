@@ -2,7 +2,7 @@
 node_modules
 .pnp
 .pnp.js
-
+1.py
 # testing
 coverage
 
