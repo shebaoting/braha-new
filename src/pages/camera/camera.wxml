@@ -62,9 +62,45 @@
         <button class="text-white py-2 rounded disabled:opacity-50 {{voiceState === 'VoiceSending' ? 'bg-red-500' : 'bg-purple-500'}}" bind:tap="toggleVoice" disabled="{{!isPlaySuccess}}">
           {{voiceState === 'VoiceSending' ? '挂断对讲' : '按住对讲'}}
         </button>
+        <button class="bg-pink-500 text-white py-2 rounded col-span-2" bind:tap="toggleMusicPanel">
+          {{showMusicPanel ? '收起音乐面板' : '音乐安抚'}}
+        </button>
       </view>
     </view>
+    <view wx:if="{{showMusicPanel}}" class="p-4 bg-white rounded-lg shadow space-y-3">
+      <view class="text-lg font-semibold">摇篮曲列表</view>
+      <!-- 歌曲列表 -->
+      <view class="max-h-32 overflow-y-auto border rounded-md">
+        <block wx:if="{{musicList.length > 0}}">
+          <view
+            wx:for="{{musicList}}"
+            wx:key="*this"
+            class="p-2 border-b last:border-b-0 {{item === currentSong ? 'bg-blue-100 text-blue-600 font-semibold' : ''}}"
+            data-song="{{item}}"
+            bind:tap="onMusicListItemTap">
+            {{item}}
+          </view>
+        </block>
+        <view wx:else class="p-4 text-center text-gray-400">
+          无音乐列表, 请尝试刷新
+        </view>
+      </view>
 
+      <!-- 播放控制器 -->
+      <view class="flex items-center space-x-4">
+        <button class="w-16 h-10 flex items-center justify-center rounded {{musicState === 1 ? 'bg-yellow-500' : 'bg-green-500'}} text-white disabled:opacity-50" bind:tap="toggleMusicPlay" disabled="{{!currentSong}}">
+          {{musicState === 1 ? '暂停' : '播放'}}
+        </button>
+        <view class="flex-1 flex flex-col">
+          <text class="text-sm truncate">{{currentSong || '请选择歌曲'}}</text>
+          <view class="flex items-center space-x-2">
+            <text class="text-xs text-gray-500">音量</text>
+            <slider class="flex-1" value="{{volume}}" min="0" max="100" bindchange="onVolumeChange" step="1" />
+          </view>
+        </view>
+      </view>
+
+    </view>
     <!-- PTZ 控制 -->
     <view wx:if="{{options.supportPTZ}}" class="p-4 bg-white rounded-lg shadow">
       <view class="text-lg font-semibold mb-2">云台控制 (PTZ)</view>
