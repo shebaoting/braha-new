@@ -21,7 +21,9 @@
     bind:playstop="onPlayStateEvent"
     bind:playend="onPlayStateEvent"
     bind:playerror="onPlayError"
-    bind:fullscreenchange="onFullScreenChange">
+    bind:fullscreenchange="onFullScreenChange"
+    bind:netstatus="onNetStatus"
+    >
 
     <view slot="{{deviceInfo.isMjpgDevice ? 'mjpgInner' : 'flvInner'}}">
       <iot-player-controls
