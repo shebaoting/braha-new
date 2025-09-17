@@ -44,53 +44,31 @@
     bind:voiceerror="onVoiceError"
   />
 
-  <!-- 控制面板区域 (内容无变化，保持即可) -->
-  <scroll-view scroll-y class="flex-1 p-4 space-y-6">
+  <!-- 控制面板区域 -->
+  <scroll-view scroll-y class="flex-1 p-4 space-y-4 text-sm">
     <!-- 基本操作面板 -->
     <view class="p-4 bg-white rounded-lg shadow">
       <view class="text-lg font-semibold mb-3">基本操作</view>
       <view class="grid grid-cols-2 gap-4">
-        <button class="bg-blue-500 text-white py-2 rounded disabled:opacity-50" bind:tap="toggleMute">
-          {{isMuted ? '取消静音' : '静音'}}
-        </button>
-        <button class="bg-green-500 text-white py-2 rounded disabled:opacity-50" bind:tap="takeSnapshot" disabled="{{!isPlaySuccess}}">
-          拍照
-        </button>
-        <button class="text-white py-2 rounded disabled:opacity-50 {{isRecording ? 'bg-red-500' : 'bg-orange-500'}}" bind:tap="toggleRecording" disabled="{{!isPlaySuccess}}">
-          {{isRecording ? '停止录像' : '开始录像'}}
-        </button>
-        <button class="text-white py-2 rounded disabled:opacity-50 {{voiceState === 'VoiceSending' ? 'bg-red-500' : 'bg-purple-500'}}" bind:tap="toggleVoice" disabled="{{!isPlaySuccess}}">
-          {{voiceState === 'VoiceSending' ? '挂断对讲' : '按住对讲'}}
-        </button>
-        <button class="bg-pink-500 text-white py-2 rounded col-span-2" bind:tap="toggleMusicPanel">
-          {{showMusicPanel ? '收起音乐面板' : '音乐安抚'}}
-        </button>
+        <button class="bg-blue-500 text-white py-2 rounded" bind:tap="toggleMute">{{isMuted ? '取消静音' : '静音'}}</button>
+        <button class="bg-green-500 text-white py-2 rounded disabled:opacity-50" bind:tap="takeSnapshot" disabled="{{!isPlaySuccess}}">拍照</button>
+        <button class="text-white py-2 rounded disabled:opacity-50 {{isRecording ? 'bg-red-500' : 'bg-orange-500'}}" bind:tap="toggleRecording" disabled="{{!isPlaySuccess}}">{{isRecording ? '停止录像' : '开始录像'}}</button>
+        <button class="text-white py-2 rounded disabled:opacity-50 {{voiceState === 'VoiceSending' ? 'bg-red-500' : 'bg-purple-500'}}" bind:tap="toggleVoice" disabled="{{!isPlaySuccess}}">{{voiceState === 'VoiceSending' ? '挂断对讲' : '按住对讲'}}</button>
+        <button class="bg-pink-500 text-white py-2 rounded col-span-2" bind:tap="toggleMusicPanel">{{showMusicPanel ? '收起音乐面板' : '音乐安抚'}}</button>
       </view>
     </view>
+
+    <!-- 音乐播放器面板 -->
     <view wx:if="{{showMusicPanel}}" class="p-4 bg-white rounded-lg shadow space-y-3">
       <view class="text-lg font-semibold">摇篮曲列表</view>
-      <!-- 歌曲列表 -->
       <view class="max-h-32 overflow-y-auto border rounded-md">
         <block wx:if="{{musicList.length > 0}}">
-          <view
-            wx:for="{{musicList}}"
-            wx:key="*this"
-            class="p-2 border-b last:border-b-0 {{item === currentSong ? 'bg-blue-100 text-blue-600 font-semibold' : ''}}"
-            data-song="{{item}}"
-            bind:tap="onMusicListItemTap">
-            {{item}}
-          </view>
+          <view wx:for="{{musicList}}" wx:key="*this" class="p-2 border-b last:border-b-0 {{item === currentSong ? 'bg-blue-100 text-blue-600 font-semibold' : ''}}" data-song="{{item}}" bind:tap="onMusicListItemTap">{{item}}</view>
         </block>
-        <view wx:else class="p-4 text-center text-gray-400">
-          无音乐列表, 请尝试刷新
-        </view>
+        <view wx:else class="p-4 text-center text-gray-400">无音乐列表, 请尝试刷新</view>
       </view>
-
-      <!-- 播放控制器 -->
       <view class="flex items-center space-x-4">
-        <button class="w-16 h-10 flex items-center justify-center rounded {{musicState === 1 ? 'bg-yellow-500' : 'bg-green-500'}} text-white disabled:opacity-50" bind:tap="toggleMusicPlay" disabled="{{!currentSong}}">
-          {{musicState === 1 ? '暂停' : '播放'}}
-        </button>
+        <button class="w-16 h-10 flex items-center justify-center rounded {{musicState === 1 ? 'bg-yellow-500' : 'bg-green-500'}} text-white disabled:opacity-50" bind:tap="toggleMusicPlay" disabled="{{!currentSong}}">{{musicState === 1 ? '暂停' : '播放'}}</button>
         <view class="flex-1 flex flex-col">
           <text class="text-sm truncate">{{currentSong || '请选择歌曲'}}</text>
           <view class="flex items-center space-x-2">
@@ -99,8 +77,63 @@
           </view>
         </view>
       </view>
-
+      <view class="flex items-center justify-between"><text>音乐安抚总开关</text><switch checked="{{deviceStatus.MUSIC_APPEASING}}" bindchange="onMusicAppeasingChange" /></view>
+      <view class="flex items-center justify-between"><text>音乐呼吸灯</text><switch checked="{{deviceStatus.BREATHING_LED}}" bindchange="onBreathingLedChange" /></view>
     </view>
+
+    <!-- 智能检测设置 -->
+    <view class="p-4 bg-white rounded-lg shadow space-y-3">
+      <view class="text-lg font-semibold">智能检测设置</view>
+      <view class="flex items-center justify-between"><text>啼哭自动安抚</text><switch checked="{{deviceStatus.BABY_CRY_APPEASE}}" bindchange="onCryAppeaseChange" /></view>
+      <view class="flex items-center justify-between" bind:tap="onCrySenseTap"><text>啼哭灵敏度</text><text class="text-blue-500">{{['低', '中', '高'][deviceStatus.CRY_DETECT_SENSE] || '中'}}</text></view>
+      <view class="flex items-center justify-between">
+        <text>哭声检测时间段</text>
+        <picker mode="time" value="{{cryTimeEnd}}" bindchange="onCryTimeChange">
+            <view class="text-blue-500">{{deviceStatus.CRYDET_TIME}}</view>
+        </picker>
+      </view>
+      <view class="flex items-center justify-between"><text>行人追踪</text><switch checked="{{deviceStatus.PTZ_TRACK}}" bindchange="onTrackingChange" /></view>
+      <view class="flex items-center justify-between"><text>虚拟围栏提醒</text><switch checked="{{deviceStatus.DEFENCE_NOTIFY}}" bindchange="onFenceChange" /></view>
+      <view class="flex items-center justify-between"><text>显示围栏</text><switch checked="{{deviceStatus.FENCE_DISPLAY}}" bindchange="onFenceDisplayChange" /></view>
+      <view class="flex items-center justify-between"><text>显示危险区域</text><switch checked="{{deviceStatus.DANGER_DISPLAY}}" bindchange="onDangerDisplayChange" /></view>
+      <view class="flex items-center justify-between" bind:tap="onFenceSenseTap"><text>围栏灵敏度</text><text class="text-blue-500">{{['', '低', '中', '高'][deviceStatus.FENCEDET_SENSE] || '中'}}</text></view>
+      <view class="flex items-center justify-between"><text>睡眠监测</text><switch checked="{{deviceStatus.SLEEP_TRACKING}}" bindchange="onSleepTrackingChange" /></view>
+      <view class="flex items-center justify-between" bind:tap="onSleepSenseTap"><text>睡眠灵敏度</text><text class="text-blue-500">{{['', '低', '中', '高'][deviceStatus.SLEEP_TRACK_SENSE] || '中'}}</text></view>
+      <view class="flex items-center justify-between"><text>面部抓拍</text><switch checked="{{deviceStatus.FACE_SNAPSHOT}}" bindchange="onFaceSnapChange" /></view>
+      <view class="flex items-center justify-between"><text>遮挡检测</text><switch checked="{{deviceStatus.BLOCK_DETECT}}" bindchange="onBlockDetectChange" /></view>
+    </view>
+
+    <!-- 图像与视频设置 -->
+    <view class="p-4 bg-white rounded-lg shadow space-y-3">
+      <view class="text-lg font-semibold">图像与视频</view>
+      <view class="flex items-center justify-between" bind:tap="onResolutionTap"><text>分辨率</text><text class="text-blue-500">{{deviceStatus.RES}}P</text></view>
+       <view class="flex items-center justify-between"><text>H.265编码</text><switch checked="{{deviceStatus.SET_ENCODE_H265}}" bindchange="onEncodingChange" /></view>
+      <view class="flex items-center justify-between"><text>垂直翻转</text><switch checked="{{deviceStatus.FV}}" bindchange="onImageFlipChange" /></view>
+      <view class="flex items-center justify-between"><text>水平镜像</text><switch checked="{{deviceStatus.FH}}" bindchange="onImageMirrorChange" /></view>
+      <view class="flex items-center justify-between"><text>强制夜间彩色</text><switch checked="{{deviceStatus.FORCE_RGB}}" bindchange="onForceRgbChange" /></view>
+      <view class="flex items-center justify-between"><text>显示AI检测框</text><switch checked="{{deviceStatus.AIBOX}}" bindchange="onAiBoxChange" /></view>
+      <view class="flex items-center justify-between"><text>显示LOGO水印</text><switch checked="{{deviceStatus.LOGO}}" bindchange="onLogoChange" /></view>
+      <view class="flex items-center justify-between"><text>亮度 ({{deviceStatus.LUMI}})</text><slider class="w-40" value="{{deviceStatus.LUMI}}" min="0" max="100" bindchange="onBrightnessChange" step="1" /></view>
+      <view class="flex items-center justify-between"><text>对比度 ({{deviceStatus.CONT}})</text><slider class="w-40" value="{{deviceStatus.CONT}}" min="0" max="100" bindchange="onContrastChange" step="1" /></view>
+      <view class="flex items-center justify-between"><text>饱和度 ({{deviceStatus.SATU}})</text><slider class="w-40" value="{{deviceStatus.SATU}}" min="0" max="100" bindchange="onSaturationChange" step="1" /></view>
+    </view>
+
+    <!-- 设备管理 -->
+    <view class="p-4 bg-white rounded-lg shadow space-y-3">
+      <view class="text-lg font-semibold">设备管理</view>
+      <view class="flex items-center justify-between"><text>休眠模式</text><switch checked="{{deviceStatus.YSGN}}" bindchange="onSleepModeChange" /></view>
+      <view class="flex items-center justify-between"><text>夜灯</text><switch checked="{{deviceStatus.NIGHT_LAMP}}" bindchange="onNightLightChange" /></view>
+      <view class="flex items-center justify-between"><text>系统提示音</text><switch checked="{{deviceStatus.AUDIO}}" bindchange="onSysAudioChange" /></view>
+      <view class="flex items-center justify-between" bind:tap="onRecordTimeTap"><text>事件录像时长</text><text class="text-blue-500">{{deviceStatus.RECORDTIME}}秒</text></view>
+      <view class="flex items-center justify-between"><text>温度单位 ({{deviceStatus.TEMPERATURE_UNIT === '0' ? '摄氏度' : '华氏度'}})</text><switch checked="{{deviceStatus.TEMPERATURE_UNIT === '1'}}" bindchange="onTempUnitChange" /></view>
+      <view class="flex items-center justify-between"><text>工作开始时间</text><picker mode="time" value="{{deviceStatus.CAM_WORK_TIME_START}}" bindchange="onWorkTimeChange" data-type="start"><view class="text-blue-500">{{deviceStatus.CAM_WORK_TIME_START}}</view></picker></view>
+      <view class="flex items-center justify-between"><text>工作结束时间</text><picker mode="time" value="{{deviceStatus.CAM_WORK_TIME_END}}" bindchange="onWorkTimeChange" data-type="end"><view class="text-blue-500">{{deviceStatus.CAM_WORK_TIME_END}}</view></picker></view>
+      <view class="grid grid-cols-2 gap-4 pt-2">
+        <button class="bg-gray-200 py-2 rounded" bind:tap="onRebootTap">重启设备</button>
+        <button class="py-2 rounded {{deviceStatus.FIRMWARE === '1' ? 'bg-red-500 text-white' : 'bg-gray-200'}}" bind:tap="onUpgradeTap" disabled="{{deviceStatus.FIRMWARE !== '1'}}">{{deviceStatus.FIRMWARE === '1' ? '固件升级' : '已是最新'}}</button>
+      </view>
+    </view>
+
     <!-- PTZ 控制 -->
     <view wx:if="{{options.supportPTZ}}" class="p-4 bg-white rounded-lg shadow">
       <view class="text-lg font-semibold mb-2">云台控制 (PTZ)</view>
@@ -108,26 +141,10 @@
         <view class="ptz-controls">
           <view class="ptz-controls-top">
             <view class="ptz-position">
-              <view class="ptz-dir ptz-up">
-                <view class="ptz-btn" data-cmd="ptz_up_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
-                  <view class="ptz-icon arrow-up {{ptzCmd === 'ptz_up_press' ? 'press' : ''}}"></view>
-                </view>
-              </view>
-              <view class="ptz-dir ptz-left">
-                <view class="ptz-btn" data-cmd="ptz_left_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
-                  <view class="ptz-icon arrow-left {{ptzCmd === 'ptz_left_press' ? 'press' : ''}}"></view>
-                </view>
-              </view>
-               <view class="ptz-dir ptz-right">
-                <view class="ptz-btn" data-cmd="ptz_right_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
-                  <view class="ptz-icon arrow-right {{ptzCmd === 'ptz_right_press' ? 'press' : ''}}"></view>
-                </view>
-              </view>
-              <view class="ptz-dir ptz-down">
-                <view class="ptz-btn" data-cmd="ptz_down_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn">
-                  <view class="ptz-icon arrow-down {{ptzCmd === 'ptz_down_press' ? 'press' : ''}}"></view>
-                </view>
-              </view>
+              <view class="ptz-dir ptz-up"><view class="ptz-btn" data-cmd="ptz_up_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn"><view class="ptz-icon arrow-up {{ptzCmd === 'ptz_up_press' ? 'press' : ''}}"></view></view></view>
+              <view class="ptz-dir ptz-left"><view class="ptz-btn" data-cmd="ptz_left_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn"><view class="ptz-icon arrow-left {{ptzCmd === 'ptz_left_press' ? 'press' : ''}}"></view></view></view>
+              <view class="ptz-dir ptz-right"><view class="ptz-btn" data-cmd="ptz_right_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn"><view class="ptz-icon arrow-right {{ptzCmd === 'ptz_right_press' ? 'press' : ''}}"></view></view></view>
+              <view class="ptz-dir ptz-down"><view class="ptz-btn" data-cmd="ptz_down_press" bind:touchstart="controlPTZ" bind:touchend="releasePTZBtn"><view class="ptz-icon arrow-down {{ptzCmd === 'ptz_down_press' ? 'press' : ''}}"></view></view></view>
               <view class="ptz-cricle"></view>
             </view>
           </view>
@@ -138,10 +155,8 @@
     <!-- 自定义信令 -->
     <view wx:if="{{options.supportCustomCommand}}" class="p-4 bg-white rounded-lg shadow">
       <view class="text-lg font-semibold mb-2">自定义信令</view>
-      <input class="w-full p-2 border border-gray-300 rounded mb-2" type="text" value="{{inputCommand}}" placeholder="请输入 command" bindinput="onInputCommand" />
-      <button class="w-full bg-gray-500 text-white py-2 rounded" bind:tap="sendCommand" disabled="{{!inputCommand}}">
-        发送信令
-      </button>
+      <input class="w-full p-2 border border-gray-300 rounded mb-2" type="text" value="{{inputCommand}}" placeholder="请输入指令名,参数1,参数2..." bindinput="onInputCommand" />
+      <button class="w-full bg-gray-500 text-white py-2 rounded" bind:tap="sendCommand" disabled="{{!inputCommand}}">发送信令</button>
     </view>
   </scroll-view>
 </view>
