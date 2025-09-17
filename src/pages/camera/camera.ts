@@ -10,7 +10,7 @@ const hardcodedDevice = {
   deviceId: '20250901001_178884195_3',
   productId: 'PBA3VBVMHF',
   deviceName: '20250901001_178884195_3',
-  xp2pInfo: 'XP2PwuQH1VmzkQ1iJnECpuywhw==%2.4.50',
+  xp2pInfo: 'XP2PwuQH1VmzkQ0gfRlK1siKhA==%2.4.50',
   isMjpgDevice: false,
   p2pMode: 'ipc' as const,
   sceneType: 'live' as const,
@@ -51,18 +51,17 @@ Page({
     voiceState: 'VoiceIdle',
 
     ptzCmd: '',
-    inputCommand: 'action=inner_define&channel=0&cmd=get_device_st&type=voice',
+    inputCommand: 'CHECK_ONLINE', // 输入框现在只需要输入指令本身
     onlyp2pMap: {
       flv: isDevTool,
       mjpg: isDevTool,
     },
 
-    // --- 新增：音乐播放器状态 ---
-    showMusicPanel: false, // 控制音乐面板的显示和隐藏
-    musicList: [] as string[], // 存储从设备获取的音乐列表
-    currentSong: '', // 当前播放的歌曲名
-    musicState: -1, // -1:未播放, 0:暂停, 1:播放中
-    volume: 80, // 音量 (0-100)
+    showMusicPanel: false,
+    musicList: [] as string[],
+    currentSong: '',
+    musicState: -1,
+    volume: 80,
   },
 
   userData: {
@@ -118,14 +117,13 @@ Page({
   onPlayStateChange({ detail }: { detail: any }) {
     if (detail.type === 'playsuccess' && !this.data.isPlaySuccess) {
       this.setData({ isPlaySuccess: true });
-      // 播放成功后，立即获取一次设备状态和音乐列表
       this.getDeviceStatusAndMusicList();
     } else if (['playstop', 'playend', 'playerror'].includes(detail.type)) {
       this.setData({ isPlaySuccess: false });
     }
   },
 
-  // ... (onRecordStateChange, onRecordFileStateChange, onVoiceStateChange, onVoiceError 等方法保持不变)
+  // ... (其他事件处理函数保持不变)
   onRecordStateChange({ detail }: { detail: { record: boolean } }) {
     this.setData({ isRecording: detail.record });
   },
@@ -152,38 +150,44 @@ Page({
     wx.showToast({ title: detail.errMsg || '对讲发生错误', icon: 'none' });
   },
 
-  // --- 音乐播放器相关方法 ---
 
-  // 切换音乐面板显示
+  // ================= 核心修改：统一的信令发送函数 =================
+  /**
+   * @description 统一发送自定义指令的函数，会自动拼接前缀和后缀
+   * @param cmd - 指令主体，例如 "CHECK_ONLINE" 或 "SET_LULLABY_PLAY,play,song.mp3"
+   */
+  _sendCommand(cmd: string) {
+    // 自动拼接前缀和后缀
+    const commandString = `action=user_define&cmd=${cmd},MYBABY`;
+    console.log('发送指令:', commandString);
+    return this.userData.xp2pManager.sendCommand(this.userData.deviceId, commandString);
+  },
+  // =============================================================
+
+  // --- 音乐播放器相关方法 (已修改为使用 _sendCommand) ---
+
   toggleMusicPanel() {
     this.setData({ showMusicPanel: !this.data.showMusicPanel });
-    // 每次打开时都刷新一次状态
     if (this.data.showMusicPanel) {
       this.getDeviceStatusAndMusicList();
     }
   },
 
-  // 获取设备状态，其中包含了音乐列表和当前状态
   async getDeviceStatusAndMusicList() {
     if (!this.data.isPlaySuccess) {
       wx.showToast({ title: '请等待视频连接成功', icon: 'none' });
       return;
     }
-    const command = 'action=user_define&cmd=CHECK_ONLINE,MYBABY';
-    console.log('设备状态0:', command);
     try {
-      const res = await this.userData.xp2pManager.sendCommand(this.userData.deviceId, command);
-      console.log('设备状态1:', res);
+      // 修改点：调用包装函数
+      const res = await this._sendCommand('CHECK_ONLINE');
       if (res.type === 'success' && res.data) {
         const status = JSON.parse(res.data);
-
         const musicArray = [];
-        for (let i = 0; i < 10; i++) { // 假设最多10首
+        for (let i = 0; i < 10; i++) {
           if (status[`Music${i}`]) {
             musicArray.push(status[`Music${i}`]);
-          } else {
-            break;
-          }
+          } else { break; }
         }
         this.setData({
           musicList: musicArray,
@@ -198,13 +202,11 @@ Page({
     }
   },
 
-  // 点击音乐列表中的歌曲
   onMusicListItemTap(e: WechatMiniprogram.TouchEvent) {
     const songName = e.currentTarget.dataset.song;
     this.controlMusic('play', songName);
   },
 
-  // 点击播放/暂停按钮
   toggleMusicPlay() {
     if (!this.data.currentSong) {
       wx.showToast({ title: '请先选择一首歌曲', icon: 'none' });
@@ -214,39 +216,36 @@ Page({
     this.controlMusic(action, this.data.currentSong);
   },
 
-  // 音量变化
   onVolumeChange(e: WechatMiniprogram.SliderChange) {
     const volume = e.detail.value;
-    const command = `action=user_define&cmd=SET_SPEAKER_VOLUME,${volume}`;
-
-    this.userData.xp2pManager.sendCommand(this.userData.deviceId, command)
+    // 修改点：调用包装函数
+    this._sendCommand(`SET_SPEAKER_VOLUME,${volume}`)
       .then(() => {
         this.setData({ volume });
       })
       .catch((err: any) => console.error('设置音量失败:', err));
   },
 
-  // 统一的音乐控制函数
   async controlMusic(action: 'play' | 'pause', songName: string) {
-    const command = `action=user_define&cmd=SET_LULLABY_PLAY,${action},${songName}`;
+    // 修改点：调用包装函数
+    const command = `SET_LULLABY_PLAY,${action},${songName}`;
     try {
-      const res = await this.userData.xp2pManager.sendCommand(this.userData.deviceId, command);
+      const res = await this._sendCommand(command);
       if (res.type === 'success' && res.data) {
-        // 操作成功后，用设备返回的最新状态更新UI
         const status = JSON.parse(res.data);
         this.setData({
           currentSong: status.CUR_MUSIC,
           musicState: parseInt(status.MusicState, 10),
         });
       }
-    } catch(err) {
+    } catch (err) {
       wx.showToast({ title: '操作失败', icon: 'none' });
       console.error(`音乐操作 ${action} 失败:`, err);
     }
   },
 
 
-  // --- 原有功能 ---
+  // --- 原有功能 (PTZ和自定义信令已修改为使用 _sendCommand) ---
   toggleMute() {
     this.setData({ isMuted: !this.data.isMuted });
   },
@@ -262,25 +261,56 @@ Page({
     if (!this.data.isPlaySuccess) return;
     this.data.voiceState === 'VoiceIdle' ? this.userData.voiceComponent?.startVoice() : this.userData.voiceComponent?.stopVoice();
   },
+
+  // PTZ 控制逻辑现在也使用包装函数
   controlPTZ(e: WechatMiniprogram.TouchEvent) {
-    const cmd = e.currentTarget.dataset.cmd as string;
-    if (!cmd || !this.userData.deviceId) return;
-    this.setData({ ptzCmd: cmd });
-    this.userData.xp2pManager.sendPTZCommand(this.userData.deviceId, { ptzCmd: cmd }).catch((err: any) => console.error(`PTZ指令 ${cmd} 失败:`, err));
+    const ptzAction = e.currentTarget.dataset.cmd as string; // 'ptz_up_press' 等
+    // 从文档看，UYTKZ指令格式是 UYTKZ,type,value
+    // 这里我们假设 value 固定为 1
+    const directionMap: { [key: string]: string } = {
+        'ptz_up_press': 'UP',
+        'ptz_down_press': 'DOWN',
+        'ptz_left_press': 'LEFT',
+        'ptz_right_press': 'RIGHT'
+    };
+    const direction = directionMap[ptzAction];
+    if (!direction || !this.userData.deviceId) return;
+
+    this.setData({ ptzCmd: ptzAction });
+    // 修改点：调用包装函数
+    this._sendCommand(`UYTKZ,${direction},1`)
+      .catch((err: any) => console.error(`PTZ指令 ${direction} 失败:`, err));
   },
+
   releasePTZBtn() {
+    // 注意：文档没有为 "松开" 定义指令，PTZ可能是点按式移动固定距离
+    // 如果需要 "松开停止" 的逻辑，需要设备端支持一个例如 "UYTKZ,STOP,0" 的指令
     this.setData({ ptzCmd: '' });
-    setTimeout(() => {
-      this.userData.xp2pManager.sendPTZCommand(this.userData.deviceId, { ptzCmd: 'ptz_release_pre' }).catch((err: any) => console.error('PTZ释放指令失败:', err));
-    }, 200);
   },
+
   onInputCommand(e: WechatMiniprogram.Input) {
     this.setData({ inputCommand: e.detail.value });
   },
+
+  // 自定义信令发送也使用包装函数
   sendCommand() {
     if (!this.data.inputCommand || !this.userData.deviceId) return;
-    this.userData.xp2pManager.sendCommand(this.userData.deviceId, this.data.inputCommand)
-      .then((res: any) => wx.showModal({ title: '信令成功', content: JSON.stringify(res), showCancel: false }))
-      .catch((err: any) => wx.showModal({ title: '信令失败', content: err.errMsg, showCancel: false }));
+    // 修改点：调用包装函数
+    this._sendCommand(this.data.inputCommand)
+      .then((res: any) => {
+        let content = '类型：' + res.type;
+        if(res.data) {
+          try {
+            // 尝试格式化JSON，方便阅读
+            content += '\n内容：' + JSON.stringify(JSON.parse(res.data), null, 2);
+          } catch {
+            content += '\n内容：' + res.data;
+          }
+        }
+        wx.showModal({ title: '信令成功', content: content, showCancel: false });
+      })
+      .catch((err: any) => {
+        wx.showModal({ title: '信令失败', content: err.errMsg, showCancel: false });
+      });
   },
 });
