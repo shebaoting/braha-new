@@ -1,7 +1,7 @@
 page {
-  // 透明
   --td-navbar-bg-color: transparent
 }
+
 .swiper_content {
   height: 410px; // 820rpx
   width: 100%;
@@ -28,4 +28,35 @@ page {
 
 .connect_device {
   @apply rounded-xl border-2 border-white font-bold text-yellow-700 border-solid;
+}
+
+// 透明遮罩层
+.nav-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  z-index: 99; // 层级低于菜单，高于页面内容
+}
+
+// 弹出菜单容器
+.nav-popup {
+  @apply absolute bg-white rounded-lg shadow-md;
+  // --td-navbar-height 是 TDesign Navbar 的高度变量，可以确保菜单正好在导航栏下方
+  // 如果定位不准，可以手动调整为胶囊按钮的高度，例如 top: 100rpx;
+  top: 150rpx;
+  left: 16rpx;
+  z-index: 100; // 最高层级
+  width: 280rpx; // 菜单宽度
+  padding: 8rpx;
+}
+
+// 菜单项
+.nav-popup-item {
+  @apply flex items-center p-3 rounded-md;
+  &:active {
+    background-color: #f0f0f0;
+  }
 }

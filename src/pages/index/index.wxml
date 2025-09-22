@@ -3,7 +3,21 @@
     <t-icon name="add" size="48rpx" color="#fff" bind:click="onIconTap" />
   </view>
 </t-navbar>
-
+<view wx:if="{{navPopupShow}}">
+  <!-- 透明遮罩层，点击关闭菜单 -->
+  <view class="nav-popup-overlay" bind:tap="hideNavPopup"></view>
+  <!-- 菜单内容 -->
+  <view class="nav-popup">
+    <view class="nav-popup-item" bind:tap="pages_to" data-url="/pages/index/searchDevice/afterSearch">
+      <image class="w-8 h-8" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/pop_icon/ic_cp_tjsb.png"></image>
+      <text class="ml-3 text-sm">添加设备</text>
+    </view>
+    <view class="nav-popup-item" bind:tap="onScan">
+      <image class="w-8 h-8" src="http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/pop_icon/ic_cp_sys.png"></image>
+      <text class="ml-3 text-sm">扫一扫</text>
+    </view>
+  </view>
+</view>
 <view>
   <view class="swiper_content" style="background-image: url({{backgroundImage}})">
     <view class="flex justify-between items-center px-8 pt-12">
