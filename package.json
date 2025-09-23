@@ -24,7 +24,8 @@
     "postinstall": "weapp-tw patch"
   },
   "dependencies": {
-    "tdesign-miniprogram": "^1.10.1"
+    "tdesign-miniprogram": "^1.10.1",
+    "westore": "^0.1.12"
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.9.0",

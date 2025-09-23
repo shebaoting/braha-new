@@ -47,19 +47,19 @@
         <block wx:for="{{menu_item_list}}" wx:key="current">
           <view class="btn flex items-center justify-between p-4 mb-4" bind:tap="modal_show_event" data-item="{{item}}">
             <view class="flex items-center">
-              <image class="w-12 h-12" src="{{item.current === deviceList[deviceCurrent].bedCmd ? item.active_icon : item.active_normol}}"></image>
-              <text class="ml-4 text-lg font-semibold">{{item.name}}</text>
+              <image class="w-6 h-6" src="{{item.current === deviceList[deviceCurrent].bedCmd ? item.active_icon : item.active_normol}}"></image>
+              <text class="ml-4 text-base font-semibold">{{item.name}}</text>
             </view>
-            <image class="w-10 h-10" src="{{item.current === deviceList[deviceCurrent].bedCmd ? item.power_active : item.power_enabel}}"></image>
+            <image class="w-6 h-6" src="{{item.current === deviceList[deviceCurrent].bedCmd ? item.power_active : item.power_enabel}}"></image>
           </view>
         </block>
 
         <view class="btn flex items-center justify-between p-4 mb-4" bind:tap="modal_show_event" data-item="{{light_info}}">
           <view class="flex items-center">
-            <image class="w-12 h-12" src="{{deviceList[deviceCurrent].islight ? light_info.active_icon : light_info.active_normol}}"></image>
-            <text class="ml-4 text-lg font-semibold">{{light_info.name}}</text>
+            <image class="w-6 h-6" src="{{deviceList[deviceCurrent].islight ? light_info.active_icon : light_info.active_normol}}"></image>
+            <text class="ml-4 text-base font-semibold">{{light_info.name}}</text>
           </view>
-          <image class="w-10 h-10" src="{{deviceList[deviceCurrent].islight ? light_info.power_active : light_info.power_enabel}}"></image>
+          <image class="w-6 h-6" src="{{deviceList[deviceCurrent].islight ? light_info.power_active : light_info.power_enabel}}"></image>
         </view>
       </view>
 

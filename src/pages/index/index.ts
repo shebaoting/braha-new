@@ -1,3 +1,5 @@
+import { bedDeviceApi } from '../../utils/api';
+
 const app = getApp();
 
 Page({
@@ -13,17 +15,45 @@ Page({
       {
         active_icon: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_nbt_sel.png',
         active_normol: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_nbt_nor.png',
-        current: 0, name: '尿布台', isLight: false,
+        current: 0,
+        name: '尿布台',
+        isLight: false,
         power_active: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_sel.png',
         power_enabel: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_nor.png',
         cmd: 'AA0103010100',
         img: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/index/img_tc_nbt.png'
       },
+      {
+        active_icon: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_sc_sel.png',
+        active_normol: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_sc_nor.png',
+        current: 1,
+        name: '睡床',
+        isLight: false,
+        power_active: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_sel.png',
+        power_enabel: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_nor.png',
+        cmd: 'AA0103010200',
+        img: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/index/img_tc_sc.png'
+      },
+      {
+        active_icon: "http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_yxc_sel.png",
+        active_normol: "http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_yxc_nor.png",
+        current: 2,
+        name: '游戏床',
+        isLight: false,
+        power_active: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_sel.png',
+        power_enabel: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_nor.png',
+        cmd: 'AA0103010300',
+        img: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/index/img_tc_ysc.png'
+      }
     ],
     light_info: {
       active_icon: "http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_yd_sel.png",
       active_normol: "http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_yd_nor.png",
       name: '夜灯',
+      power_active: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_sel.png',
+      power_enabel: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/home/menu_icon/ic_power_nor.png',
+      cmd: 'AA0103020111', //夜灯开
+      cmd2: 'AA0103020100', //夜灯关
     },
     deviceCurrent: 0,
     blue_show: false,
@@ -38,7 +68,7 @@ Page({
     deviceCurrentChange: false,
     noticeShow: false,
     noticeInfo: {} as any,
-    navPopupShow: false, // 控制导航栏下方弹出菜单的显示
+    navPopupShow: false,
   },
 
   onLoad() {
@@ -49,15 +79,7 @@ Page({
     if (this.getTabBar() && this.getTabBar().init) {
       this.getTabBar().init()
     }
-    if (app.globalData.isLogin) {
       this.getDeviceList();
-    } else {
-      wx.login({
-        success: (res) => {
-          // call your login API with res.code
-        },
-      });
-    }
   },
 
   onIconTap() {
@@ -72,8 +94,6 @@ Page({
     });
   },
 
-
-  // --- UI Event Handlers ---
   show_popu() {
     this.setData({ popupShow: true });
   },
@@ -146,21 +166,41 @@ Page({
   },
 
 
-  // --- API and Business Logic ---
   async getDeviceList() {
-    const mockList = [
-      { productName: '婴儿床 A', isconnected: false, bedCmd: -1, islight: false },
-      { productName: '婴儿床 B', isconnected: false, bedCmd: -1, islight: false },
-    ];
-    this.setData({ deviceList: mockList });
-    app.globalData.allDeviceList = mockList;
-    this.pageInitBule();
+    try {
+      const res = await bedDeviceApi.getBedList();
+      if (res.data && res.data.code === 0) {
+        const list = res.data.data.list || [];
+        const formattedList = list.map((item: any) => ({
+          ...item,
+          productName: item.bedName,
+          bedname: item.bedName,
+          isconnected: false,
+          bedCmd: -1,
+          islight: false
+        }));
+
+        this.setData({ deviceList: formattedList });
+        app.globalData.allDeviceList = formattedList;
+
+        // 如果获取到设备列表，则初始化蓝牙
+        if (formattedList.length > 0) {
+          this.pageInitBule();
+        }
+      } else {
+        this.uToast(res.data.msg || '获取设备列表失败');
+        this.setData({ deviceList: [] });
+      }
+    } catch (error: any) {
+      console.error('getDeviceList error:', error);
+      this.uToast(error.message || '网络错误，请稍后再试');
+      this.setData({ deviceList: [] });
+    }
   },
 
-  connectDevice_event() {
-    this.getDeviceList().then(() => {
-      this.openBluetoothAdapter();
-    });
+  async connectDevice_event() {
+    await this.getDeviceList();
+
   },
 
   uToast(title: string) {

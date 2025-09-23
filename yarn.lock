@@ -3779,6 +3779,11 @@ reusify@^1.0.4:
   resolved "https://registry.npmmirror.com/reusify/-/reusify-1.1.0.tgz#0fe13b9522e1473f51b558ee796e08f11f9b489f"
   integrity sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==
 
+rfdc@^1.3.0:
+  version "1.4.1"
+  resolved "https://registry.npmmirror.com/rfdc/-/rfdc-1.4.1.tgz#778f76c4fb731d93414e8f925fbecf64cce7f6ca"
+  integrity sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==
+
 rolldown-plugin-dts@^0.15.8:
   version "0.15.10"
   resolved "https://registry.npmmirror.com/rolldown-plugin-dts/-/rolldown-plugin-dts-0.15.10.tgz#c9ffeb2a70d27c3bca29797ef22a6e4f88d91d79"
@@ -4390,6 +4395,13 @@ webpack-virtual-modules@^0.6.2:
   version "0.6.2"
   resolved "https://registry.npmmirror.com/webpack-virtual-modules/-/webpack-virtual-modules-0.6.2.tgz#057faa9065c8acf48f24cb57ac0e77739ab9a7e8"
   integrity sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==
+
+westore@^0.1.12:
+  version "0.1.12"
+  resolved "https://registry.npmmirror.com/westore/-/westore-0.1.12.tgz#2144d8a6521d0ad9965106969950c15175d81ba7"
+  integrity sha512-DHtc8vBFarztR+/OCxlmRpztDZiLrz42ugyFAf5YGH4mZNswTU5ULU85yFXXc8w/L9kqktjLvOLud7ny8z1Zfw==
+  dependencies:
+    rfdc "^1.3.0"
 
 which@^2.0.1:
   version "2.0.2"
