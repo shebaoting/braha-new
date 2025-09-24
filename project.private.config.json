@@ -11,11 +11,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "摄像头查看",
-          "pathName": "pages/camera/camera",
+          "name": "摄像头查看详情",
+          "pathName": "pages/camera/show/show",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "摄像头查看",
+          "pathName": "pages/camera/camera",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "我的宝宝",

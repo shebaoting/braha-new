@@ -1,9 +1,9 @@
 @use 'tailwindcss/base';
 @use 'tailwindcss/components';
 @use 'tailwindcss/utilities';
-
 page {
   @apply bg-[#e4e7ed];
+   --td-brand-color: #ff6400;
 }
 
 .main-width {

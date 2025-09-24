@@ -17,7 +17,8 @@
     "pages/Devices/Devices",
     "pages/userInfo/userInfo",
     "pages/baby/baby",
-    "pages/camera/camera"
+    "pages/camera/camera",
+    "pages/camera/show/show"
   ],
   "window": {},
   "tabBar": {

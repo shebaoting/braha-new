@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "p2p-live-player": "../../../components/p2p-live-player/p2p-live-player",
+    "iot-p2p-voice": "plugin://xp2p/iot-p2p-voice"
+  },
+  "navigationBarTitleText": "海马爸比二代看护器"
+}
