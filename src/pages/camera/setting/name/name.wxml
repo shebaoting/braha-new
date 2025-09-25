@@ -1,0 +1,16 @@
+<view class="main-width bg-white rounded mt-4 py-6 px-4 flex flex-col h-auto">
+<text class="text-xs">摄像机名称</text>
+<t-input placeholder="请输入文字" borderless class="mt-3" />
+<text class="mt-6 text-xs">场景</text>
+<view class="grid grid-cols-3 gap-4 mt-4 item-list">
+<text>默认</text>
+<text>客厅</text>
+<text>卧室</text>
+<text>厨房</text>
+<text>阳台</text>
+<text>餐厅</text>
+<text>休闲室</text>
+<text>门口</text>
+</view>
+<t-button theme="primary" size="large" block class="mt-10">保存</t-button>
+</view>

@@ -32,7 +32,7 @@
       正在加载设备信息...
     </view>
   </view>
-<view class="main-width bg-white py-6 rounded-b-lg px-4 grid grid-cols-4 gap-4">
+<view class="main-width bg-white py-6 rounded-b-lg px-4 grid grid-cols-5 gap-4">
 <view class="py-4 bg-gray-100 rounded-full">
 <t-icon name="video-camera-1" size="28rpx"/>
 </view>
@@ -44,6 +44,9 @@
 </view>
 <view class="py-4 bg-gray-100 rounded-full">
 <t-icon name="sound-mute" size="28rpx"/>
+</view>
+<view class="py-4 bg-gray-100 rounded-full">
+<t-icon name="setting-1" size="28rpx"/>
 </view>
 </view>
 <view class="main-width bg-white py-2 rounded-lg px-4 mt-4 grid grid-cols-7 gap-4">

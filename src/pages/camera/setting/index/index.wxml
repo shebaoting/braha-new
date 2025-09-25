@@ -1,0 +1,29 @@
+<view class="py-4 flex flex-col">
+<text class="text-sm ml-4 text-gray-400">基本设置</text>
+<view class="mt-2">
+<t-cell title="摄像机名称" hover arrow note="海马爸比二代plus" />
+<t-cell title="摄像机设置" hover arrow />
+<t-cell title="回看" hover arrow/>
+<t-cell title="设备共享" hover arrow />
+<t-cell title="摄像机信息" hover arrow />
+<t-cell title="消息录像时长" hover>
+<t-radio-group default-value="0" borderless t-class="t-radio-box" slot="note">
+  <t-radio block="{{false}}" label="15s" value="15" />
+  <t-radio block="{{false}}" label="30s" value="30" />
+  <t-radio block="{{false}}" label="60s" value="60" />
+</t-radio-group>
+</t-cell>
+<t-cell title="生活瞬间" hover arrow description="智能生成每日精彩图库和时光相册" />
+<t-cell title="显示AI检测框" description="开启后，画面中显示人脸/移动检测的识别框" >
+  <t-switch defaultValue="{{true}}" size="small" slot="note" />
+</t-cell>
+</view>
+<text class="text-sm ml-4 text-gray-400 mt-4">系统设置</text>
+<view class="mt-2">
+<t-cell title="固件更新" hover arrow />
+<t-cell title="SD卡" hover arrow note="正常" />
+<t-cell title="重置WIFI" hover arrow />
+<t-cell title="重启摄像机" hover arrow />
+<t-cell title="使用说明" hover arrow />
+</view>
+</view>

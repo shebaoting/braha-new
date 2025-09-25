@@ -18,7 +18,12 @@
     "pages/userInfo/userInfo",
     "pages/baby/baby",
     "pages/camera/camera",
-    "pages/camera/show/show"
+    "pages/camera/show/show",
+    "pages/camera/setting/index/index",
+    "pages/camera/setting/name/name",
+    "pages/camera/setting/list/list",
+    "pages/camera/setting/view/view",
+    "pages/camera/setting/info/info"
   ],
   "window": {},
   "tabBar": {

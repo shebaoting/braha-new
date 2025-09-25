@@ -1,0 +1,48 @@
+  <view class="w-full bg-black" style="height: 56.25vw;">
+    <block wx:if="{{deviceInfo}}">
+      <p2p-live-player
+        wx:for="{{useChannelIds}}"
+        wx:key="index"
+        data-channel="{{item}}"
+        id="p2p-live-player-{{item}}"
+        compClass="w-full h-full"
+        deviceInfo="{{deviceInfo}}"
+        xp2pInfo="{{xp2pInfo}}"
+        needCheckStream="{{options.needCheckStream}}"
+        sceneType="live"
+        streamChannel="{{item}}"
+        streamQuality="{{options.liveQuality}}"
+        mode="{{options.playerRTC ? 'RTC' : 'live'}}"
+        muted="{{isMuted}}"
+        showLog="{{options.playerLog}}"
+        onlyp2pMap="{{onlyp2pMap}}"
+        bind:playstatechagne="onPlayStateChange"
+        bind:recordstatechange="onRecordStateChange"
+        bind:recordfilestatechange="onRecordFileStateChange"
+        bind:recordtap="toggleRecording"
+        >
+        <view class="text-white font-bold">
+          CH-{{item}}
+        </view>
+      </p2p-live-player>
+    </block>
+    <view wx:else class="w-full h-full flex items-center justify-center text-white bg-black">
+      正在加载设备信息...
+    </view>
+  </view>
+  <view class="bg-black grid grid-cols-3 gap-4 py-3">
+<t-icon name="gesture-wipe-down" size="36rpx" color="#fff" />
+<t-icon name="gesture-right-slip" size="36rpx" color="#fff" />
+<t-icon name="markup" size="36rpx" color="#fff" />
+  </view>
+  <view class="bg-white p-4 flex flex-col">
+<text class="text-sm">亮度</text>
+ <t-slider value="50" label="${value}" bind:change="handleChange"></t-slider>
+<text class="text-sm mt-3">对比度</text>
+ <t-slider value="50" label="${value}" bind:change="handleChange"></t-slider>
+<text class="text-sm mt-3">饱和度</text>
+ <t-slider value="50" label="${value}" bind:change="handleChange"></t-slider>
+ <t-cell title="高清夜视" hover bordered="{{false}}" description="关闭后，环境光线不足时看不清画面" t-class="mt-6 t-cell">
+  <t-switch defaultValue="{{true}}" slot="note" size="small" />
+</t-cell>
+  </view>

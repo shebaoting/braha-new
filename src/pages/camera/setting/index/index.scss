@@ -1,0 +1,9 @@
+page {
+  --td-cell-description-font-size:12px;
+}
+.t-radio-group .t-radio {
+  justify-content: space-between;
+  font-size: 14px;
+  margin-right: 8px;
+  background-color: var(--td-bg-color-container, #fff);
+}

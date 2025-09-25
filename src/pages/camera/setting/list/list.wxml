@@ -1,0 +1,10 @@
+<view>
+<t-cell title="画面设置" hover arrow />
+<t-cell title="设备音量" hover arrow />
+<t-cell title="系统提示音" hover>
+  <t-switch defaultValue="{{true}}" size="small" slot="note"  />
+</t-cell>
+<t-cell title="摄像机工作指示灯" hover>
+  <t-switch defaultValue="{{true}}" size="small" slot="note" />
+</t-cell>
+</view>

@@ -1,0 +1,8 @@
+<view>
+<t-cell title="摄像机型号" note="SC-AI18" />
+<t-cell title="固件版本" note="v20250224" />
+<t-cell title="WIFI名称" note="yanbao-5G" />
+<t-cell title="信号强度" note="55%" />
+<t-cell title="IP地址" note="192.168.1.5" />
+<t-cell title="MAC流媒体地址" note="70:3a:d5:01:01:01" />
+</view>

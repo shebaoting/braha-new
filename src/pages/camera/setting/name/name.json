@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "p2p-live-player": "../../../../components/p2p-live-player/p2p-live-player",
+    "iot-p2p-voice": "plugin://xp2p/iot-p2p-voice"
+  },
+  "navigationBarTitleText": "摄像机名称",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "black"
+}
