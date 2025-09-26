@@ -407,7 +407,7 @@ interface Config {
 }
 
 const config: Config = {
-  baseUrl: 'http://121.89.86.254:8888',
+  baseUrl: 'https://haima.hxycbj.com',
 }
 
 export default config
@@ -2290,182 +2290,94 @@ module.exports = {
 ### 文件路径: `src\pages\camera\camera.scss`
 
 ```scss
-/* 保持原项目中的PTZ面板样式 */
-
-.ptz-panel {
-
-  position: relative;
-
-}
-
-.ptz-panel .ptz-controls {
-
-  padding: 0;
-
-  display: flex;
-
-  justify-content: center;
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top {
-
-  position: relative;
-
-  display: flex;
-
-  width: 250rpx;
-
-  height: 250rpx;
-
-  border-radius: 20rpx;
-
-  overflow: hidden;
-
-  align-items: center;
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position {
-
-  position: relative;
-
-  width: 250rpx;
-
-  height: 250rpx;
-
-  border-radius: 50%;
-
-  background-color: #f5f5f5;
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-btn {
-
-  position: relative;
-
-  text-align: center;
-
-  padding: 20rpx;
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon {
-
-  width: 48rpx;
-
-  height: 48rpx;
-
-  background: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 fill%3D%22none%22 viewBox%3D%220 0 32 32%22 class%3D%22design-iconfont%22%3E  %3Cg clip-path%3D%22url(%23clip0)%22%3E    %3Cpath opacity%3D%22.01%22 fill%3D%22red%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%23000%22 fill-opacity%3D%22.9%22%2F%3E    %3Cmask id%3D%22sgcfdjtfua%22 style%3D%22mask-type%3Aalpha%22 maskUnits%3D%22userSpaceOnUse%22 x%3D%2212%22 y%3D%229%22 width%3D%228%22 height%3D%2214%22%3E      %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%23fff%22%2F%3E    %3C%2Fmask%3E  %3C%2Fg%3E  %3Cdefs%3E    %3CclipPath id%3D%22clip0%22%3E      %3Cpath fill%3D%22%23fff%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3C%2FclipPath%3E  %3C%2Fdefs%3E%3C%2Fsvg%3E") center center no-repeat;
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.press {
-
-  background: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 fill%3D%22none%22 viewBox%3D%220 0 32 32%22 class%3D%22design-iconfont%22%3E  %3Cg clip-path%3D%22url(%23clip0)%22%3E    %3Cpath opacity%3D%22.01%22 fill%3D%22red%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%2329CC85%22 fill-opacity%3D%22.9%22%2F%3E    %3Cmask id%3D%22sgcfdjtfua%22 style%3D%22mask-type%3Aalpha%22 maskUnits%3D%22userSpaceOnUse%22 x%3D%2212%22 y%3D%229%22 width%3D%228%22 height%3D%2214%22%3E      %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%23fff%22%2F%3E    %3C%2Fmask%3E  %3C%2Fg%3E  %3Cdefs%3E    %3CclipPath id%3D%22clip0%22%3E      %3Cpath fill%3D%22%23fff%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3C%2FclipPath%3E  %3C%2Fdefs%3E%3C%2Fsvg%3E") center center no-repeat;
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-left {
-
-  transform: rotate(180deg);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-up {
-
-  transform: rotate(-90deg);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-down {
-
-  transform: rotate(90deg);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-right {
-
-  transform: rotate(0deg);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-cricle {
-
-  position: absolute;
-
-  width: 96rpx;
-
-  height: 96rpx;
-
-  border: 2rpx solid rgba(0, 0, 0, 0.3);
-
-  border-radius: 50%;
-
-  top: 50%;
-
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-dir {
-
-  position: absolute;
-
-  width: 88rpx;
-
-  height: 88rpx;
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-left {
-
-  position: absolute;
-
-  top: 50%;
-
-  left: 0;
-
-  transform: translateY(-50%);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-up {
-
-  position: absolute;
-
-  top: 0;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-down {
-
-  position: absolute;
-
-  bottom: 0;
-
-  left: 50%;
-
-  transform: translateX(-50%);
-
-}
-
-.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-right {
-
-  position: absolute;
-
-  top: 50%;
-
-  right: 0;
-
-  transform: translateY(-50%);
-
+/* 保持原项目中的PTZ面板样式 */
+.ptz-panel {
+  position: relative;
+}
+.ptz-panel .ptz-controls {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.ptz-panel .ptz-controls .ptz-controls-top {
+  position: relative;
+  display: flex;
+  width: 250rpx;
+  height: 250rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  align-items: center;
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position {
+  position: relative;
+  width: 250rpx;
+  height: 250rpx;
+  border-radius: 50%;
+  background-color: #f5f5f5;
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-btn {
+  position: relative;
+  text-align: center;
+  padding: 20rpx;
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon {
+  width: 48rpx;
+  height: 48rpx;
+  background: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 fill%3D%22none%22 viewBox%3D%220 0 32 32%22 class%3D%22design-iconfont%22%3E  %3Cg clip-path%3D%22url(%23clip0)%22%3E    %3Cpath opacity%3D%22.01%22 fill%3D%22red%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%23000%22 fill-opacity%3D%22.9%22%2F%3E    %3Cmask id%3D%22sgcfdjtfua%22 style%3D%22mask-type%3Aalpha%22 maskUnits%3D%22userSpaceOnUse%22 x%3D%2212%22 y%3D%229%22 width%3D%228%22 height%3D%2214%22%3E      %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%23fff%22%2F%3E    %3C%2Fmask%3E  %3C%2Fg%3E  %3Cdefs%3E    %3CclipPath id%3D%22clip0%22%3E      %3Cpath fill%3D%22%23fff%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3C%2FclipPath%3E  %3C%2Fdefs%3E%3C%2Fsvg%3E") center center no-repeat;
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.press {
+  background: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 fill%3D%22none%22 viewBox%3D%220 0 32 32%22 class%3D%22design-iconfont%22%3E  %3Cg clip-path%3D%22url(%23clip0)%22%3E    %3Cpath opacity%3D%22.01%22 fill%3D%22red%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%2329CC85%22 fill-opacity%3D%22.9%22%2F%3E    %3Cmask id%3D%22sgcfdjtfua%22 style%3D%22mask-type%3Aalpha%22 maskUnits%3D%22userSpaceOnUse%22 x%3D%2212%22 y%3D%229%22 width%3D%228%22 height%3D%2214%22%3E      %3Cpath fill-rule%3D%22evenodd%22 clip-rule%3D%22evenodd%22 d%3D%22M12.4542 10.5807L13.5149 9.52004L19.293 15.2982C19.6836 15.6887 19.6836 16.3219 19.293 16.7124L13.5149 22.4906L12.4542 21.4299L17.8788 16.0053L12.4542 10.5807Z%22 fill%3D%22%23fff%22%2F%3E    %3C%2Fmask%3E  %3C%2Fg%3E  %3Cdefs%3E    %3CclipPath id%3D%22clip0%22%3E      %3Cpath fill%3D%22%23fff%22 d%3D%22M0 0H32V32H0z%22%2F%3E    %3C%2FclipPath%3E  %3C%2Fdefs%3E%3C%2Fsvg%3E") center center no-repeat;
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-left {
+  transform: rotate(180deg);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-up {
+  transform: rotate(-90deg);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-down {
+  transform: rotate(90deg);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-icon.arrow-right {
+  transform: rotate(0deg);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-cricle {
+  position: absolute;
+  width: 96rpx;
+  height: 96rpx;
+  border: 2rpx solid rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-dir {
+  position: absolute;
+  width: 88rpx;
+  height: 88rpx;
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-up {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-down {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.ptz-panel .ptz-controls .ptz-controls-top .ptz-position .ptz-right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
 }
 ```
 
@@ -2934,50 +2846,220 @@ page {
 ### 文件路径: `src\pages\camera\setting\index\index.ts`
 
 ```ts
+import cameraService from '../../../../lib/cameraService';
+import { getXp2pManager } from '../../../../lib/xp2pManager';
+
 Page({
   data: {
-
+    deviceId: '',
+    xp2pInfo: '', // 新增，用于存储 xp2pInfo
+    recordTime: '15',
+    showAiBox: true,
   },
-  onLoad() {
 
+  userData: {
+    xp2pManager: null as any,
+    pageId: `setting-index-page-${Date.now()}`,
+  },
+
+  async onLoad(options: { deviceId?: string; xp2pInfo?: string }) { // 增加 xp2pInfo
+    if (options.deviceId && options.xp2pInfo) {
+      const decodedXp2pInfo = decodeURIComponent(options.xp2pInfo);
+      this.setData({
+        deviceId: options.deviceId,
+        xp2pInfo: decodedXp2pInfo
+      });
+      console.log('【设置首页】已接收到设备ID:', options.deviceId);
+      console.log('【设置首页】已接收到xp2pInfo:', decodedXp2pInfo);
+
+      this.userData.xp2pManager = getXp2pManager();
+
+      try {
+        wx.showLoading({ title: '连接设备中...' });
+
+        // 1. 启动P2P服务
+        await this.userData.xp2pManager.startP2PService({
+          p2pMode: 'ipc',
+          deviceInfo: {
+            deviceId: options.deviceId,
+            productId: options.deviceId.split('/')[0],
+            deviceName: options.deviceId.split('/')[1],
+            isMjpgDevice: false,
+          },
+          xp2pInfo: decodedXp2pInfo, // 使用传递过来的 xp2pInfo
+          caller: this.userData.pageId,
+        });
+        console.log('【设置首页】P2P服务启动成功。');
+
+        // 2. 将设备注册到全局服务
+        cameraService.setActiveDevice(options.deviceId);
+        console.log('【设置首页】已在 CameraService 中将此设备设置为活动设备。');
+
+        // 3. P2P连接成功后，获取设备状态
+        await this.fetchDeviceStatus();
+
+      } catch (error: any) {
+        console.error('【设置首页】P2P服务启动失败:', error);
+        wx.showModal({
+          title: '连接失败',
+          content: `无法连接到设备(${error.errMsg || '未知错误'})`,
+          showCancel: false,
+          success: () => wx.navigateBack(),
+        });
+      } finally {
+        wx.hideLoading();
+      }
+
+    } else {
+      console.error('【设置首页】缺少 deviceId 或 xp2pInfo 参数');
+      wx.showToast({
+        title: '设备信息缺失',
+        icon: 'error',
+        duration: 2000,
+        complete: () => {
+          wx.navigateBack();
+        }
+      });
+    }
+  },
+
+  onUnload() {
+    if (this.data.deviceId && this.userData.xp2pManager) {
+      console.log('【设置首页】页面卸载，停止P2P服务:', this.data.deviceId);
+      // 注意：这里需要根据业务决定是否清除service。如果子页面还需要通信，就不应该在这里清除。
+      // 但为了页面的独立性，最好是每个页面都管理自己的连接。
+      this.userData.xp2pManager.stopP2PService(this.data.deviceId, this.userData.pageId);
+      // 如果 setting/index 是所有设置页的父级，可以不清，由它统一管理。
+      // 为简单起见，这里假设每个页面独立管理。
+    }
+  },
+
+  async fetchDeviceStatus() {
+    console.log('【设置首页】正在获取设备初始状态...');
+    try {
+      const res = await cameraService.sendCommand('CHECK_ONLINE');
+      if (res.type === 'success' && res.data) {
+        const status = JSON.parse(res.data);
+        console.log('【设置首页】获取到设备状态:', status);
+        this.setData({
+          recordTime: status.RECORDTIME || '15',
+          showAiBox: status.AIBOX === '0',
+        });
+      }
+    } catch (error) {
+      console.error('【设置首页】获取设备状态失败:', error);
+      wx.showToast({ title: '获取设备状态失败', icon: 'none' });
+    }
+  },
+
+  onRecordTimeChange(e: WechatMiniprogram.TouchEvent) {
+    const newTime = e.detail.value;
+    console.log('【设置首页】录像时长变更为:', newTime);
+    this.setData({ recordTime: newTime });
+    cameraService.sendCommand(`SET_RECORD_TIMES,${newTime}`)
+      .then(() => wx.showToast({ title: '设置成功', icon: 'success' }))
+      .catch(err => {
+        console.error('【设置首页】设置录像时长失败:', err);
+        wx.showToast({ title: '设置失败', icon: 'error' });
+      });
+  },
+
+  onAiBoxChange(e: WechatMiniprogram.TouchEvent) {
+    const isShow = e.detail.value;
+    const commandValue = isShow ? '0' : '1';
+    console.log(`【设置首页】AI检测框开关切换为: ${isShow}, 发送指令值: ${commandValue}`);
+    this.setData({ showAiBox: isShow });
+    cameraService.sendCommand(`DISABLE_AIBOX,${commandValue}`)
+      .then(() => wx.showToast({ title: '设置成功', icon: 'success' }))
+      .catch(err => {
+        console.error('【设置首页】设置AI检测框失败:', err);
+        wx.showToast({ title: '设置失败', icon: 'error' });
+        this.setData({ showAiBox: !isShow });
+      });
+  },
+
+  onRebootTap() {
+    wx.showModal({
+      title: '确认重启',
+      content: '您确定要重启摄像机吗？此操作将导致设备短暂离线。',
+      confirmColor: '#BDA01E',
+      success: (res) => {
+        if (res.confirm) {
+          console.log('【设置首页】用户确认重启，发送重启指令...');
+          wx.showLoading({ title: '正在发送指令...' });
+          cameraService.sendCommand('REBOOT_DEVICE')
+            .then(() => {
+              wx.hideLoading();
+              wx.showToast({ title: '重启指令已发送', icon: 'success' });
+            })
+            .catch(err => {
+              wx.hideLoading();
+              console.error('【设置首页】发送重启指令失败:', err);
+              wx.showToast({ title: '操作失败', icon: 'error' });
+            });
+        }
+      }
+    });
+  },
+
+  navigateToSetting(e: WechatMiniprogram.BaseEvent) {
+    const pageUrl = e.currentTarget.dataset.url;
+    if (!pageUrl) return;
+    if (!this.data.deviceId) {
+      wx.showToast({ title: '设备信息丢失，无法跳转', icon: 'none' });
+      return;
+    }
+    // 【修改】继续向下传递关键信息
+    const fullUrl = `${pageUrl}?deviceId=${this.data.deviceId}&xp2pInfo=${encodeURIComponent(this.data.xp2pInfo)}`;
+    wx.navigateTo({ url: fullUrl });
   }
-})
+});
 ```
 
 ### 文件路径: `src\pages\camera\setting\index\index.wxml`
 
 ```wxml
 <view class="py-4 flex flex-col">
-<text class="text-sm ml-4 text-gray-400">基本设置</text>
-<view class="mt-2">
-<t-cell title="摄像机名称" hover arrow note="海马爸比二代plus" />
-<t-cell title="摄像机设置" hover arrow />
-<t-cell title="回看" hover arrow/>
-<t-cell title="设备共享" hover arrow />
-<t-cell title="摄像机信息" hover arrow />
-<t-cell title="消息录像时长" hover>
-<t-radio-group default-value="0" borderless t-class="t-radio-box" slot="note">
-  <t-radio block="{{false}}" label="15s" value="15" />
-  <t-radio block="{{false}}" label="30s" value="30" />
-  <t-radio block="{{false}}" label="60s" value="60" />
-</t-radio-group>
-</t-cell>
-<t-cell title="生活瞬间" hover arrow description="智能生成每日精彩图库和时光相册" />
-<t-cell title="显示AI检测框" description="开启后，画面中显示人脸/移动检测的识别框" >
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
-<t-cell title="啼哭安抚" hover arrow description="检测到宝宝啼哭时，将记录视频并提醒" />
+  <text class="text-sm ml-4 text-gray-400">基本设置</text>
+  <view class="mt-2">
+
+      <t-cell title="摄像机名称" hover arrow note="海马爸比二代plus" bind:click="navigateToSetting" data-url="/pages/camera/setting/name/name" />
+      <t-cell title="摄像机设置" hover arrow bind:click="navigateToSetting" data-url="/pages/camera/setting/list/list" />
+      <t-cell title="回看" hover arrow bind:click="navigateToSetting" data-url="/pages/camera/setting/review/review" />
+      <t-cell title="设备共享" hover arrow bind:click="navigateToSetting" data-url="/pages/camera/setting/share/share" />
+      <t-cell title="摄像机信息" hover arrow bind:click="navigateToSetting" data-url="/pages/camera/setting/info/info" />
 
 
-</view>
-<text class="text-sm ml-4 text-gray-400 mt-4">系统设置</text>
-<view class="mt-2">
-<t-cell title="固件更新" hover arrow />
-<t-cell title="SD卡" hover arrow note="正常" />
-<t-cell title="重置WIFI" hover arrow />
-<t-cell title="重启摄像机" hover arrow />
-<t-cell title="使用说明" hover arrow />
-</view>
+      <t-cell title="消息录像时长" hover>
+        <t-radio-group value="{{recordTime}}" borderless t-class="t-radio-box" slot="note" bind:change="onRecordTimeChange">
+          <t-radio block="{{false}}" label="15s" value="15" />
+          <t-radio block="{{false}}" label="30s" value="30" />
+          <t-radio block="{{false}}" label="60s" value="60" />
+        </t-radio-group>
+      </t-cell>
+
+      <t-cell title="生活瞬间" hover arrow description="智能生成每日精彩图库和时光相册" bind:click="navigateToSetting" data-url="/pages/camera/setting/lifesnap/lifesnap" />
+
+
+      <t-cell title="显示AI检测框" description="开启后，画面中显示人脸/移动检测的识别框">
+        <t-switch value="{{showAiBox}}" size="small" slot="note" bind:change="onAiBoxChange" />
+      </t-cell>
+
+      <t-cell title="啼哭安抚" hover arrow description="检测到宝宝啼哭时，将记录视频并提醒" bind:click="navigateToSetting" data-url="/pages/camera/setting/soothe/soothe" />
+
+  </view>
+
+  <text class="text-sm ml-4 text-gray-400 mt-4">系统设置</text>
+  <view class="mt-2">
+
+      <t-cell title="固件更新" hover arrow />
+      <t-cell title="SD卡" hover arrow note="正常" />
+      <t-cell title="重置WIFI" hover arrow />
+
+      <t-cell title="重启摄像机" hover arrow bind:click="onRebootTap" />
+      <t-cell title="使用说明" hover arrow />
+
+  </view>
 </view>
 ```
 
@@ -3004,26 +3086,130 @@ page {
 ### 文件路径: `src\pages\camera\setting\info\info.ts`
 
 ```ts
+import cameraService from '../../../../lib/cameraService';
+import { getXp2pManager } from '../../../../lib/xp2pManager';
+
 Page({
   data: {
-
+    deviceId: '',
+    xp2pInfo: '',
+    deviceInfo: null as any, // 用于存储从设备获取的完整信息对象
+    isLoading: true, // 控制加载状态的显示
   },
-  onLoad() {
 
-  }
-})
+  userData: {
+    xp2pManager: null as any,
+    pageId: `setting-info-page-${Date.now()}`,
+  },
+
+  async onLoad(options: { deviceId?: string; xp2pInfo?: string }) {
+    if (options.deviceId && options.xp2pInfo) {
+      const decodedXp2pInfo = decodeURIComponent(options.xp2pInfo);
+      this.setData({
+        deviceId: options.deviceId,
+        xp2pInfo: decodedXp2pInfo
+      });
+      console.log('【摄像机信息页】已接收到设备ID:', options.deviceId);
+
+      this.userData.xp2pManager = getXp2pManager();
+
+      try {
+        // 启动 P2P 服务，这是发送信令的前提
+        await this.userData.xp2pManager.startP2PService({
+          p2pMode: 'ipc',
+          deviceInfo: {
+            deviceId: options.deviceId,
+            productId: options.deviceId.split('/')[0],
+            deviceName: options.deviceId.split('/')[1],
+            isMjpgDevice: false,
+          },
+          xp2pInfo: decodedXp2pInfo,
+          caller: this.userData.pageId,
+        });
+
+        console.log('【摄像机信息页】P2P服务启动成功。');
+        cameraService.setActiveDevice(options.deviceId); // 注册到全局服务
+
+        // P2P连接成功后，获取设备信息
+        await this.fetchDeviceInfo();
+
+      } catch (error: any) {
+        console.error('【摄像机信息页】P2P服务启动失败:', error);
+        this.setData({ isLoading: false }); // 停止加载状态
+        wx.showModal({
+          title: '连接失败',
+          content: `无法连接到设备(${error.errMsg || '未知错误'})`,
+          showCancel: false,
+          success: () => wx.navigateBack(),
+        });
+      }
+
+    } else {
+      console.error('【摄像机信息页】缺少 deviceId 或 xp2pInfo 参数');
+      this.setData({ isLoading: false });
+      wx.navigateBack();
+    }
+  },
+
+  onUnload() {
+    // 页面卸载时，清理P2P连接
+    if (this.data.deviceId && this.userData.xp2pManager) {
+      console.log('【摄像机信息页】页面卸载，停止P2P服务:', this.data.deviceId);
+      this.userData.xp2pManager.stopP2PService(this.data.deviceId, this.userData.pageId);
+    }
+  },
+
+  /**
+   * 发送 CHECK_ONLINE 指令获取设备详细信息
+   */
+  async fetchDeviceInfo() {
+    this.setData({ isLoading: true });
+    console.log('【摄像机信息页】正在发送 CHECK_ONLINE 指令获取设备信息...');
+    try {
+      const res = await cameraService.sendCommand('CHECK_ONLINE');
+      if (res.type === 'success' && res.data) {
+        const status = JSON.parse(res.data);
+        console.log('【摄像机信息页】获取到设备信息:', status);
+        this.setData({
+          deviceInfo: status,
+          isLoading: false
+        });
+      } else {
+        // 处理信令返回但内容错误的情况
+        throw new Error(res.errMsg || '设备返回数据格式错误');
+      }
+    } catch (error) {
+      console.error('【摄像机信息页】获取设备信息失败:', error);
+      this.setData({ isLoading: false });
+      wx.showToast({ title: '获取信息失败', icon: 'none' });
+    }
+  },
+});
 ```
 
 ### 文件路径: `src\pages\camera\setting\info\info.wxml`
 
 ```wxml
 <view>
-<t-cell title="摄像机型号" note="SC-AI18" />
-<t-cell title="固件版本" note="v20250224" />
-<t-cell title="WIFI名称" note="yanbao-5G" />
-<t-cell title="信号强度" note="55%" />
-<t-cell title="IP地址" note="192.168.1.5" />
-<t-cell title="MAC流媒体地址" note="70:3a:d5:01:01:01" />
+  <block wx:if="{{isLoading}}">
+    <view class="text-center text-gray-500 py-10">正在加载设备信息...</view>
+  </block>
+
+  <block wx:elif="{{deviceInfo}}">
+
+      <t-cell title="摄像机型号" note="{{deviceInfo.CAMERA_MODEL || '-'}}" />
+      <t-cell title="固件版本" note="{{deviceInfo.VER ? deviceInfo.VER.split('/')[0] : '-'}}" />
+      <t-cell title="WIFI名称" note="{{deviceInfo.WIFI_SSID || '-'}}" />
+      <t-cell title="信号强度" note="{{deviceInfo.WIFI_SIGNAL ? deviceInfo.WIFI_SIGNAL : '-'}}" />
+      <t-cell title="IP地址" note="{{deviceInfo.IP_ADDR || '-'}}" />
+      <t-cell title="MAC地址" note="{{deviceInfo.MAC_ADDR || '-'}}" />
+      <t-cell title="设备ID (ChipID)" note="{{deviceInfo.DEVID || '-'}}" />
+
+  </block>
+
+  <block wx:else>
+    <view class="text-center text-red-500 py-10">加载设备信息失败，请返回重试。</view>
+  </block>
 </view>
 ```
 
@@ -3047,29 +3233,229 @@ Page({
 ### 文件路径: `src\pages\camera\setting\list\list.ts`
 
 ```ts
+import cameraService from '../../../../lib/cameraService';
+import { getXp2pManager } from '../../../../lib/xp2pManager';
+
 Page({
   data: {
-
+    deviceId: '',
+    xp2pInfo: '',
+    // --- UI的状态 ---
+    volume: 80, // 设备音量
+    sysAudioOn: true, // 系统提示音开关
+    indicatorLightOn: true, // 工作指示灯开关
+    isVolumePopupVisible: false, // 控制音量弹出层的显示
   },
-  onLoad() {
 
-  }
-})
+  userData: {
+    xp2pManager: null as any,
+    pageId: `setting-list-page-${Date.now()}`,
+    // 用于滑块节流，避免频繁发送指令
+    volumeChangeTimer: null as any,
+  },
+
+  async onLoad(options: { deviceId?: string; xp2pInfo?: string }) {
+    if (options.deviceId && options.xp2pInfo) {
+      const decodedXp2pInfo = decodeURIComponent(options.xp2pInfo);
+      this.setData({
+        deviceId: options.deviceId,
+        xp2pInfo: decodedXp2pInfo
+      });
+      console.log('【摄像机设置页】已接收到设备ID:', options.deviceId);
+
+      this.userData.xp2pManager = getXp2pManager();
+
+      try {
+        wx.showLoading({ title: '连接设备中...' });
+
+        await this.userData.xp2pManager.startP2PService({
+          p2pMode: 'ipc',
+          deviceInfo: {
+            deviceId: options.deviceId,
+            productId: options.deviceId.split('/')[0],
+            deviceName: options.deviceId.split('/')[1],
+            isMjpgDevice: false,
+          },
+          xp2pInfo: decodedXp2pInfo,
+          caller: this.userData.pageId,
+        });
+
+        console.log('【摄像机设置页】P2P服务启动成功。');
+        cameraService.setActiveDevice(options.deviceId);
+
+        await this.fetchDeviceStatus();
+
+      } catch (error: any) {
+        console.error('【摄像机设置页】P2P服务启动失败:', error);
+        wx.showModal({
+          title: '连接失败',
+          content: `无法连接到设备(${error.errMsg || '未知错误'})`,
+          showCancel: false,
+          success: () => wx.navigateBack(),
+        });
+      } finally {
+        wx.hideLoading();
+      }
+
+    } else {
+      console.error('【摄像机设置页】缺少 deviceId 或 xp2pInfo 参数');
+      wx.navigateBack();
+    }
+  },
+
+  onUnload() {
+    if (this.data.deviceId && this.userData.xp2pManager) {
+      this.userData.xp2pManager.stopP2PService(this.data.deviceId, this.userData.pageId);
+    }
+  },
+
+  async fetchDeviceStatus() {
+    console.log('【摄像机设置页】正在获取设备状态...');
+    try {
+      const res = await cameraService.sendCommand('CHECK_ONLINE');
+      if (res.type === 'success' && res.data) {
+        const status = JSON.parse(res.data);
+        console.log('【摄像机设置页】获取到设备状态:', status);
+        this.setData({
+          volume: parseInt(status.Volume, 10) || 80,
+          sysAudioOn: status.AUDIO === '1',
+          indicatorLightOn: status.LED === '1'
+        });
+      }
+    } catch (error) {
+      console.error('【摄像机设置页】获取设备状态失败:', error);
+      wx.showToast({ title: '获取设备状态失败', icon: 'none' });
+    }
+  },
+
+  // --- 事件处理函数 ---
+
+  /**
+   * 跳转到其他设置页
+   */
+  navigateToSetting(e: WechatMiniprogram.BaseEvent) {
+    const pageUrl = e.currentTarget.dataset.url;
+    const { deviceId, xp2pInfo } = this.data;
+    if (!pageUrl || !deviceId) return;
+
+    const fullUrl = `${pageUrl}?deviceId=${deviceId}&xp2pInfo=${encodeURIComponent(xp2pInfo)}`;
+    wx.navigateTo({ url: fullUrl });
+  },
+
+  /**
+   * 显示音量调节弹窗
+   */
+  showVolumePopup() {
+    this.setData({ isVolumePopupVisible: true });
+  },
+
+  /**
+   * 隐藏音量调节弹窗
+   */
+  hideVolumePopup() {
+    this.setData({ isVolumePopupVisible: false });
+  },
+
+  /**
+   * 滑块滑动时触发，更新UI并使用节流发送指令
+   */
+  onVolumeChange(e: WechatMiniprogram.TouchEvent) {
+    const newVolume = e.detail.value;
+    // 实时更新UI
+    this.setData({ volume: newVolume });
+
+    // 清除上一个定时器
+    if (this.userData.volumeChangeTimer) {
+      clearTimeout(this.userData.volumeChangeTimer);
+    }
+
+    // 设置一个节流定时器，200毫秒后发送指令
+    this.userData.volumeChangeTimer = setTimeout(() => {
+      console.log(`【摄像机设置页】发送音量指令: ${newVolume}`);
+      cameraService.sendCommand(`SET_SPEAKER_VOLUME,${newVolume}`)
+        .catch(err => {
+          console.error('【摄像机设置页】设置音量失败:', err);
+          wx.showToast({ title: '音量设置失败', icon: 'error' });
+        });
+    }, 200);
+  },
+
+  /**
+   * 系统提示音开关
+   */
+  onSysAudioChange(e: WechatMiniprogram.TouchEvent) {
+    const value = e.detail.value;
+    const commandValue = value ? '1' : '0';
+    console.log(`【摄像机设置页】系统提示音开关切换为: ${value}, 发送指令值: ${commandValue}`);
+
+    this.setData({ sysAudioOn: value });
+
+    cameraService.sendCommand(`SYS_AUDIO,${commandValue}`)
+      .then(() => wx.showToast({ title: '设置成功', icon: 'success' }))
+      .catch(err => {
+        console.error('【摄像机设置页】设置系统提示音失败:', err);
+        wx.showToast({ title: '设置失败', icon: 'error' });
+        this.setData({ sysAudioOn: !value }); // 失败回滚
+      });
+  },
+
+  /**
+   * 摄像机工作指示灯开关
+   */
+  onIndicatorLightChange(e: WechatMiniprogram.TouchEvent) {
+    const value = e.detail.value;
+    const commandValue = value ? '1' : '0';
+    console.log(`【摄像机设置页】工作指示灯开关切换为: ${value}, 发送指令值: ${commandValue}`);
+
+    this.setData({ indicatorLightOn: value });
+
+    // 文档中没有直接控制指示灯的指令，这里假设指令为 "LED"
+    // 如果指令不同，请修改此处
+    cameraService.sendCommand(`LED,${commandValue}`)
+      .then(() => wx.showToast({ title: '设置成功', icon: 'success' }))
+      .catch(err => {
+        console.error('【摄像机设置页】设置指示灯失败:', err);
+        wx.showToast({ title: '设置失败', icon: 'error' });
+        this.setData({ indicatorLightOn: !value }); // 失败回滚
+      });
+  },
+});
 ```
 
 ### 文件路径: `src\pages\camera\setting\list\list.wxml`
 
 ```wxml
 <view>
-<t-cell title="画面设置" hover arrow />
-<t-cell title="设备音量" hover arrow />
-<t-cell title="系统提示音" hover>
-  <t-switch defaultValue="{{true}}" size="small" slot="note"  />
-</t-cell>
-<t-cell title="摄像机工作指示灯" hover>
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
+    <t-cell title="画面设置" hover arrow bind:click="navigateToSetting" data-url="/pages/camera/setting/view/view" />
+    <t-cell title="设备音量" hover arrow note="{{volume}}%" bind:click="showVolumePopup" />
+    <t-cell title="系统提示音" hover>
+      <t-switch value="{{sysAudioOn}}" size="small" slot="note" bind:change="onSysAudioChange" />
+    </t-cell>
+    <t-cell title="摄像机工作指示灯" hover>
+      <t-switch value="{{indicatorLightOn}}" size="small" slot="note" bind:change="onIndicatorLightChange" />
+    </t-cell>
 </view>
+
+<!-- 底部音量调节弹出层 -->
+<t-popup visible="{{isVolumePopupVisible}}" placement="bottom" bind:visible-change="hideVolumePopup">
+  <view class="p-6 bg-white">
+    <view class="text-center font-semibold mb-4">调节设备音量</view>
+    <view class="flex items-center">
+      <t-icon name="volume-down" size="48rpx" color="#999" />
+      <t-slider
+        class="flex-1 mx-4"
+        value="{{volume}}"
+        min="0"
+        max="100"
+        step="1"
+        bind:change="onVolumeChange"
+        aria-label="音量调节滑块"
+      />
+      <t-icon name="volume-up" size="48rpx" color="#333" />
+    </view>
+    <view class="text-center text-lg font-bold mt-2">{{volume}}%</view>
+  </view>
+</t-popup>
 ```
 
 ### 文件路径: `src\pages\camera\setting\name\name.json`
@@ -3153,39 +3539,281 @@ Page({
 ### 文件路径: `src\pages\camera\setting\soothe\soothe.ts`
 
 ```ts
+import cameraService from '../../../../lib/cameraService';
+import { getXp2pManager } from '../../../../lib/xp2pManager';
+
+// 【新增】辅助函数：生成0到n-1的数组，并格式化为两位数
+const generateNumberArray = (n: number) => {
+  return Array.from({ length: n }, (_, i) => ({
+    label: i < 10 ? `0${i}` : `${i}`,
+    value: i < 10 ? `0${i}` : `${i}`,
+  }));
+};
+
+// 【新增】生成级联选择器所需的时间数据
+const generateTimeOptions = () => {
+  const hours = generateNumberArray(25); // 0-24
+  const minutes = generateNumberArray(60); // 0-59
+
+  // 为每个小时选项添加分钟作为子集
+  hours.forEach(hour => {
+    // 24点后面不需要分钟
+    if (hour.value !== '24') {
+        hour.children = minutes;
+    }
+  });
+
+  // “全天”选项
+  const allDayOption = { label: '全天', value: 'allday', children: [] };
+
+  return [allDayOption, ...hours];
+};
+
 Page({
   data: {
+    deviceId: '',
+    xp2pInfo: '',
+    deviceStatus: {
+      BABY_CRY_APPEASE: false,
+      MUSIC_APPEASING: false,
+      CRYDET_TIME: '00:00-24:00',
+      CRY_DETECT_SENSE: 1,
+      CRY_APPEASE_SONG: 'auto',
+      MUSIC_LIST: [] as string[],
+    },
+    senseMap: ['低', '中', '高'],
 
+    // --- Cascader 相关数据 ---
+    isTimePickerVisible: false,
+    timeOptions: generateTimeOptions(),
+    cascaderValue: null as any,
   },
-  onLoad() {
 
-  }
-})
+  userData: {
+    xp2pManager: null as any,
+    pageId: `setting-soothe-page-${Date.now()}`,
+  },
+
+  async onLoad(options: { deviceId?: string; xp2pInfo?: string }) {
+    if (options.deviceId && options.xp2pInfo) {
+      const decodedXp2pInfo = decodeURIComponent(options.xp2pInfo);
+      this.setData({
+        deviceId: options.deviceId,
+        xp2pInfo: decodedXp2pInfo
+      });
+      console.log('【啼哭安抚页】已接收到设备ID:', options.deviceId);
+
+      this.userData.xp2pManager = getXp2pManager();
+
+      try {
+        wx.showLoading({ title: '连接设备中...' });
+
+        await this.userData.xp2pManager.startP2PService({
+          p2pMode: 'ipc',
+          deviceInfo: {
+            deviceId: options.deviceId,
+            productId: options.deviceId.split('/')[0],
+            deviceName: options.deviceId.split('/')[1],
+            isMjpgDevice: false,
+          },
+          xp2pInfo: decodedXp2pInfo,
+          caller: this.userData.pageId,
+        });
+
+        console.log('【啼哭安抚页】P2P服务启动成功。');
+        cameraService.setActiveDevice(options.deviceId);
+        await this.fetchDeviceStatus();
+
+      } catch (error: any) {
+        console.error('【啼哭安抚页】P2P服务启动失败:', error);
+        wx.showModal({
+          title: '连接失败',
+          content: `无法连接到设备(${error.errMsg || '未知错误'})`,
+          showCancel: false,
+          success: () => wx.navigateBack(),
+        });
+      } finally {
+        wx.hideLoading();
+      }
+
+    } else {
+      console.error('【啼哭安抚页】缺少 deviceId 或 xp2pInfo 参数');
+      wx.showToast({ title: '参数错误', icon: 'error', duration: 2000, complete: () => wx.navigateBack() });
+    }
+  },
+
+  onUnload() {
+    if (this.data.deviceId && this.userData.xp2pManager) {
+      this.userData.xp2pManager.stopP2PService(this.data.deviceId, this.userData.pageId);
+    }
+  },
+
+  async fetchDeviceStatus() {
+    console.log('【啼哭安抚页】正在获取设备状态...');
+    try {
+      const res = await cameraService.sendCommand('CHECK_ONLINE');
+      if (res.type === 'success' && res.data) {
+        const status = JSON.parse(res.data);
+        console.log('【啼哭安抚页】获取到设备状态:', status);
+
+        const musicList = [];
+        for (let i = 0; i < 10; i++) {
+          if (status[`Music${i}`]) {
+            musicList.push(status[`Music${i}`]);
+          }
+        }
+
+        this.setData({
+          'deviceStatus.BABY_CRY_APPEASE': status.APPEASE === '1',
+          'deviceStatus.MUSIC_APPEASING': status.MUSIC_APPEASING === '1',
+          'deviceStatus.CRYDET_TIME': status.CRYDET_TIME || '00:00-24:00',
+          'deviceStatus.CRY_DETECT_SENSE': parseInt(status.CRY_DETECT_SENSE, 10) || 1,
+          'deviceStatus.CRY_APPEASE_SONG': status.CRY_APPEASE || 'auto',
+          'deviceStatus.MUSIC_LIST': musicList,
+        });
+      }
+    } catch (error) {
+      console.error('【啼哭安抚页】获取设备状态失败:', error);
+      wx.showToast({ title: '获取设备状态失败', icon: 'none' });
+    }
+  },
+
+  // --- 事件处理函数 ---
+
+  onCryDetectChange(e: WechatMiniprogram.TouchEvent) {
+    const value = e.detail.value;
+    const commandValue = value ? '1' : '0';
+    this.setData({ 'deviceStatus.BABY_CRY_APPEASE': value });
+
+    cameraService.sendCommand(`BABY_CRY_APPEASE,${commandValue},${this.data.deviceStatus.CRY_APPEASE_SONG}`)
+      .catch(() => this.setData({ 'deviceStatus.BABY_CRY_APPEASE': !value }));
+  },
+
+  onMusicAppeasingChange(e: WechatMiniprogram.TouchEvent) {
+    const value = e.detail.value;
+    const commandValue = value ? '1' : '0';
+    this.setData({ 'deviceStatus.MUSIC_APPEASING': value });
+    cameraService.sendCommand(`MUSIC_APPEASING,${commandValue}`)
+      .catch(() => this.setData({ 'deviceStatus.MUSIC_APPEASING': !value }));
+  },
+
+  showTimePicker() {
+    const [start, end] = this.data.deviceStatus.CRYDET_TIME.split('-');
+    // 将 "HH:mm-HH:mm" 格式转换为 Cascader 需要的 value 数组
+    const cascaderValue = start === '00:00' && (end === '24:00' || end === '00:00')
+      ? ['allday'] // 如果是全天，则选中“全天”
+      : [start, end];
+
+    this.setData({
+      cascaderValue: cascaderValue,
+      isTimePickerVisible: true
+    });
+  },
+
+  hideTimePicker() {
+    this.setData({ isTimePickerVisible: false });
+  },
+
+  onTimeChange(e: WechatMiniprogram.TouchEvent) {
+    const { value, selectedOptions } = e.detail;
+
+    let startTime = '00:00';
+    let endTime = '24:00';
+    let isValidSelection = false;
+
+    if (value.length === 1 && value[0] === 'allday') {
+      isValidSelection = true;
+    } else if (value.length === 2) {
+      // 级联选择返回的是 value，需要从 options 中找到 label
+      const startHour = selectedOptions[0].label;
+      const startMinute = selectedOptions[0].children.find((c:any) => c.value === value[1]).label;
+      startTime = `${startHour}:${startMinute}`;
+
+      const endHour = selectedOptions[2].label;
+      const endMinute = selectedOptions[2].children.find((c:any) => c.value === value[3]).label;
+      endTime = `${endHour}:${endMinute}`;
+      isValidSelection = true;
+    }
+
+    if (!isValidSelection) {
+        // 用户可能只选择了一部分，此时不关闭弹窗也不发指令
+        return;
+    }
+
+    const timeRange = `${startTime}-${endTime}`;
+
+    console.log(`【啼哭安抚页】安抚时间段变更为: ${timeRange}`);
+
+    this.setData({
+      'deviceStatus.CRYDET_TIME': timeRange,
+      cascaderValue: value,
+      isTimePickerVisible: false // 确认选择后关闭
+    });
+
+    cameraService.sendCommand(`SET_CRYDET_TIME,${startTime},${endTime}`);
+  },
+
+  showSensePicker() {
+    wx.showActionSheet({
+      itemList: this.data.senseMap,
+      success: (res) => {
+        const senseValue = res.tapIndex; // 0, 1, 2
+        this.setData({ 'deviceStatus.CRY_DETECT_SENSE': senseValue });
+        cameraService.sendCommand(`CRY_DETECT_SENSE,${senseValue}`);
+      }
+    });
+  },
+
+  showMusicPicker() {
+    const itemList = ['随机', ...this.data.deviceStatus.MUSIC_LIST];
+    wx.showActionSheet({
+      itemList,
+      success: (res) => {
+        const selectedSong = res.tapIndex === 0 ? 'auto' : itemList[res.tapIndex];
+        this.setData({ 'deviceStatus.CRY_APPEASE_SONG': selectedSong });
+        // 使用复合指令，保持当前啼哭检测开关状态
+        const commandValue = this.data.deviceStatus.BABY_CRY_APPEASE ? '1' : '0';
+        cameraService.sendCommand(`BABY_CRY_APPEASE,${commandValue},${selectedSong}`);
+      }
+    });
+  },
+});
 ```
 
 ### 文件路径: `src\pages\camera\setting\soothe\soothe.wxml`
 
 ```wxml
 <view>
-<t-cell title="啼哭检测" hover description="开启后，海马爸比检测到哭声时记录视频并提醒">
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
-<t-cell title="音乐安抚" hover description="检测到哭声时，自动播放安抚音乐">
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
-<t-cell title="安抚时间段" hover description="仅在设置时间段进行音乐安抚" note="08:00-09:00"/>
-<t-cell title="检测灵敏度" hover>
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
-<t-cell title="音乐" hover arrow note="随机" />
+    <t-cell title="啼哭检测" hover description="开启后，海马爸比检测到哭声时记录视频并提醒">
+      <t-switch value="{{deviceStatus.BABY_CRY_APPEASE}}" size="small" slot="note" bind:change="onCryDetectChange" />
+    </t-cell>
+    <t-cell title="音乐安抚" hover description="检测到哭声时，自动播放安抚音乐">
+      <t-switch value="{{deviceStatus.MUSIC_APPEASING}}" size="small" slot="note" bind:change="onMusicAppeasingChange" />
+    </t-cell>
+    <t-cell title="安抚时间段" hover arrow note="{{deviceStatus.CRYDET_TIME}}" bind:click="showTimePicker" />
+    <t-cell title="检测灵敏度" hover arrow note="{{senseMap[deviceStatus.CRY_DETECT_SENSE]}}" bind:click="showSensePicker" />
+    <t-cell title="音乐" hover arrow note="{{deviceStatus.CRY_APPEASE_SONG === 'auto' ? '随机' : deviceStatus.CRY_APPEASE_SONG}}" bind:click="showMusicPicker" />
+
 </view>
+
+<t-cascader
+  visible="{{isTimePickerVisible}}"
+  title="选择安抚时间段"
+  sub-titles="{{['开始时间', '结束时间']}}"
+  options="{{timeOptions}}"
+  value="{{cascaderValue}}"
+  bind:change="onTimeChange"
+  bind:close="hideTimePicker"
+/>
 ```
 
 ### 文件路径: `src\pages\camera\setting\view\view.json`
 
 ```json
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "p2p-live-player": "../../../../components/p2p-live-player/p2p-live-player"
+  },
   "navigationBarTitleText": "画面设置",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black"
@@ -3204,67 +3832,258 @@ Page({
 ### 文件路径: `src\pages\camera\setting\view\view.ts`
 
 ```ts
+import cameraService from '../../../../lib/cameraService';
+import { getXp2pManager } from '../../../../lib/xp2pManager';
+import { isDevTool } from '../../../../utils/util';
+
 Page({
   data: {
-
+    deviceId: '',
+    xp2pInfo: '',
+    deviceInfo: null as any,
+    isPlaySuccess: false,
+    onlyp2pMap: {
+      flv: isDevTool,
+      mjpg: isDevTool,
+    },
+    // --- UI的状态 ---
+    deviceStatus: {
+      FV: false,      // 垂直翻转
+      FH: false,      // 水平镜像
+      LOGO: true,     // 显示水印
+      FORCE_RGB: false, // 强制彩色（高清夜视的反向逻辑）
+      LUMI: 50,       // 亮度
+      CONT: 50,       // 对比度
+      SATU: 50,       // 饱和度
+    },
   },
-  onLoad() {
 
-  }
-})
+  userData: {
+    xp2pManager: null as any,
+    pageId: `setting-view-page-${Date.now()}`,
+    sliderChangeTimer: null as any, // 滑块节流定时器
+  },
+
+  async onLoad(options: { deviceId?: string; xp2pInfo?: string }) {
+    if (options.deviceId && options.xp2pInfo) {
+      const decodedXp2pInfo = decodeURIComponent(options.xp2pInfo);
+      this.setData({
+        deviceId: options.deviceId,
+        xp2pInfo: decodedXp2pInfo,
+        deviceInfo: { // 预设 deviceInfo 以渲染播放器
+          deviceId: options.deviceId,
+          productId: options.deviceId.split('/')[0],
+          deviceName: options.deviceId.split('/')[1],
+          isMjpgDevice: false,
+        }
+      });
+      console.log('【画面设置页】已接收到设备ID:', options.deviceId);
+
+      this.userData.xp2pManager = getXp2pManager();
+
+      try {
+        await this.userData.xp2pManager.startP2PService({
+          p2pMode: 'ipc',
+          deviceInfo: this.data.deviceInfo,
+          xp2pInfo: decodedXp2pInfo,
+          caller: this.userData.pageId,
+        });
+
+        console.log('【画面设置页】P2P服务启动成功。');
+        cameraService.setActiveDevice(options.deviceId);
+
+      } catch (error: any) {
+        console.error('【画面设置页】P2P服务启动失败:', error);
+        wx.showModal({
+          title: '连接失败',
+          content: `无法连接到设备(${error.errMsg || '未知错误'})`,
+          showCancel: false,
+          success: () => wx.navigateBack(),
+        });
+      }
+
+    } else {
+      console.error('【画面设置页】缺少 deviceId 或 xp2pInfo 参数');
+      wx.navigateBack();
+    }
+  },
+
+  onUnload() {
+    if (this.data.deviceId && this.userData.xp2pManager) {
+      this.userData.xp2pManager.stopP2PService(this.data.deviceId, this.userData.pageId);
+    }
+  },
+
+  /**
+   * 视频播放成功后，获取设备状态来初始化UI
+   */
+  onPlaySuccess() {
+    this.setData({ isPlaySuccess: true });
+    this.fetchDeviceStatus();
+  },
+
+  async fetchDeviceStatus() {
+    if (!this.data.isPlaySuccess) return;
+    console.log('【画面设置页】正在获取设备状态...');
+    try {
+      const res = await cameraService.sendCommand('CHECK_ONLINE');
+      if (res.type === 'success' && res.data) {
+        const status = JSON.parse(res.data);
+        console.log('【画面设置页】获取到设备状态:', status);
+        this.setData({
+          'deviceStatus.FV': status.FV === '1',
+          'deviceStatus.FH': status.FH === '1',
+          'deviceStatus.LOGO': status.LOGO === '1',
+          'deviceStatus.FORCE_RGB': status.FC === '1',
+          'deviceStatus.LUMI': parseInt(status.LUMI, 10) || 50,
+          'deviceStatus.CONT': parseInt(status.CONT, 10) || 50,
+          'deviceStatus.SATU': parseInt(status.SATU, 10) || 50,
+        });
+      }
+    } catch (error) {
+      console.error('【画面设置页】获取设备状态失败:', error);
+    }
+  },
+
+  // --- 事件处理函数 ---
+
+  /**
+   * 垂直翻转
+   */
+  toggleFlip() {
+    const newValue = !this.data.deviceStatus.FV;
+    this.setData({ 'deviceStatus.FV': newValue });
+    cameraService.sendCommand(`UISPC,4,${newValue ? '1' : '0'}`)
+      .catch(() => this.setData({ 'deviceStatus.FV': !newValue })); // 失败回滚
+  },
+
+  /**
+   * 水平镜像
+   */
+  toggleMirror() {
+    const newValue = !this.data.deviceStatus.FH;
+    this.setData({ 'deviceStatus.FH': newValue });
+    cameraService.sendCommand(`UISPC,3,${newValue ? '1' : '0'}`)
+      .catch(() => this.setData({ 'deviceStatus.FH': !newValue }));
+  },
+
+  /**
+   * 水印开关
+   */
+  toggleLogo() {
+    const newValue = !this.data.deviceStatus.LOGO;
+    // 指令是反向的: 1=关闭, 0=开启
+    const commandValue = newValue ? '0' : '1';
+    this.setData({ 'deviceStatus.LOGO': newValue });
+    cameraService.sendCommand(`DISABLE_LOGO_DISP,${commandValue}`)
+      .catch(() => this.setData({ 'deviceStatus.LOGO': !newValue }));
+  },
+
+  /**
+   * 高清夜视开关 (强制彩色)
+   */
+  onForceRgbChange(e: WechatMiniprogram.TouchEvent) {
+    const value = e.detail.value;
+    // UI上的“高清夜视”开启，对应的是强制彩色关闭(0)
+    // UI上的“高清夜视”关闭，对应的是强制彩色开启(1)
+    const commandValue = value ? '0' : '1';
+    this.setData({ 'deviceStatus.FORCE_RGB': !value });
+    cameraService.sendCommand(`FORCE_RGB,${commandValue}`)
+      .catch(() => this.setData({ 'deviceStatus.FORCE_RGB': value }));
+  },
+
+  /**
+   * 滑块调节（亮度、对比度、饱和度）
+   */
+  onSliderChange(e: WechatMiniprogram.TouchEvent) {
+    const type = e.currentTarget.dataset.type;
+    const value = e.detail.value;
+
+    // 实时更新UI
+    switch(type) {
+      case 'brightness': this.setData({ 'deviceStatus.LUMI': value }); break;
+      case 'contrast': this.setData({ 'deviceStatus.CONT': value }); break;
+      case 'saturation': this.setData({ 'deviceStatus.SATU': value }); break;
+    }
+
+    // 节流发送
+    if (this.userData.sliderChangeTimer) {
+      clearTimeout(this.userData.sliderChangeTimer);
+    }
+
+    this.userData.sliderChangeTimer = setTimeout(() => {
+      let command = '';
+      switch(type) {
+        case 'brightness': command = `UISPC,0,${value}`; break;
+        case 'contrast': command = `UISPC,1,${value}`; break;
+        case 'saturation': command = `UISPC,2,${value}`; break;
+      }
+      if(command) {
+        cameraService.sendCommand(command).catch(err => {
+            console.error(`【画面设置页】设置${type}失败:`, err);
+            // 失败时可以考虑重新拉取状态进行UI校准
+            this.fetchDeviceStatus();
+        });
+      }
+    }, 200);
+  },
+});
 ```
 
 ### 文件路径: `src\pages\camera\setting\view\view.wxml`
 
 ```wxml
+<view class="flex flex-col h-screen">
+  <!-- 视频预览区域 -->
   <view class="w-full bg-black" style="height: 56.25vw;">
     <block wx:if="{{deviceInfo}}">
       <p2p-live-player
-        wx:for="{{useChannelIds}}"
-        wx:key="index"
-        data-channel="{{item}}"
-        id="p2p-live-player-{{item}}"
+        id="p2p-live-player-0"
         compClass="w-full h-full"
         deviceInfo="{{deviceInfo}}"
         xp2pInfo="{{xp2pInfo}}"
-        needCheckStream="{{options.needCheckStream}}"
         sceneType="live"
-        streamChannel="{{item}}"
-        streamQuality="{{options.liveQuality}}"
-        mode="{{options.playerRTC ? 'RTC' : 'live'}}"
-        muted="{{isMuted}}"
-        showLog="{{options.playerLog}}"
+        streamChannel="{{0}}"
+        streamQuality="high"
+        mode="RTC"
+        muted="{{true}}"
+        showLog="{{false}}"
         onlyp2pMap="{{onlyp2pMap}}"
-        bind:playstatechagne="onPlayStateChange"
-        bind:recordstatechange="onRecordStateChange"
-        bind:recordfilestatechange="onRecordFileStateChange"
-        bind:recordtap="toggleRecording"
-        >
-        <view class="text-white font-bold">
-          CH-{{item}}
-        </view>
-      </p2p-live-player>
+        bind:playsuccess="onPlaySuccess"
+      />
     </block>
     <view wx:else class="w-full h-full flex items-center justify-center text-white bg-black">
-      正在加载设备信息...
+      正在连接设备...
     </view>
   </view>
-  <view class="bg-black grid grid-cols-3 gap-4 py-3">
-<t-icon name="gesture-wipe-down" size="36rpx" color="#fff" />
-<t-icon name="gesture-right-slip" size="36rpx" color="#fff" />
-<t-icon name="markup" size="36rpx" color="#fff" />
+
+  <!-- 控制按钮区域 -->
+  <view class="bg-black grid grid-cols-3 gap-4 py-3 text-center">
+    <view bind:tap="toggleFlip">
+      <t-icon name="gesture-wipe-down" size="48rpx" color="{{deviceStatus.FV ? '#BDA01E' : '#fff'}}" />
+    </view>
+    <view bind:tap="toggleMirror">
+      <t-icon name="gesture-right-slip" size="48rpx" color="{{deviceStatus.FH ? '#BDA01E' : '#fff'}}" />
+    </view>
+    <view bind:tap="toggleLogo">
+      <t-icon name="markup" size="48rpx" color="{{deviceStatus.LOGO ? '#BDA01E' : '#fff'}}" />
+    </view>
   </view>
-  <view class="bg-white p-4 flex flex-col">
-<text class="text-sm">亮度</text>
- <t-slider value="50" label="${value}" bind:change="handleChange"></t-slider>
-<text class="text-sm mt-3">对比度</text>
- <t-slider value="50" label="${value}" bind:change="handleChange"></t-slider>
-<text class="text-sm mt-3">饱和度</text>
- <t-slider value="50" label="${value}" bind:change="handleChange"></t-slider>
- <t-cell title="高清夜视" hover bordered="{{false}}" description="关闭后，环境光线不足时看不清画面" t-class="mt-6 t-cell">
-  <t-switch defaultValue="{{true}}" slot="note" size="small" />
-</t-cell>
+
+  <!-- 设置项 -->
+  <view class="bg-white p-4 flex flex-col flex-1">
+    <text class="text-sm">亮度</text>
+    <t-slider value="{{deviceStatus.LUMI}}" label="${value}" bind:change="onSliderChange" data-type="brightness" />
+    <text class="text-sm mt-3">对比度</text>
+    <t-slider value="{{deviceStatus.CONT}}" label="${value}" bind:change="onSliderChange" data-type="contrast" />
+    <text class="text-sm mt-3">饱和度</text>
+    <t-slider value="{{deviceStatus.SATU}}" label="${value}" bind:change="onSliderChange" data-type="saturation" />
+
+    <t-cell title="高清夜视" hover bordered="{{false}}" description="关闭后，环境光线不足时看不清画面" t-class="mt-6 t-cell">
+      <t-switch value="{{!deviceStatus.FORCE_RGB}}" slot="note" size="small" bind:change="onForceRgbChange" />
+    </t-cell>
   </view>
+</view>
 ```
 
 ### 文件路径: `src\pages\camera\show\show.json`
@@ -3288,17 +4107,49 @@ Page({
 ### 文件路径: `src\pages\camera\show\show.ts`
 
 ```ts
-const imageCdn = 'https://tdesign.gtimg.com/mobile/demos';
-const swiperList = [
-  `${imageCdn}/swiper1.png`,
-  `${imageCdn}/swiper2.png`,
-  `${imageCdn}/swiper1.png`,
-  `${imageCdn}/swiper2.png`,
-  `${imageCdn}/swiper1.png`,
-];
+import { cameraApi } from '../../../utils/api';
+import { isDevTool } from '../../../utils/util';
+import { getXp2pManager } from '../../../lib/xp2pManager';
+import cameraService from '../../../lib/cameraService';
+
+const app = getApp();
+const console = app.logger || console;
+
+const recordFlvOptions = {
+  maxFileSize: 100 * 1024 * 1024,
+  needAutoStartNextIfFull: false,
+  needSaveToAlbum: true,
+  needKeepFile: wx.getAccountInfoSync().miniProgram.envVersion === 'develop',
+  showLog: true,
+};
 
 Page({
   data: {
+    cameraId: null as number | null,
+    deviceInfo: null as any,
+    xp2pInfo: '',
+    useChannelIds: [0],
+    options: {
+      liveQuality: 'high',
+      playerRTC: true,
+      playerMuted: false,
+      playerLog: true,
+      voiceType: 'Pusher',
+      intercomType: 'voice',
+      supportPTZ: true,
+      supportCustomCommand: true,
+    },
+    isPlaySuccess: false,
+    isMuted: false,
+    isRecording: false,
+    voiceState: 'VoiceIdle',
+    onlyp2pMap: {
+      flv: isDevTool,
+      mjpg: isDevTool,
+    },
+    recordIconColor: '#000000',
+    micIconColor: '#000000',
+    muteIconName: 'sound-mute',
     icons: {
       books: '/assets/images/books.svg',
       music: '/assets/images/music.svg',
@@ -3312,12 +4163,222 @@ Page({
     autoplay: false,
     duration: 500,
     interval: 5000,
-    swiperList,
+    swiperList: [
+      'https://tdesign.gtimg.com/mobile/demos/swiper1.png',
+      'https://tdesign.gtimg.com/mobile/demos/swiper2.png',
+    ],
   },
-  onLoad() {
 
-  }
-})
+  userData: {
+    deviceId: '',
+    xp2pManager: null as any,
+    pageId: `camera-show-page-${Date.now()}`,
+    player: null as any,
+    voiceComponent: null as any,
+  },
+
+  onLoad(options: { id?: string }) {
+    if (options.id) {
+      this.setData({ cameraId: parseInt(options.id, 10) });
+      this.userData.xp2pManager = getXp2pManager();
+      this.userData.xp2pManager.checkReset();
+      this.fetchCameraInfo(options.id);
+    } else {
+      wx.showToast({ title: '缺少设备ID', icon: 'error', duration: 2000, complete: () => wx.navigateBack() });
+    }
+  },
+
+  onReady() {
+    this.userData.player = this.selectComponent('#p2p-live-player-0');
+    this.userData.voiceComponent = this.selectComponent('#iot-p2p-voice');
+  },
+
+  onUnload() {
+    if (this.userData.deviceId) {
+      this.userData.xp2pManager.stopP2PService(this.userData.deviceId, this.userData.pageId);
+    }
+    cameraService.clearActiveDevice();
+    this.userData.xp2pManager.checkReset();
+  },
+
+  async fetchCameraInfo(id: string) {
+    wx.showLoading({ title: '加载设备信息...' });
+    try {
+      const res = await cameraApi.getCameraInfo({ id });
+      if (res.data && res.data.code === 0) {
+        const deviceData = res.data.data;
+        const deviceDetail = {
+          targetId: 'hardcoded_ipc_1',
+          deviceId: deviceData.deviceId,
+          productId: deviceData.productId,
+          deviceName: deviceData.deviceName,
+          xp2pInfo: deviceData.xp2pInfo,
+          isMjpgDevice: false,
+          p2pMode: 'ipc' as const,
+          sceneType: 'live' as const,
+          liveStreamDomain: '',
+          initCommand: '',
+          useChannelIds: [0],
+          options: this.data.options,
+        };
+        this.onStartPlayer({ detail: deviceDetail });
+      } else {
+        throw new Error(res.data.msg || '获取设备信息失败');
+      }
+    } catch (error: any) {
+      wx.showModal({
+        title: '错误',
+        content: error.message || '网络请求失败',
+        showCancel: false,
+        success: () => wx.navigateBack(),
+      });
+    } finally {
+      wx.hideLoading();
+    }
+  },
+
+  onStartPlayer({ detail }: { detail: any }) {
+    this.userData.deviceId = detail.deviceId;
+    this.userData.xp2pManager.startP2PService({
+      p2pMode: detail.p2pMode,
+      deviceInfo: {
+        deviceId: detail.deviceId,
+        productId: detail.productId,
+        deviceName: detail.deviceName,
+        isMjpgDevice: detail.isMjpgDevice,
+      },
+      xp2pInfo: detail.xp2pInfo,
+      caller: this.userData.pageId,
+    }).then(() => {
+      cameraService.setActiveDevice(detail.deviceId);
+    }).catch((err: any) => {
+      console.error('启动P2P服务失败:', err);
+      wx.showToast({ title: '连接设备失败', icon: 'error' });
+    });
+
+    const isMuted = detail.options.playerMuted;
+    this.setData({
+      deviceInfo: detail,
+      xp2pInfo: detail.xp2pInfo,
+      useChannelIds: detail.useChannelIds,
+      options: detail.options,
+      isMuted: isMuted,
+      muteIconName: isMuted ? 'sound-mute-1' : 'sound-mute',
+    }, () => {
+      this.userData.player = this.selectComponent('#p2p-live-player-0');
+      this.userData.voiceComponent = this.selectComponent('#iot-p2p-voice');
+    });
+  },
+
+  onPlayStateChange({ detail }: { detail: any }) {
+    if (detail.type === 'playsuccess' && !this.data.isPlaySuccess) {
+      this.setData({ isPlaySuccess: true });
+    } else if (['playstop', 'playend', 'playerror'].includes(detail.type)) {
+      this.setData({ isPlaySuccess: false });
+    }
+  },
+
+  onRecordStateChange({ detail }: { detail: { record: boolean } }) {
+    this.setData({
+      isRecording: detail.record,
+      recordIconColor: detail.record ? '#4CAF50' : '#000000',
+    });
+  },
+
+  onRecordFileStateChange({ detail }: { detail: any }) {
+    if (detail.state === 'SaveSuccess') {
+      wx.showToast({ title: '录像已保存到相册', icon: 'success' });
+    } else if (detail.state === 'Error') {
+      wx.showModal({
+        title: '录像出错',
+        content: `${detail.errType}: ${detail.errMsg || '未知错误'}`,
+        showCancel: false,
+      });
+    }
+  },
+
+  onVoiceStateChange({ detail }: { detail: { voiceState: string } }) {
+    this.setData({
+      voiceState: detail.voiceState,
+      micIconColor: detail.voiceState === 'VoiceSending' ? '#4CAF50' : '#000000',
+    });
+  },
+
+  onVoiceError({ detail }: { detail: any }) {
+    this.setData({ voiceState: 'VoiceIdle', micIconColor: '#000000' });
+    wx.showToast({ title: detail.errMsg || '对讲发生错误', icon: 'none' });
+  },
+
+  toggleRecording() {
+    if (!this.data.isPlaySuccess) {
+      wx.showToast({ title: '请等待视频加载完成', icon: 'none' });
+      return;
+    }
+    if (this.data.isRecording) {
+      this.userData.player?.stopRecordFlv();
+    } else {
+      this.userData.player?.startRecordFlv(recordFlvOptions);
+    }
+  },
+
+  takeSnapshot() {
+    if (!this.data.isPlaySuccess) {
+      wx.showToast({ title: '请等待视频加载完成', icon: 'none' });
+      return;
+    }
+    this.userData.player?.snapshotAndSave();
+  },
+
+  toggleVoice() {
+    if (!this.data.isPlaySuccess) {
+      wx.showToast({ title: '请等待视频加载完成', icon: 'none' });
+      return;
+    }
+    if (this.data.voiceState === 'VoiceIdle') {
+      this.userData.voiceComponent?.startVoice();
+    } else {
+      this.userData.voiceComponent?.stopVoice();
+    }
+  },
+
+  toggleMute() {
+    const newMutedState = !this.data.isMuted;
+    this.setData({
+      isMuted: newMutedState,
+      muteIconName: newMutedState ? 'sound-mute-1' : 'sound-mute',
+    });
+  },
+
+  /**
+   * [修改] 跳转到设置页面，增加 xp2pInfo 参数
+   */
+  goToSettings() {
+    if (!this.data.deviceInfo) {
+      wx.showToast({title: '设备信息未加载', icon: 'none'});
+      return;
+    }
+    // 【关键修改】将 xp2pInfo 编码后传递给设置页面
+    const url = `/pages/camera/setting/index/index?deviceId=${this.data.deviceInfo.deviceId}&xp2pInfo=${encodeURIComponent(this.data.xp2pInfo)}`;
+    wx.navigateTo({
+      url: url,
+      fail: (err) => {
+        console.error('跳转到设置页面失败:', err);
+      }
+    });
+  },
+
+  onTap(e: any) {
+    console.log('Swiper tapped', e);
+  },
+  onChange(e: any) {
+    this.setData({
+      current: e.detail.current,
+    });
+  },
+  onImageLoad(e: any) {
+    console.log('Image loaded', e);
+  },
+});
 ```
 
 ### 文件路径: `src\pages\camera\show\show.wxml`
@@ -3327,6 +4388,7 @@ Page({
   <!-- 视频播放区域 -->
   <view class="w-full bg-black" style="height: 56.25vw;">
     <block wx:if="{{deviceInfo}}">
+      <!-- 【重要】为 p2p-live-player 添加事件绑定 -->
       <p2p-live-player
         wx:for="{{useChannelIds}}"
         wx:key="index"
@@ -3346,124 +4408,125 @@ Page({
         bind:playstatechagne="onPlayStateChange"
         bind:recordstatechange="onRecordStateChange"
         bind:recordfilestatechange="onRecordFileStateChange"
-        bind:recordtap="toggleRecording"
         >
-        <view class="text-white font-bold">
-          CH-{{item}}
-        </view>
       </p2p-live-player>
     </block>
     <view wx:else class="w-full h-full flex items-center justify-center text-white bg-black">
       正在加载设备信息...
     </view>
   </view>
-<view class="main-width bg-white py-6 rounded-b-lg px-4 grid grid-cols-5 gap-4">
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="video-camera-1" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="camera" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="microphone-1" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="sound-mute" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="setting-1" size="28rpx"/>
-</view>
-</view>
-<view class="main-width bg-white py-2 rounded-lg px-4 mt-4 grid grid-cols-7 gap-4">
-<view class="flex flex-row items-center justify-between col-span-5">
-<t-icon name="{{icons.music}}" size="58rpx" />
-<text class="text-sm font-bold">童谣时间</text>
-<text class="text-xs text-gray-400">宝宝今天听点什么呢?</text>
-</view>
-<view class="flex flex-col text-center  col-span-2">
-<t-icon name="music" size="28rpx" color="#9ca3af" />
-<text class="text-xs mt-1 text-gray-400">音乐安抚</text>
-</view>
-</view>
 
+  <!-- 对讲组件 (隐藏) -->
+  <iot-p2p-voice
+    wx:if="{{deviceInfo}}"
+    id="iot-p2p-voice"
+    deviceInfo="{{deviceInfo}}"
+    voiceType="{{options.voiceType}}"
+    showLog="{{options.playerLog}}"
+    bind:voicestatechange="onVoiceStateChange"
+    bind:voiceerror="onVoiceError"
+  />
 
-<view class="main-width mt-4 grid grid-cols-7 gap-4">
-<view class="bg-white rounded-lg py-4 px-4 col-span-3 flex flex-row items-center">
-<t-icon name="{{icons.note}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">生活报告</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">记录宝宝睡眠</text>
-</view>
-</view>
-<view class="bg-white rounded-lg py-2 px-4 col-span-4 flex flex-row items-center">
-<t-icon name="{{icons.switch}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">智能模式 · 睡眠</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">- -</text>
-</view>
-</view>
-<view class="bg-white rounded-lg py-4 px-4 col-span-3">
-<view class="flex flex-row items-center">
-<t-icon name="{{icons.timer}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">睡眠质量</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">检测已关闭</text>
-</view>
-</view>
-<view class="flex flex-col items-center bg-gray-100 mt-2 h-20 justify-center rounded-xl">
-<t-icon name="{{icons.baby}}" size="38rpx" />
-<text class="text-xs text-gray-400 mt-1">未入睡</text>
-</view>
-</view>
-<view class="bg-white rounded-lg py-4 px-4 col-span-4">
-<view class="flex flex-row items-center">
-<t-icon name="{{icons.camera}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">时光相册</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">抓拍宝宝的精彩瞬间</text>
-</view>
-</view>
-<t-swiper
-  current="{{current}}"
-  autoplay="{{autoplay}}"
-  duration="{{duration}}"
-  interval="{{interval}}"
-  navigation="{{ { type: 'dots' } }}"
-  list="{{swiperList}}"
-  bind:click="onTap"
-  bind:change="onChange"
-  bind:image-load="onImageLoad"
-  height="80"
-  t-class="mt-2"
->
-</t-swiper>
-</view>
-</view>
+  <!-- 控制按钮 -->
+  <view class="main-width bg-white py-6 rounded-b-lg px-4 grid grid-cols-5 gap-4 text-center">
+    <!-- 1. 录制视频按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="toggleRecording">
+      <t-icon name="video-camera-1" size="36rpx" color="{{recordIconColor}}"/>
+    </view>
+    <!-- 2. 拍照按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="takeSnapshot">
+      <t-icon name="camera" size="36rpx"/>
+    </view>
+    <!-- 3. 语音对讲按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="toggleVoice">
+      <t-icon name="microphone-1" size="36rpx" color="{{micIconColor}}"/>
+    </view>
+    <!-- 4. 静音切换按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="toggleMute">
+      <t-icon name="{{muteIconName}}" size="36rpx"/>
+    </view>
+    <!-- 5. 设置按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="goToSettings">
+      <t-icon name="setting-1" size="36rpx"/>
+    </view>
+  </view>
 
-<view class="mx-auto flex flex-row items-center mt-6">
-<t-icon name="help-circle" size="24rpx" color="#9ca3af" />
-<text class="text-xs ml-2 text-gray-400">使用教程</text>
-</view>
+  <!-- 页面其他内容 -->
+  <view class="main-width bg-white py-2 rounded-lg px-4 mt-4 grid grid-cols-7 gap-4">
+    <view class="flex flex-row items-center justify-between col-span-5">
+      <t-icon name="{{icons.music}}" size="58rpx" />
+      <text class="text-sm font-bold">童谣时间</text>
+      <text class="text-xs text-gray-400">宝宝今天听点什么呢?</text>
+    </view>
+    <view class="flex flex-col text-center  col-span-2">
+      <t-icon name="music" size="28rpx" color="#9ca3af" />
+      <text class="text-xs mt-1 text-gray-400">音乐安抚</text>
+    </view>
+  </view>
 
-</view>
+  <view class="main-width mt-4 grid grid-cols-7 gap-4">
+    <view class="bg-white rounded-lg py-4 px-4 col-span-3 flex flex-row items-center">
+      <t-icon name="{{icons.note}}" size="58rpx" />
+      <view class="ml-2 flex flex-col">
+        <text class="text-sm font-bold">生活报告</text>
+        <view class="h-px w-full bg-gray-200 my-1"></view>
+        <text class="text-xs text-gray-400">记录宝宝睡眠</text>
+      </view>
+    </view>
+    <view class="bg-white rounded-lg py-2 px-4 col-span-4 flex flex-row items-center">
+      <t-icon name="{{icons.switch}}" size="58rpx" />
+      <view class="ml-2 flex flex-col">
+        <text class="text-sm font-bold">智能模式 · 睡眠</text>
+        <view class="h-px w-full bg-gray-200 my-1"></view>
+        <text class="text-xs text-gray-400">- -</text>
+      </view>
+    </view>
+    <view class="bg-white rounded-lg py-4 px-4 col-span-3">
+      <view class="flex flex-row items-center">
+        <t-icon name="{{icons.timer}}" size="58rpx" />
+        <view class="ml-2 flex flex-col">
+          <text class="text-sm font-bold">睡眠质量</text>
+          <view class="h-px w-full bg-gray-200 my-1"></view>
+          <text class="text-xs text-gray-400">检测已关闭</text>
+        </view>
+      </view>
+      <view class="flex flex-col items-center bg-gray-100 mt-2 h-20 justify-center rounded-xl">
+        <t-icon name="{{icons.baby}}" size="38rpx" />
+        <text class="text-xs text-gray-400 mt-1">未入睡</text>
+      </view>
+    </view>
+    <view class="bg-white rounded-lg py-4 px-4 col-span-4">
+      <view class="flex flex-row items-center">
+        <t-icon name="{{icons.camera}}" size="58rpx" />
+        <view class="ml-2 flex flex-col">
+          <text class="text-sm font-bold">时光相册</text>
+          <view class="h-px w-full bg-gray-200 my-1"></view>
+          <text class="text-xs text-gray-400">抓拍宝宝的精彩瞬间</text>
+        </view>
+      </view>
+      <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{ { type: 'dots' } }}" list="{{swiperList}}" bind:click="onTap" bind:change="onChange" bind:image-load="onImageLoad" height="80" t-class="mt-2">
+      </t-swiper>
+    </view>
+  </view>
 
+  <view class="mx-auto flex flex-row items-center mt-6">
+    <t-icon name="help-circle" size="24rpx" color="#9ca3af" />
+    <text class="text-xs ml-2 text-gray-400">使用教程</text>
+  </view>
 
-<view class="wrapper">
-  <t-tab-bar t-class="t-tab-bar" defaultValue="label1" split="{{false}}">
-    <t-tab-bar-item value="label1" icon="camera-1">
-      首页
-    </t-tab-bar-item>
-    <t-tab-bar-item value="label2" icon="camera-1">
-      消息
-    </t-tab-bar-item>
-    <t-tab-bar-item value="label4" icon="image">
-      媒体库
-    </t-tab-bar-item>
-  </t-tab-bar>
+  <view class="wrapper">
+    <t-tab-bar t-class="t-tab-bar" defaultValue="label1" split="{{false}}">
+      <t-tab-bar-item value="label1" icon="camera-1">
+        首页
+      </t-tab-bar-item>
+      <t-tab-bar-item value="label2" icon="camera-1">
+        消息
+      </t-tab-bar-item>
+      <t-tab-bar-item value="label4" icon="image">
+        媒体库
+      </t-tab-bar-item>
+    </t-tab-bar>
+  </view>
 </view>
 ```
 
@@ -4263,18 +5326,44 @@ Page({
     this.connectDevice_event();
   },
 
-  pages_to(e: WechatMiniprogram.BaseEvent) {
+ pages_to(e: WechatMiniprogram.BaseEvent) {
     const url = e.currentTarget.dataset.url;
-    // 点击菜单项后，先关闭菜单再跳转
-    this.hideNavPopup();
-    this.hide_popu(); // 同时关闭另一个popup
-
     if (url === 'camera') {
-      // Handle camera logic
-      console.log('Camera button clicked');
-    } else {
-      wx.navigateTo({ url });
+      // 1. 确保设备列表不为空
+      if (this.data.deviceList.length === 0) {
+        wx.showToast({ title: '没有可操作的设备', icon: 'none' });
+        return;
+      }
+
+      // 2. 获取当前选中的设备信息
+      const currentDevice = this.data.deviceList[this.data.deviceCurrent];
+      if (!currentDevice) {
+        wx.showToast({ title: '无法获取当前设备信息', icon: 'none' });
+        return;
+      }
+
+      // 3. 判断 cameraId 是否存在且有效（不为 0 或 null）
+      if (currentDevice.cameraId) {
+        // 如果存在，跳转到摄像头展示页
+        console.log(`摄像头存在，ID: ${currentDevice.cameraId}。跳转到 show 页面。`);
+        wx.navigateTo({
+          url: `/pages/camera/show/show?id=${currentDevice.cameraId}`
+        });
+      } else {
+        // 如果不存在，跳转到设备搜索页
+        console.log(`摄像头不存在。跳转到 afterSearch 页面，并传递床的ID: ${currentDevice.id}`);
+        wx.navigateTo({
+          url: `/pages/afterSearch/afterSearch?id=${currentDevice.id}`
+        });
+      }
+
+      // 处理完 camera 的逻辑后，直接返回，不再执行后续通用逻辑
+      return;
     }
+    this.hideNavPopup();
+    this.hide_popu();
+
+    wx.navigateTo({ url });
   },
 
   onScan() {
@@ -6315,96 +7404,54 @@ Page({
 ### 文件路径: `src\components\iot-player-controls\iot-player-controls.ts`
 
 ```ts
-Component({
-
-  behaviors: ['wx://component-export'],
-
-  properties: {
-
-    showIcons: Object,
-
-    iconSize: { type: Number, value: 25 },
-
-    quality: String,
-
-    muted: Boolean,
-
-    orientation: String,
-
-    rotate: Number,
-
-    fill: Boolean,
-
-    fullScreen: Boolean,
-
-    record: Boolean,
-
-  },
-
-  methods: {
-
-    clickIcon({ currentTarget: { dataset } }) {
-
-      this.triggerEvent('clickicon', { name: dataset.name });
-
-    },
-
-  },
-
+Component({
+  behaviors: ['wx://component-export'],
+  properties: {
+    showIcons: Object,
+    iconSize: { type: Number, value: 25 },
+    quality: String,
+    muted: Boolean,
+    orientation: String,
+    rotate: Number,
+    fill: Boolean,
+    fullScreen: Boolean,
+    record: Boolean,
+  },
+  methods: {
+    clickIcon({ currentTarget: { dataset } }) {
+      this.triggerEvent('clickicon', { name: dataset.name });
+    },
+  },
 });
 ```
 
 ### 文件路径: `src\components\iot-player-controls\iot-player-controls.wxml`
 
 ```wxml
-<view class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-30 text-white flex items-center justify-between">
-
-  <!-- Left Slot -->
-
-  <view class="flex items-center space-x-4">
-
-    <slot></slot>
-
-  </view>
-
-
-
-  <!-- Right Icons -->
-
-  <view class="flex items-center space-x-4">
-
-    <view wx:if="{{showIcons.muted}}" class="w-8 h-8 flex items-center justify-center" data-name="muted" bind:tap="clickIcon">
-
-      <image class="w-6 h-6" src="{{muted ? './images/volume-off.svg' : './images/volume-up.svg'}}"/>
-
-    </view>
-
-    <view wx:if="{{showIcons.orientation}}" class="w-8 h-8 flex items-center justify-center font-bold" data-name="orientation" bind:tap="clickIcon">
-
-      {{orientation === 'horizontal' ? 'H' : 'V'}}
-
-    </view>
-
-    <view wx:if="{{showIcons.fill}}" class="w-8 h-8 flex items-center justify-center font-bold text-xs" data-name="fill" bind:tap="clickIcon">
-
-      {{fill ? 'FILL' : 'FIT'}}
-
-    </view>
-
-    <view wx:if="{{showIcons.snapshot}}" class="w-8 h-8 flex items-center justify-center" data-name="snapshot" bind:tap="clickIcon">
-
-       <image class="w-6 h-6" src="./images/camera.svg"/>
-
-    </view>
-
-    <view wx:if="{{showIcons.fullScreen}}" class="w-8 h-8 flex items-center justify-center" data-name="fullScreen" bind:tap="clickIcon">
-
-      <image class="w-6 h-6" src="{{fullScreen ? './images/fullscreen-exit.svg' : './images/fullscreen-enter.svg'}}"/>
-
-    </view>
-
-  </view>
-
+<view class="absolute bottom-0 left-0 right-0 p-2 bg-black bg-opacity-30 text-white flex items-center justify-between">
+  <!-- Left Slot -->
+  <view class="flex items-center space-x-4">
+    <slot></slot>
+  </view>
+
+  <!-- Right Icons -->
+  <view class="flex items-center space-x-4">
+    <view wx:if="{{showIcons.muted}}" class="w-8 h-8 flex items-center justify-center" data-name="muted" bind:tap="clickIcon">
+      <image class="w-6 h-6" src="{{muted ? './images/volume-off.svg' : './images/volume-up.svg'}}"/>
+    </view>
+    <view wx:if="{{showIcons.orientation}}" class="w-8 h-8 flex items-center justify-center font-bold" data-name="orientation" bind:tap="clickIcon">
+      {{orientation === 'horizontal' ? 'H' : 'V'}}
+    </view>
+    <view wx:if="{{showIcons.fill}}" class="w-8 h-8 flex items-center justify-center font-bold text-xs" data-name="fill" bind:tap="clickIcon">
+      {{fill ? 'FILL' : 'FIT'}}
+    </view>
+    <view wx:if="{{showIcons.snapshot}}" class="w-8 h-8 flex items-center justify-center" data-name="snapshot" bind:tap="clickIcon">
+       <image class="w-6 h-6" src="./images/camera.svg"/>
+    </view>
+    <view wx:if="{{showIcons.fullScreen}}" class="w-8 h-8 flex items-center justify-center" data-name="fullScreen" bind:tap="clickIcon">
+      <image class="w-6 h-6" src="{{fullScreen ? './images/fullscreen-exit.svg' : './images/fullscreen-enter.svg'}}"/>
+    </view>
+  </view>
 </view>
 ```
 
@@ -6443,18 +7490,12 @@ Component({
 ### 文件路径: `src\components\p2p-live-player\p2p-live-player.json`
 
 ```json
-{
-
-  "component": true,
-
-  "usingComponents": {
-
-    "iot-p2p-player-with-mjpg": "plugin://xp2p/iot-p2p-player-with-mjpg",
-
-    "iot-player-controls": "../iot-player-controls/iot-player-controls"
-
-  }
-
+{
+  "component": true,
+  "usingComponents": {
+    "iot-p2p-player-with-mjpg": "plugin://xp2p/iot-p2p-player-with-mjpg",
+    "iot-player-controls": "../iot-player-controls/iot-player-controls"
+  }
 }
 ```
 
@@ -6678,6 +7719,74 @@ Component({
 </view>
 ```
 
+### 文件路径: `src\lib\cameraService.ts`
+
+```ts
+import { getXp2pManager } from './xp2pManager';
+
+interface ActiveDevice {
+  deviceId: string;
+  xp2pManager: any; // 声明为 any 类型以简化，实际应为 IXp2pManager
+}
+
+class CameraService {
+  private activeDevice: ActiveDevice | null = null;
+
+  /**
+   * 当进入摄像头实时监控页面并成功连接后，调用此方法进行注册
+   * @param deviceId - 当前活动设备的 deviceId
+   */
+  public setActiveDevice(deviceId: string) {
+    this.activeDevice = {
+      deviceId,
+      xp2pManager: getXp2pManager(),
+    };
+    console.log('[CameraService] A-ctive device set:', this.activeDevice.deviceId);
+  }
+
+  /**
+   * 清除当前活动的设备信息，在退出监控页面时调用
+   */
+  public clearActiveDevice() {
+    console.log('[CameraService] Active device cleared.');
+    this.activeDevice = null;
+  }
+
+  /**
+   * 获取当前活动的设备ID
+   * @returns 当前设备ID或 null
+   */
+  public getActiveDeviceId(): string | null {
+    return this.activeDevice ? this.activeDevice.deviceId : null;
+  }
+
+  /**
+   * 全局发送指令的方法
+   * 所有设置页面都应调用此方法来控制设备
+   * @param cmd - 纯指令部分，例如 "UYTKZ,UP,1"
+   * @returns Promise<any>
+   */
+  public sendCommand(cmd: string): Promise<any> {
+    if (!this.activeDevice || !this.activeDevice.xp2pManager) {
+      console.error('[CameraService] Error: No active device to send command to.');
+      wx.showToast({ title: '设备未连接', icon: 'none' });
+      return Promise.reject(new Error('No active device'));
+    }
+
+    // 统一添加 ",MYBABY" 后缀和腾讯云IoT P2P插件所需的前缀
+    const commandString = `action=user_define&cmd=${cmd},MYBABY`;
+
+    console.log('[CameraService] Sending command:', commandString);
+
+    return this.activeDevice.xp2pManager.sendCommand(this.activeDevice.deviceId, commandString);
+  }
+}
+
+// 导出单例
+const cameraService = new CameraService();
+export default cameraService;
+```
+
 ### 文件路径: `src\lib\logger.ts`
 
 ```ts
@@ -6770,29 +7879,3 @@ module.exports = {
 };
 ```
 
-### 文件路径: `src\exportForXp2pPlugin.js`
-
-```js
-const appParams = {
-  appid: 1253131157,
-  appOauthId: '600a4206062556e21befdc98',
-  appKey: 'pMqRNpU3M4wOA2BY',
-  appSecretKey: 'b62XcOoDcvJOgnibM8iKFVgVsXcdxNda',
-  appPackage: 'ios.test.com',
-};
-
-module.exports = {
-  wx,
-  getXp2pAppParams() {
-    return appParams;
-  },
-  getXp2pConfig() {
-    return {
-      enableCrypto: true, // p2p传输是否加密，不传默认开启
-    };
-  },
-  getPlayerPlugin() {
-    return requirePlugin('wechat-p2p-player');
-  },
-};
-```

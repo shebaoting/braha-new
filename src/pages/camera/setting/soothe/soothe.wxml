@@ -1,13 +1,22 @@
 <view>
-<t-cell title="啼哭检测" hover description="开启后，海马爸比检测到哭声时记录视频并提醒">
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
-<t-cell title="音乐安抚" hover description="检测到哭声时，自动播放安抚音乐">
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
-<t-cell title="安抚时间段" hover description="仅在设置时间段进行音乐安抚" note="08:00-09:00"/>
-<t-cell title="检测灵敏度" hover>
-  <t-switch defaultValue="{{true}}" size="small" slot="note" />
-</t-cell>
-<t-cell title="音乐" hover arrow note="随机" />
+    <t-cell title="啼哭检测" hover description="开启后，海马爸比检测到哭声时记录视频并提醒">
+      <t-switch value="{{deviceStatus.BABY_CRY_APPEASE}}" size="small" slot="note" bind:change="onCryDetectChange" />
+    </t-cell>
+    <t-cell title="音乐安抚" hover description="检测到哭声时，自动播放安抚音乐">
+      <t-switch value="{{deviceStatus.MUSIC_APPEASING}}" size="small" slot="note" bind:change="onMusicAppeasingChange" />
+    </t-cell>
+    <t-cell title="安抚时间段" hover arrow note="{{deviceStatus.CRYDET_TIME}}" bind:click="showTimePicker" />
+    <t-cell title="检测灵敏度" hover arrow note="{{senseMap[deviceStatus.CRY_DETECT_SENSE]}}" bind:click="showSensePicker" />
+    <t-cell title="音乐" hover arrow note="{{deviceStatus.CRY_APPEASE_SONG === 'auto' ? '随机' : deviceStatus.CRY_APPEASE_SONG}}" bind:click="showMusicPicker" />
+
 </view>
+
+<t-cascader
+  visible="{{isTimePickerVisible}}"
+  title="选择安抚时间段"
+  sub-titles="{{['开始时间', '结束时间']}}"
+  options="{{timeOptions}}"
+  value="{{cascaderValue}}"
+  bind:change="onTimeChange"
+  bind:close="hideTimePicker"
+/>

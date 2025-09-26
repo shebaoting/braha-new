@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "p2p-live-player": "../../../../components/p2p-live-player/p2p-live-player"
+  },
   "navigationBarTitleText": "画面设置",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTextStyle": "black"

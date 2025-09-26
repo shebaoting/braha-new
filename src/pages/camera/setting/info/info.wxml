@@ -1,8 +1,21 @@
 <view>
-<t-cell title="摄像机型号" note="SC-AI18" />
-<t-cell title="固件版本" note="v20250224" />
-<t-cell title="WIFI名称" note="yanbao-5G" />
-<t-cell title="信号强度" note="55%" />
-<t-cell title="IP地址" note="192.168.1.5" />
-<t-cell title="MAC流媒体地址" note="70:3a:d5:01:01:01" />
+  <block wx:if="{{isLoading}}">
+    <view class="text-center text-gray-500 py-10">正在加载设备信息...</view>
+  </block>
+
+  <block wx:elif="{{deviceInfo}}">
+
+      <t-cell title="摄像机型号" note="{{deviceInfo.CAMERA_MODEL || '-'}}" />
+      <t-cell title="固件版本" note="{{deviceInfo.VER ? deviceInfo.VER.split('/')[0] : '-'}}" />
+      <t-cell title="WIFI名称" note="{{deviceInfo.WIFI_SSID || '-'}}" />
+      <t-cell title="信号强度" note="{{deviceInfo.WIFI_SIGNAL ? deviceInfo.WIFI_SIGNAL : '-'}}" />
+      <t-cell title="IP地址" note="{{deviceInfo.IP_ADDR || '-'}}" />
+      <t-cell title="MAC地址" note="{{deviceInfo.MAC_ADDR || '-'}}" />
+      <t-cell title="设备ID (ChipID)" note="{{deviceInfo.DEVID || '-'}}" />
+
+  </block>
+
+  <block wx:else>
+    <view class="text-center text-red-500 py-10">加载设备信息失败，请返回重试。</view>
+  </block>
 </view>
