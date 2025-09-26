@@ -4,7 +4,6 @@ import User from '../models/user'
 import { userAccountApi } from './../utils/api'
 
 class UserStore extends Store {
-  // 新增：用于追踪初始化 Promise
   _initPromise: Promise<void> | null = null
 
   constructor() {
@@ -12,83 +11,79 @@ class UserStore extends Store {
     this.data = new User({})
   }
 
-  // 修改：初始化方法，获取用户信息，并确保只执行一次异步请求
-  // 添加 forceFetch 参数，允许强制从后端拉取最新数据
   async init(forceFetch = false): Promise<void> {
     console.log(`UserStore init called. forceFetch: ${forceFetch}`)
 
-    // 如果已经有进行中的初始化 Promise，直接返回它
     if (this._initPromise) {
-      console.log(
-        'UserStore init: Initialization already in progress, returning existing promise.',
-      )
-      // 如果是强制刷新请求，但正在进行的是非强制刷新，这可能需要更复杂的逻辑来处理优先级，
-      // 但简单起见，我们这里只等待当前进行中的初始化完成。
+      console.log('UserStore init: Initialization already in progress, returning existing promise.')
       return this._initPromise
     }
 
-    // 如果不是强制刷新，并且用户数据（至少有ID）已经加载，直接返回一个已解决的 Promise
-    // 这个条件现在包含了 forceFetch 的判断
-    if (!forceFetch && this.data.userInfo?.id) {
-      console.log(
-        'UserStore init: User info already loaded and forceFetch is false, skipping fetch.',
-      )
+    // [!code focus]
+    if (!forceFetch && this.data.userInfo?.ID) {
+      console.log('UserStore init: User info already loaded and forceFetch is false, skipping fetch.')
       return Promise.resolve()
     }
 
-    // 开始一个新的初始化流程，创建并存储 Promise
     const fetchPromise = (async () => {
       console.log('UserStore init: Starting new fetch process...')
       try {
-        // 调用后端接口获取最新用户信息
         const userInfoRes = await userAccountApi.getMiniprogramUserInfo()
-        console.log('UserStore init: userApi.me response:', userInfoRes)
-        if (userInfoRes.data?.status === 'success' && userInfoRes.data?.data) {
-          // 获取成功，更新 Store 中的用户信息
-          this.data.setUserInfo(userInfoRes.data.data)
+
+        // [!code block]
+        // [!code focus]
+        // --- 核心调试日志 ---
+        // 1. 打印从 request.ts 收到的最原始的数据结构
+        console.log('[调试日志 1] UserStore 从 API 收到的原始响应: ', JSON.stringify(userInfoRes, null, 2));
+
+        // 2. 打印出将要用于判断的各个部分
+        console.log('[调试日志 2] 判断条件 A (userInfoRes.data?.code):', userInfoRes.data?.code);
+        console.log('[调试日志 3] 判断条件 B (userInfoRes.data?.data?.user):', userInfoRes.data?.data?.user);
+        // [!code focus]
+        // [!code block]
+
+
+        if (userInfoRes.data?.code === 0 && userInfoRes.data?.data?.user) {
+          console.log('[调试日志 4] 条件判断成功，准备设置用户信息。');
+          this.data.setUserInfo(userInfoRes.data.data.user)
           console.log('UserStore init: User info fetched and set successfully.')
         } else {
-          // API 返回非成功状态，记录警告
+          // [!code focus]
+          console.error('[调试日志 5] 条件判断失败！未能进入设置用户信息的逻辑。请检查日志2和日志3。');
           console.warn(
             'UserStore init: Failed to fetch user info from API, status not success:',
-            userInfoRes.data?.message || 'Unknown API error',
+            userInfoRes.data?.msg || 'Unknown API error',
             userInfoRes,
           )
-          // 在 API 返回非成功状态时，清空本地用户信息，确保状态是未加载
           this.data.setUserInfo(null)
         }
+
       } catch (e: any) {
-        // 网络错误或服务器错误，记录错误
+        // [!code focus]
+        console.error('!!!!!!!!!! [调试日志 6] AN ERROR WAS CAUGHT in user-store init !!!!!!!!!!!', e);
         console.error(
           'UserStore init: Failed to fetch user info (network or server error):',
           e,
         )
-        // 在网络或服务器错误时，同样清空本地用户信息
         this.data.setUserInfo(null)
-        // 可以选择重新抛出错误，让调用者知道初始化失败了
-        // throw e; // 如果支付成功后拉取用户信息失败不希望中断后续流程，可以不抛出
       } finally {
-        // 无论成功还是失败，都在这里触发 store 更新，通知所有监听者
-        // 即使数据为 null，update 也会触发，让页面更新到加载失败的状态
-        this.update() // 触发 update 以刷新视图
-        // 在异步操作完成后清除 promise，允许下次 init 调用时重新 fetch (或使用缓存)
+        this.update()
         this._initPromise = null
         console.log(
           'UserStore init: Fetch process finished, _initPromise cleared.',
         )
       }
-    })() // 立即执行这个异步函数
+    })()
 
-    this._initPromise = fetchPromise // 存储这个 Promise
-    return fetchPromise // 返回 Promise
+    this._initPromise = fetchPromise
+    return fetchPromise
   }
 
   updateUserInfo(userInfo: any) {
     this.data.setUserInfo(userInfo)
-    this.update() // 更新数据后触发 update
+    this.update()
   }
 
-  // 重写update方法，更新视图
   update() {
     super.update()
   }

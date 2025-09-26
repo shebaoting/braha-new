@@ -1,47 +1,37 @@
-// pages/mine/mine.ts
-
-// 假设 App 的 globalData 结构
-interface IAppOption {
-  globalData: {
-    userInfo?: any;
-    isLogin?: boolean;
-  }
-}
-
-const app = getApp<IAppOption>();
+// src/pages/mine/mine.ts
+import userStore from '../../stores/user-store';
 
 Page({
   data: {
-    avatarUrl: 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/mine/avatar.png',
     userInfo: null as any,
   },
 
-  onShow() {
+  onLoad() {
+        this.setData({
+      userInfo: userStore.data.userInfo,
+    });
+  },
 
+
+  onShow() {
     if (this.getTabBar() && this.getTabBar().init) {
       this.getTabBar().init()
     }
 
-    // 页面显示时，从全局数据更新用户信息
-    const userInfo = app.globalData.userInfo;
-    this.setData({
-      userInfo: userInfo,
-      avatarUrl: userInfo?.avatar || 'http://braha.oss-cn-beijing.aliyuncs.com/app_info/images/mine/avatar.png'
-    });
+    userStore.init();
   },
 
   /**
-   * 检查登录状态并跳转
-   * 如果已登录，跳转到用户信息页；否则，触发登录流程
+   * 跳转到用户信息编辑页
    */
   logincheck() {
-    if (app.globalData.isLogin) {
+    if (this.data.userInfo) {
       wx.navigateTo({ url: '/pages/mine/userInfo/userInfo' });
     } else {
-      // 调用全局登录处理函数
-      // loginManager();
-      console.log("需要触发登录流程");
-      wx.navigateTo({ url: '/pages/login/login' }); // 假设跳转到登录页
+      wx.showToast({
+        title: '正在获取用户信息...',
+        icon: 'none'
+      });
     }
   },
 
@@ -52,12 +42,14 @@ Page({
     const url = event.currentTarget.dataset.url;
     if (!url) return;
 
-    if (app.globalData.isLogin) {
+    // 由于是静默登录，直接判断是否有用户信息即可
+    if (this.data.userInfo) {
       wx.navigateTo({ url });
     } else {
-      // loginManager();
-      console.log("需要触发登录流程");
-      wx.navigateTo({ url: '/pages/login/login' }); // 假设跳转到登录页
+       wx.showToast({
+        title: '正在获取用户信息...',
+        icon: 'none'
+      });
     }
   },
 
@@ -67,6 +59,13 @@ Page({
   set_user() {
     wx.navigateTo({ url: '/pages/mine/userInfo/userInfo' });
   },
+
+  onUnload() {
+
+    userStore.remove(this);
+  },
+
+
 
   /**
    * 页面分享
