@@ -1,16 +1,15 @@
 import { cameraApi } from '../../../utils/api';
 import { isDevTool } from '../../../utils/util';
 import { getXp2pManager } from '../../../lib/xp2pManager';
-import cameraService from '../../../lib/cameraService'; // 引入全局服务
+import cameraService from '../../../lib/cameraService';
 
 const app = getApp();
-// 使用全局日志记录器或 console
+const console = app.logger || console;
 
-// 录制视频的配置
 const recordFlvOptions = {
   maxFileSize: 100 * 1024 * 1024,
   needAutoStartNextIfFull: false,
-  needSaveToAlbum: true, // 录制后自动保存到相册
+  needSaveToAlbum: true,
   needKeepFile: wx.getAccountInfoSync().miniProgram.envVersion === 'develop',
   showLog: true,
 };
@@ -20,8 +19,8 @@ Page({
     cameraId: null as number | null,
     deviceInfo: null as any,
     xp2pInfo: '',
-    useChannelIds: [0], // 默认使用通道0
-    options: { // 提供一个默认的 options 对象，用于驱动组件
+    useChannelIds: [0],
+    options: {
       liveQuality: 'high',
       playerRTC: true,
       playerMuted: false,
@@ -31,21 +30,17 @@ Page({
       supportPTZ: true,
       supportCustomCommand: true,
     },
-    // ---- 状态标志位 ----
-    isPlaySuccess: false, // 视频是否播放成功
+    isPlaySuccess: false,
     isMuted: false,
     isRecording: false,
-    voiceState: 'VoiceIdle', // 对讲状态: VoiceIdle, VoiceSending
-    // --- UI 控制 ---
+    voiceState: 'VoiceIdle',
     onlyp2pMap: {
       flv: isDevTool,
       mjpg: isDevTool,
     },
-    recordIconColor: '#000000', // 录制按钮颜色，默认为黑色
-    micIconColor: '#000000', // 对讲按钮颜色，默认为黑色
-    muteIconName: 'sound-mute', // 静音按钮图标
-
-    // 来自 index 页面的模拟数据，实际项目中应通过 options 传入
+    recordIconColor: '#000000',
+    micIconColor: '#000000',
+    muteIconName: 'sound-mute',
     icons: {
       books: '/assets/images/books.svg',
       music: '/assets/images/music.svg',
@@ -65,13 +60,12 @@ Page({
     ],
   },
 
-  // ---- 页面/组件实例 ----
   userData: {
     deviceId: '',
     xp2pManager: null as any,
-    pageId: `camera-show-page-${Date.now()}`, // 保证页面ID唯一
-    player: null as any, // 播放器组件实例
-    voiceComponent: null as any, // 语音对讲组件实例
+    pageId: `camera-show-page-${Date.now()}`,
+    player: null as any,
+    voiceComponent: null as any,
   },
 
   onLoad(options: { id?: string }) {
@@ -85,14 +79,15 @@ Page({
     }
   },
 
-  // [修正] onReady 中不再获取组件实例，因为它为时过早
-  onReady() {},
+  onReady() {
+    this.userData.player = this.selectComponent('#p2p-live-player-0');
+    this.userData.voiceComponent = this.selectComponent('#iot-p2p-voice');
+  },
 
   onUnload() {
     if (this.userData.deviceId) {
       this.userData.xp2pManager.stopP2PService(this.userData.deviceId, this.userData.pageId);
     }
-    // 清理全局服务中的设备信息
     cameraService.clearActiveDevice();
     this.userData.xp2pManager.checkReset();
   },
@@ -135,7 +130,6 @@ Page({
 
   onStartPlayer({ detail }: { detail: any }) {
     this.userData.deviceId = detail.deviceId;
-
     this.userData.xp2pManager.startP2PService({
       p2pMode: detail.p2pMode,
       deviceInfo: {
@@ -162,32 +156,20 @@ Page({
       isMuted: isMuted,
       muteIconName: isMuted ? 'sound-mute-1' : 'sound-mute',
     }, () => {
-      // [修正] 在 setData 的回调中获取组件实例，确保组件已渲染
       this.userData.player = this.selectComponent('#p2p-live-player-0');
       this.userData.voiceComponent = this.selectComponent('#iot-p2p-voice');
-      console.log('【调试】setData回调: 获取到的播放器组件实例:', this.userData.player);
-      console.log('【调试】setData回调: 获取到的语音组件实例:', this.userData.voiceComponent);
-
-      if (!this.userData.player || !this.userData.voiceComponent) {
-        console.error('【严重错误】在setData回调中仍无法获取组件实例，请检查WXML！');
-      }
     });
   },
 
-  // --- 事件处理 ---
   onPlayStateChange({ detail }: { detail: any }) {
-    console.log('【调试】onPlayStateChange 事件触发:', detail);
     if (detail.type === 'playsuccess' && !this.data.isPlaySuccess) {
       this.setData({ isPlaySuccess: true });
-      console.log('【调试】视频播放成功！isPlaySuccess 已设置为 true。');
     } else if (['playstop', 'playend', 'playerror'].includes(detail.type)) {
       this.setData({ isPlaySuccess: false });
-      console.log('【调试】视频播放停止或出错。isPlaySuccess 已设置为 false。');
     }
   },
 
   onRecordStateChange({ detail }: { detail: { record: boolean } }) {
-    console.log('【调试】onRecordStateChange 事件触发:', detail);
     this.setData({
       isRecording: detail.record,
       recordIconColor: detail.record ? '#4CAF50' : '#000000',
@@ -195,7 +177,6 @@ Page({
   },
 
   onRecordFileStateChange({ detail }: { detail: any }) {
-    console.log('【调试】onRecordFileStateChange 事件触发:', detail.state, detail);
     if (detail.state === 'SaveSuccess') {
       wx.showToast({ title: '录像已保存到相册', icon: 'success' });
     } else if (detail.state === 'Error') {
@@ -208,7 +189,6 @@ Page({
   },
 
   onVoiceStateChange({ detail }: { detail: { voiceState: string } }) {
-    console.log('【调试】onVoiceStateChange 事件触发:', detail);
     this.setData({
       voiceState: detail.voiceState,
       micIconColor: detail.voiceState === 'VoiceSending' ? '#4CAF50' : '#000000',
@@ -216,22 +196,15 @@ Page({
   },
 
   onVoiceError({ detail }: { detail: any }) {
-    console.error('【调试】onVoiceError 事件触发:', detail);
     this.setData({ voiceState: 'VoiceIdle', micIconColor: '#000000' });
     wx.showToast({ title: detail.errMsg || '对讲发生错误', icon: 'none' });
   },
 
-  // --- 按钮点击事件实现 ---
   toggleRecording() {
-    console.log('【调试】toggleRecording 点击');
     if (!this.data.isPlaySuccess) {
-      console.warn('【调试】操作中断：视频尚未播放成功 (isPlaySuccess: false)');
       wx.showToast({ title: '请等待视频加载完成', icon: 'none' });
       return;
     }
-    console.log('【调试】isPlaySuccess 检查通过，准备切换录像状态。当前录制状态:', this.data.isRecording);
-    console.log('【调试】将要调用的播放器实例:', this.userData.player);
-
     if (this.data.isRecording) {
       this.userData.player?.stopRecordFlv();
     } else {
@@ -240,28 +213,18 @@ Page({
   },
 
   takeSnapshot() {
-    console.log('【调试】takeSnapshot 点击');
     if (!this.data.isPlaySuccess) {
-      console.warn('【调试】操作中断：视频尚未播放成功 (isPlaySuccess: false)');
       wx.showToast({ title: '请等待视频加载完成', icon: 'none' });
       return;
     }
-    console.log('【调试】isPlaySuccess 检查通过，准备拍照。');
-    console.log('【调试】将要调用的播放器实例:', this.userData.player);
-
     this.userData.player?.snapshotAndSave();
   },
 
   toggleVoice() {
-    console.log('【调试】toggleVoice 点击');
     if (!this.data.isPlaySuccess) {
-      console.warn('【调试】操作中断：视频尚未播放成功 (isPlaySuccess: false)');
       wx.showToast({ title: '请等待视频加载完成', icon: 'none' });
       return;
     }
-    console.log('【调试】isPlaySuccess 检查通过，准备切换对讲状态。当前对讲状态:', this.data.voiceState);
-    console.log('【调试】将要调用的语音组件实例:', this.userData.voiceComponent);
-
     if (this.data.voiceState === 'VoiceIdle') {
       this.userData.voiceComponent?.startVoice();
     } else {
@@ -270,7 +233,6 @@ Page({
   },
 
   toggleMute() {
-    console.log('【调试】toggleMute 点击');
     const newMutedState = !this.data.isMuted;
     this.setData({
       isMuted: newMutedState,
@@ -278,18 +240,24 @@ Page({
     });
   },
 
+  /**
+   * [修改] 跳转到设置页面，增加 xp2pInfo 参数
+   */
   goToSettings() {
-    console.log('【调试】goToSettings 点击');
     if (!this.data.deviceInfo) {
       wx.showToast({title: '设备信息未加载', icon: 'none'});
       return;
     }
+    // 【关键修改】将 xp2pInfo 编码后传递给设置页面
+    const url = `/pages/camera/setting/index/index?deviceId=${this.data.deviceInfo.deviceId}&xp2pInfo=${encodeURIComponent(this.data.xp2pInfo)}`;
     wx.navigateTo({
-      url: `/pages/camera/setting/index/index?deviceId=${this.data.deviceInfo.deviceId}`
+      url: url,
+      fail: (err) => {
+        console.error('跳转到设置页面失败:', err);
+      }
     });
   },
 
-  // --- Swiper and other placeholder methods ---
   onTap(e: any) {
     console.log('Swiper tapped', e);
   },

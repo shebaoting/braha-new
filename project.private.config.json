@@ -13,7 +13,7 @@
         {
           "name": "摄像头设置",
           "pathName": "pages/camera/setting/index/index",
-          "query": "deviceId=rk6f6b33231756ad19",
+          "query": "deviceId=rk6f6b33231756ad19&xp2pInfo=XP2PwuRT1Unv%252FilmJg0f9uW%252B2Q%253D%253D%25252.4.50",
           "scene": null,
           "launchMode": "default"
         },
