@@ -17,6 +17,9 @@
 <t-cell title="显示AI检测框" description="开启后，画面中显示人脸/移动检测的识别框" >
   <t-switch defaultValue="{{true}}" size="small" slot="note" />
 </t-cell>
+<t-cell title="啼哭安抚" hover arrow description="检测到宝宝啼哭时，将记录视频并提醒" />
+
+
 </view>
 <text class="text-sm ml-4 text-gray-400 mt-4">系统设置</text>
 <view class="mt-2">

@@ -23,7 +23,8 @@
     "pages/camera/setting/name/name",
     "pages/camera/setting/list/list",
     "pages/camera/setting/view/view",
-    "pages/camera/setting/info/info"
+    "pages/camera/setting/info/info",
+    "pages/camera/setting/soothe/soothe"
   ],
   "window": {},
   "tabBar": {

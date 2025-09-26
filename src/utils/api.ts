@@ -45,6 +45,13 @@ export const cameraApi = {
   getDeviceTriple: (params: { deviceId: string }) =>
     request.get('/camera/deviceTriple', params),
 
+
+    /**
+   * 获取单个摄像头信息
+   */
+  getCameraInfo: (params: { id: string }) =>
+    request.get('/camera/info', params),
+
   /**
    * 获取用户所有设备的事件列表
    */

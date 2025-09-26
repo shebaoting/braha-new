@@ -1,0 +1,13 @@
+<view>
+<t-cell title="啼哭检测" hover description="开启后，海马爸比检测到哭声时记录视频并提醒">
+  <t-switch defaultValue="{{true}}" size="small" slot="note" />
+</t-cell>
+<t-cell title="音乐安抚" hover description="检测到哭声时，自动播放安抚音乐">
+  <t-switch defaultValue="{{true}}" size="small" slot="note" />
+</t-cell>
+<t-cell title="安抚时间段" hover description="仅在设置时间段进行音乐安抚" note="08:00-09:00"/>
+<t-cell title="检测灵敏度" hover>
+  <t-switch defaultValue="{{true}}" size="small" slot="note" />
+</t-cell>
+<t-cell title="音乐" hover arrow note="随机" />
+</view>

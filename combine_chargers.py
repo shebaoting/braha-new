@@ -9,7 +9,10 @@ TARGET_PATHS = [
     os.path.join('src', 'models'),
     os.path.join('src', 'stores'),
     os.path.join('src', 'utils'),
-    os.path.join('src', 'pages', 'index'),
+    os.path.join('src', 'pages'),
+    os.path.join('src', 'components'),
+    os.path.join('src', 'lib'),
+    os.path.join('src', 'video')
     # 'README.md', # 也可以直接添加单个文件
 ]
 

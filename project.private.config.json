@@ -11,11 +11,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "摄像机信息",
-          "pathName": "pages/camera/setting/info/info",
+          "name": "摄像头设置-啼哭安抚",
+          "pathName": "pages/camera/setting/soothe/soothe",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "摄像机信息",
+          "pathName": "pages/camera/setting/info/info",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "摄像头画面设置",
