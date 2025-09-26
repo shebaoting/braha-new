@@ -2,6 +2,7 @@
   <!-- 视频播放区域 -->
   <view class="w-full bg-black" style="height: 56.25vw;">
     <block wx:if="{{deviceInfo}}">
+      <!-- 【重要】为 p2p-live-player 添加事件绑定 -->
       <p2p-live-player
         wx:for="{{useChannelIds}}"
         wx:key="index"
@@ -21,122 +22,123 @@
         bind:playstatechagne="onPlayStateChange"
         bind:recordstatechange="onRecordStateChange"
         bind:recordfilestatechange="onRecordFileStateChange"
-        bind:recordtap="toggleRecording"
         >
-        <view class="text-white font-bold">
-          CH-{{item}}
-        </view>
       </p2p-live-player>
     </block>
     <view wx:else class="w-full h-full flex items-center justify-center text-white bg-black">
       正在加载设备信息...
     </view>
   </view>
-<view class="main-width bg-white py-6 rounded-b-lg px-4 grid grid-cols-5 gap-4">
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="video-camera-1" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="camera" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="microphone-1" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="sound-mute" size="28rpx"/>
-</view>
-<view class="py-4 bg-gray-100 rounded-full">
-<t-icon name="setting-1" size="28rpx"/>
-</view>
-</view>
-<view class="main-width bg-white py-2 rounded-lg px-4 mt-4 grid grid-cols-7 gap-4">
-<view class="flex flex-row items-center justify-between col-span-5">
-<t-icon name="{{icons.music}}" size="58rpx" />
-<text class="text-sm font-bold">童谣时间</text>
-<text class="text-xs text-gray-400">宝宝今天听点什么呢?</text>
-</view>
-<view class="flex flex-col text-center  col-span-2">
-<t-icon name="music" size="28rpx" color="#9ca3af" />
-<text class="text-xs mt-1 text-gray-400">音乐安抚</text>
-</view>
-</view>
 
+  <!-- 对讲组件 (隐藏) -->
+  <iot-p2p-voice
+    wx:if="{{deviceInfo}}"
+    id="iot-p2p-voice"
+    deviceInfo="{{deviceInfo}}"
+    voiceType="{{options.voiceType}}"
+    showLog="{{options.playerLog}}"
+    bind:voicestatechange="onVoiceStateChange"
+    bind:voiceerror="onVoiceError"
+  />
 
-<view class="main-width mt-4 grid grid-cols-7 gap-4">
-<view class="bg-white rounded-lg py-4 px-4 col-span-3 flex flex-row items-center">
-<t-icon name="{{icons.note}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">生活报告</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">记录宝宝睡眠</text>
-</view>
-</view>
-<view class="bg-white rounded-lg py-2 px-4 col-span-4 flex flex-row items-center">
-<t-icon name="{{icons.switch}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">智能模式 · 睡眠</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">- -</text>
-</view>
-</view>
-<view class="bg-white rounded-lg py-4 px-4 col-span-3">
-<view class="flex flex-row items-center">
-<t-icon name="{{icons.timer}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">睡眠质量</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">检测已关闭</text>
-</view>
-</view>
-<view class="flex flex-col items-center bg-gray-100 mt-2 h-20 justify-center rounded-xl">
-<t-icon name="{{icons.baby}}" size="38rpx" />
-<text class="text-xs text-gray-400 mt-1">未入睡</text>
-</view>
-</view>
-<view class="bg-white rounded-lg py-4 px-4 col-span-4">
-<view class="flex flex-row items-center">
-<t-icon name="{{icons.camera}}" size="58rpx" />
-<view class="ml-2 flex flex-col">
-<text class="text-sm font-bold">时光相册</text>
-<view class="h-px w-full bg-gray-200 my-1"></view>
-<text class="text-xs text-gray-400">抓拍宝宝的精彩瞬间</text>
-</view>
-</view>
-<t-swiper
-  current="{{current}}"
-  autoplay="{{autoplay}}"
-  duration="{{duration}}"
-  interval="{{interval}}"
-  navigation="{{ { type: 'dots' } }}"
-  list="{{swiperList}}"
-  bind:click="onTap"
-  bind:change="onChange"
-  bind:image-load="onImageLoad"
-  height="80"
-  t-class="mt-2"
->
-</t-swiper>
-</view>
-</view>
+  <!-- 控制按钮 -->
+  <view class="main-width bg-white py-6 rounded-b-lg px-4 grid grid-cols-5 gap-4 text-center">
+    <!-- 1. 录制视频按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="toggleRecording">
+      <t-icon name="video-camera-1" size="36rpx" color="{{recordIconColor}}"/>
+    </view>
+    <!-- 2. 拍照按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="takeSnapshot">
+      <t-icon name="camera" size="36rpx"/>
+    </view>
+    <!-- 3. 语音对讲按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="toggleVoice">
+      <t-icon name="microphone-1" size="36rpx" color="{{micIconColor}}"/>
+    </view>
+    <!-- 4. 静音切换按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="toggleMute">
+      <t-icon name="{{muteIconName}}" size="36rpx"/>
+    </view>
+    <!-- 5. 设置按钮 -->
+    <view class="py-4 bg-gray-100 rounded-full" bind:tap="goToSettings">
+      <t-icon name="setting-1" size="36rpx"/>
+    </view>
+  </view>
 
-<view class="mx-auto flex flex-row items-center mt-6">
-<t-icon name="help-circle" size="24rpx" color="#9ca3af" />
-<text class="text-xs ml-2 text-gray-400">使用教程</text>
-</view>
+  <!-- 页面其他内容 -->
+  <view class="main-width bg-white py-2 rounded-lg px-4 mt-4 grid grid-cols-7 gap-4">
+    <view class="flex flex-row items-center justify-between col-span-5">
+      <t-icon name="{{icons.music}}" size="58rpx" />
+      <text class="text-sm font-bold">童谣时间</text>
+      <text class="text-xs text-gray-400">宝宝今天听点什么呢?</text>
+    </view>
+    <view class="flex flex-col text-center  col-span-2">
+      <t-icon name="music" size="28rpx" color="#9ca3af" />
+      <text class="text-xs mt-1 text-gray-400">音乐安抚</text>
+    </view>
+  </view>
 
-</view>
+  <view class="main-width mt-4 grid grid-cols-7 gap-4">
+    <view class="bg-white rounded-lg py-4 px-4 col-span-3 flex flex-row items-center">
+      <t-icon name="{{icons.note}}" size="58rpx" />
+      <view class="ml-2 flex flex-col">
+        <text class="text-sm font-bold">生活报告</text>
+        <view class="h-px w-full bg-gray-200 my-1"></view>
+        <text class="text-xs text-gray-400">记录宝宝睡眠</text>
+      </view>
+    </view>
+    <view class="bg-white rounded-lg py-2 px-4 col-span-4 flex flex-row items-center">
+      <t-icon name="{{icons.switch}}" size="58rpx" />
+      <view class="ml-2 flex flex-col">
+        <text class="text-sm font-bold">智能模式 · 睡眠</text>
+        <view class="h-px w-full bg-gray-200 my-1"></view>
+        <text class="text-xs text-gray-400">- -</text>
+      </view>
+    </view>
+    <view class="bg-white rounded-lg py-4 px-4 col-span-3">
+      <view class="flex flex-row items-center">
+        <t-icon name="{{icons.timer}}" size="58rpx" />
+        <view class="ml-2 flex flex-col">
+          <text class="text-sm font-bold">睡眠质量</text>
+          <view class="h-px w-full bg-gray-200 my-1"></view>
+          <text class="text-xs text-gray-400">检测已关闭</text>
+        </view>
+      </view>
+      <view class="flex flex-col items-center bg-gray-100 mt-2 h-20 justify-center rounded-xl">
+        <t-icon name="{{icons.baby}}" size="38rpx" />
+        <text class="text-xs text-gray-400 mt-1">未入睡</text>
+      </view>
+    </view>
+    <view class="bg-white rounded-lg py-4 px-4 col-span-4">
+      <view class="flex flex-row items-center">
+        <t-icon name="{{icons.camera}}" size="58rpx" />
+        <view class="ml-2 flex flex-col">
+          <text class="text-sm font-bold">时光相册</text>
+          <view class="h-px w-full bg-gray-200 my-1"></view>
+          <text class="text-xs text-gray-400">抓拍宝宝的精彩瞬间</text>
+        </view>
+      </view>
+      <t-swiper current="{{current}}" autoplay="{{autoplay}}" duration="{{duration}}" interval="{{interval}}" navigation="{{ { type: 'dots' } }}" list="{{swiperList}}" bind:click="onTap" bind:change="onChange" bind:image-load="onImageLoad" height="80" t-class="mt-2">
+      </t-swiper>
+    </view>
+  </view>
 
+  <view class="mx-auto flex flex-row items-center mt-6">
+    <t-icon name="help-circle" size="24rpx" color="#9ca3af" />
+    <text class="text-xs ml-2 text-gray-400">使用教程</text>
+  </view>
 
-<view class="wrapper">
-  <t-tab-bar t-class="t-tab-bar" defaultValue="label1" split="{{false}}">
-    <t-tab-bar-item value="label1" icon="camera-1">
-      首页
-    </t-tab-bar-item>
-    <t-tab-bar-item value="label2" icon="camera-1">
-      消息
-    </t-tab-bar-item>
-    <t-tab-bar-item value="label4" icon="image">
-      媒体库
-    </t-tab-bar-item>
-  </t-tab-bar>
+  <view class="wrapper">
+    <t-tab-bar t-class="t-tab-bar" defaultValue="label1" split="{{false}}">
+      <t-tab-bar-item value="label1" icon="camera-1">
+        首页
+      </t-tab-bar-item>
+      <t-tab-bar-item value="label2" icon="camera-1">
+        消息
+      </t-tab-bar-item>
+      <t-tab-bar-item value="label4" icon="image">
+        媒体库
+      </t-tab-bar-item>
+    </t-tab-bar>
+  </view>
 </view>

@@ -3,7 +3,7 @@ interface Config {
 }
 
 const config: Config = {
-  baseUrl: 'http://121.89.86.254:8888',
+  baseUrl: 'https://haima.hxycbj.com',
 }
 
 export default config

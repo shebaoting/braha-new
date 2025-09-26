@@ -6,16 +6,23 @@
     "urlCheck": false,
     "bigPackageSizeSupport": true
   },
-  "libVersion": "3.8.7",
+  "libVersion": "3.10.0",
   "condition": {
     "miniprogram": {
       "list": [
         {
+          "name": "摄像头查看详情",
+          "pathName": "pages/camera/show/show",
+          "query": "id=15",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
           "name": "摄像头设置-啼哭安抚",
           "pathName": "pages/camera/setting/soothe/soothe",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "摄像机信息",
@@ -48,13 +55,6 @@
         {
           "name": "摄像头设置",
           "pathName": "pages/camera/setting/index/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "摄像头查看详情",
-          "pathName": "pages/camera/show/show",
           "query": "",
           "launchMode": "default",
           "scene": null
