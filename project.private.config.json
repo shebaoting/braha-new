@@ -11,11 +11,18 @@
     "miniprogram": {
       "list": [
         {
+          "name": "摄像头设置",
+          "pathName": "pages/camera/setting/index/index",
+          "query": "deviceId=rk6f6b33231756ad19",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
           "name": "摄像头查看详情",
           "pathName": "pages/camera/show/show",
           "query": "id=15",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "摄像头设置-啼哭安抚",
@@ -48,13 +55,6 @@
         {
           "name": "摄像机名称",
           "pathName": "pages/camera/setting/name/name",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "摄像头设置",
-          "pathName": "pages/camera/setting/index/index",
           "query": "",
           "launchMode": "default",
           "scene": null
