@@ -115,18 +115,44 @@ Page({
     this.connectDevice_event();
   },
 
-  pages_to(e: WechatMiniprogram.BaseEvent) {
+ pages_to(e: WechatMiniprogram.BaseEvent) {
     const url = e.currentTarget.dataset.url;
-    // 点击菜单项后，先关闭菜单再跳转
-    this.hideNavPopup();
-    this.hide_popu(); // 同时关闭另一个popup
-
     if (url === 'camera') {
-      // Handle camera logic
-      console.log('Camera button clicked');
-    } else {
-      wx.navigateTo({ url });
+      // 1. 确保设备列表不为空
+      if (this.data.deviceList.length === 0) {
+        wx.showToast({ title: '没有可操作的设备', icon: 'none' });
+        return;
+      }
+
+      // 2. 获取当前选中的设备信息
+      const currentDevice = this.data.deviceList[this.data.deviceCurrent];
+      if (!currentDevice) {
+        wx.showToast({ title: '无法获取当前设备信息', icon: 'none' });
+        return;
+      }
+
+      // 3. 判断 cameraId 是否存在且有效（不为 0 或 null）
+      if (currentDevice.cameraId) {
+        // 如果存在，跳转到摄像头展示页
+        console.log(`摄像头存在，ID: ${currentDevice.cameraId}。跳转到 show 页面。`);
+        wx.navigateTo({
+          url: `/pages/camera/show/show?id=${currentDevice.cameraId}`
+        });
+      } else {
+        // 如果不存在，跳转到设备搜索页
+        console.log(`摄像头不存在。跳转到 afterSearch 页面，并传递床的ID: ${currentDevice.id}`);
+        wx.navigateTo({
+          url: `/pages/afterSearch/afterSearch?id=${currentDevice.id}`
+        });
+      }
+
+      // 处理完 camera 的逻辑后，直接返回，不再执行后续通用逻辑
+      return;
     }
+    this.hideNavPopup();
+    this.hide_popu();
+
+    wx.navigateTo({ url });
   },
 
   onScan() {
